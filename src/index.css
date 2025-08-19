@@ -2,12 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* HBNO Quotation Engine Design System
+All colors MUST be HSL. Professional B2B styling with essential oils theme.
 */
 
 @layer base {
   :root {
+    /* Professional color palette for HBNO */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -17,8 +18,15 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* HBNO Brand Colors - Professional green palette for essential oils */
+    --primary: 142 76% 36%;
+    --primary-foreground: 0 0% 98%;
+    --primary-light: 142 76% 46%;
+    --primary-dark: 142 76% 26%;
+    
+    /* Professional accent colors */
+    --accent-gold: 45 93% 47%;
+    --accent-gold-foreground: 222.2 84% 4.9%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -65,8 +73,13 @@ All colors MUST be HSL.
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 142 76% 46%;
+    --primary-foreground: 0 0% 98%;
+    --primary-light: 142 76% 56%;
+    --primary-dark: 142 76% 36%;
+    
+    --accent-gold: 45 93% 57%;
+    --accent-gold-foreground: 222.2 84% 4.9%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
