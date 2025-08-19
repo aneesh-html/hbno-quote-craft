@@ -1,8 +1,16 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calculator, Plus, Search, Filter } from "lucide-react";
+import { CreateQuote } from "./CreateQuote";
 
 export function QuotesPlaceholder() {
+  const [showCreateQuote, setShowCreateQuote] = useState(false);
+
+  if (showCreateQuote) {
+    return <CreateQuote />;
+  }
+
   return (
     <div className="space-y-6">
       {/* Header Actions */}
@@ -11,7 +19,10 @@ export function QuotesPlaceholder() {
           <h2 className="text-2xl font-semibold text-foreground">Quotation Management</h2>
           <p className="text-muted-foreground">Create and manage customer quotations</p>
         </div>
-        <Button className="flex items-center space-x-2">
+        <Button 
+          className="flex items-center space-x-2"
+          onClick={() => setShowCreateQuote(true)}
+        >
           <Plus className="w-4 h-4" />
           <span>New Quote</span>
         </Button>

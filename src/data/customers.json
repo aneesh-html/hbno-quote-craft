@@ -1,0 +1,154 @@
+[
+  {
+    "id": "CUST-001",
+    "name": "Zenith Cosmetics",
+    "email": "orders@zenithcosmetics.com",
+    "phone": "+1 (555) 123-4567",
+    "billTo": {
+      "company": "Zenith Cosmetics LLC",
+      "address": "1425 Broadway Suite 2000",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10018",
+      "country": "United States"
+    },
+    "shipTo": {
+      "company": "Zenith Cosmetics Distribution Center",
+      "address": "3400 Industrial Blvd",
+      "city": "Long Island City",
+      "state": "NY",
+      "zipCode": "11101",
+      "country": "United States",
+      "coordinates": {
+        "lat": 40.7589,
+        "lng": -73.9441
+      }
+    },
+    "snapshot": {
+      "creditStatus": {
+        "status": "good",
+        "label": "Good Standing",
+        "color": "green"
+      },
+      "priceTier": "Gold Level Pricing",
+      "complianceNeeds": ["USDA Organic Required", "California - Prop 65 Applies"],
+      "paymentTerms": "Net 30",
+      "lastOrderDate": "2024-01-15",
+      "totalOrdersYTD": "$287,450"
+    }
+  },
+  {
+    "id": "CUST-002",
+    "name": "Natural Wellness Co",
+    "email": "purchasing@naturalwellness.com",
+    "phone": "+1 (555) 987-6543",
+    "billTo": {
+      "company": "Natural Wellness Co",
+      "address": "850 Health Sciences Dr",
+      "city": "Austin",
+      "state": "TX",
+      "zipCode": "78712",
+      "country": "United States"
+    },
+    "shipTo": {
+      "company": "Natural Wellness Co Warehouse",
+      "address": "2100 Distribution Way",
+      "city": "Cedar Park",
+      "state": "TX",
+      "zipCode": "78613",
+      "country": "United States",
+      "coordinates": {
+        "lat": 30.5052,
+        "lng": -97.8203
+      }
+    },
+    "snapshot": {
+      "creditStatus": {
+        "status": "good",
+        "label": "Good Standing",
+        "color": "green"
+      },
+      "priceTier": "Silver Level Pricing",
+      "complianceNeeds": ["FDA Registration Required", "Non-GMO Verification"],
+      "paymentTerms": "Net 15",
+      "lastOrderDate": "2024-01-22",
+      "totalOrdersYTD": "$156,890"
+    }
+  },
+  {
+    "id": "CUST-003",
+    "name": "Aromatherapy Plus",
+    "email": "orders@aromatherapyplus.com",
+    "phone": "+1 (555) 456-7890",
+    "billTo": {
+      "company": "Aromatherapy Plus Inc",
+      "address": "567 Lavender Lane",
+      "city": "Portland",
+      "state": "OR",
+      "zipCode": "97205",
+      "country": "United States"
+    },
+    "shipTo": {
+      "company": "Aromatherapy Plus Fulfillment",
+      "address": "1200 Warehouse Blvd",
+      "city": "Beaverton",
+      "state": "OR",
+      "zipCode": "97008",
+      "country": "United States",
+      "coordinates": {
+        "lat": 45.4871,
+        "lng": -122.8037
+      }
+    },
+    "snapshot": {
+      "creditStatus": {
+        "status": "review",
+        "label": "Under Review",
+        "color": "yellow"
+      },
+      "priceTier": "Standard Pricing",
+      "complianceNeeds": ["Oregon State License", "Organic Certification"],
+      "paymentTerms": "Net 45",
+      "lastOrderDate": "2024-01-08",
+      "totalOrdersYTD": "$89,230"
+    }
+  },
+  {
+    "id": "CUST-004",
+    "name": "Essential Brands Ltd",
+    "email": "procurement@essentialbrands.com",
+    "phone": "+1 (555) 234-5678",
+    "billTo": {
+      "company": "Essential Brands Ltd",
+      "address": "789 Business Park Dr",
+      "city": "Miami",
+      "state": "FL",
+      "zipCode": "33134",
+      "country": "United States"
+    },
+    "shipTo": {
+      "company": "Essential Brands Distribution",
+      "address": "4500 Commerce Way",
+      "city": "Doral",
+      "state": "FL",
+      "zipCode": "33166",
+      "country": "United States",
+      "coordinates": {
+        "lat": 25.8150,
+        "lng": -80.3414
+      }
+    },
+    "snapshot": {
+      "creditStatus": {
+        "status": "excellent",
+        "label": "Excellent Credit",
+        "color": "green"
+      },
+      "priceTier": "Platinum Level Pricing",
+      "complianceNeeds": ["FDA Registration", "Florida State Tax Exempt"],
+      "paymentTerms": "Net 15",
+      "lastOrderDate": "2024-01-20",
+      "totalOrdersYTD": "$425,780"
+    }
+  }
+]
