@@ -73,6 +73,14 @@ export function CustomerSelection({ onCustomerSelect, selectedCustomer }: Custom
           </p>
         </div>
 
+        {/* Add New Customer Button */}
+        <div className="flex justify-end">
+          <Button variant="outline" size="sm">
+            <Building2 className="w-4 h-4 mr-2" />
+            Add New Customer
+          </Button>
+        </div>
+
         {/* Search Input */}
         <div className="relative">
           <div className="relative">
