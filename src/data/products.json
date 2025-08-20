@@ -1,0 +1,145 @@
+{
+  "products": [
+    {
+      "id": "lavender-oil",
+      "name": "Lavender Oil",
+      "category": "Essential Oils",
+      "endUse": ["Cosmetic", "Aromatherapy"],
+      "compliance": ["USDA Organic", "FDA cGMP"],
+      "batches": [
+        {
+          "id": "LV-481-US",
+          "origin": "Oregon, USA",
+          "inventory": 150,
+          "unit": "kg",
+          "keySpec": "Linalool: 41.2%",
+          "recommendation": "Best Match for Zenith Cosmetics",
+          "isRecommended": true,
+          "pricePerKg": 85.50,
+          "qualityGrade": "Premium",
+          "harvestDate": "2024-07-15",
+          "certifications": ["USDA Organic", "FDA cGMP"]
+        },
+        {
+          "id": "LV-482-FR",
+          "origin": "Provence, France",
+          "inventory": 75,
+          "unit": "kg",
+          "keySpec": "Linalool: 38.8%",
+          "recommendation": "Premium European Grade",
+          "isRecommended": false,
+          "pricePerKg": 95.00,
+          "qualityGrade": "Premium+",
+          "harvestDate": "2024-06-20",
+          "certifications": ["Ecocert Organic", "FDA cGMP"]
+        }
+      ]
+    },
+    {
+      "id": "peppermint-oil",
+      "name": "Peppermint Oil",
+      "category": "Essential Oils",
+      "endUse": ["Food/Beverage", "Cosmetic", "Aromatherapy"],
+      "compliance": ["FDA cGMP", "FEMA GRAS"],
+      "batches": [
+        {
+          "id": "P-981-US",
+          "origin": "Washington, USA",
+          "inventory": 200,
+          "unit": "kg",
+          "keySpec": "Menthol: 44.5%",
+          "recommendation": "High menthol content - similar to client's previous favorite",
+          "isRecommended": true,
+          "pricePerKg": 72.00,
+          "qualityGrade": "Premium",
+          "harvestDate": "2024-08-10",
+          "certifications": ["FDA cGMP", "FEMA GRAS"]
+        },
+        {
+          "id": "P-982-IN",
+          "origin": "Uttar Pradesh, India",
+          "inventory": 350,
+          "unit": "kg",
+          "keySpec": "Menthol: 42.1%",
+          "recommendation": "Cost-effective option",
+          "isRecommended": false,
+          "pricePerKg": 58.00,
+          "qualityGrade": "Standard",
+          "harvestDate": "2024-07-25",
+          "certifications": ["FDA cGMP"]
+        }
+      ]
+    },
+    {
+      "id": "ylang-ylang-oil",
+      "name": "Ylang Ylang Oil",
+      "category": "Essential Oils",
+      "endUse": ["Cosmetic", "Aromatherapy"],
+      "compliance": ["FDA cGMP"],
+      "batches": [
+        {
+          "id": "YY-245-MG",
+          "origin": "Madagascar",
+          "inventory": 45,
+          "unit": "kg",
+          "keySpec": "Linalool: 12.8%, Benzyl acetate: 18.5%",
+          "recommendation": "Premium floral profile",
+          "isRecommended": true,
+          "pricePerKg": 145.00,
+          "qualityGrade": "Premium",
+          "harvestDate": "2024-05-30",
+          "certifications": ["FDA cGMP"]
+        }
+      ]
+    },
+    {
+      "id": "bergamot-oil",
+      "name": "Bergamot Oil",
+      "category": "Essential Oils",
+      "endUse": ["Food/Beverage", "Cosmetic", "Aromatherapy"],
+      "compliance": ["FDA cGMP", "FEMA GRAS"],
+      "batches": [
+        {
+          "id": "BG-156-IT",
+          "origin": "Calabria, Italy",
+          "inventory": 80,
+          "unit": "kg",
+          "keySpec": "Bergapten: <0.01% (FCF)",
+          "recommendation": "Furocoumarin-free for cosmetic use",
+          "isRecommended": true,
+          "pricePerKg": 125.00,
+          "qualityGrade": "Premium",
+          "harvestDate": "2024-09-15",
+          "certifications": ["FDA cGMP", "FEMA GRAS"]
+        }
+      ]
+    },
+    {
+      "id": "tea-tree-oil",
+      "name": "Tea Tree Oil",
+      "category": "Essential Oils",
+      "endUse": ["Cosmetic", "Personal Care"],
+      "compliance": ["FDA cGMP"],
+      "batches": [
+        {
+          "id": "TT-389-AU",
+          "origin": "New South Wales, Australia",
+          "inventory": 120,
+          "unit": "kg",
+          "keySpec": "Terpinen-4-ol: 42.8%",
+          "recommendation": "High therapeutic grade",
+          "isRecommended": true,
+          "pricePerKg": 68.50,
+          "qualityGrade": "Premium",
+          "harvestDate": "2024-08-05",
+          "certifications": ["FDA cGMP", "TGA Listed"]
+        }
+      ]
+    }
+  ],
+  "crossSellSuggestions": {
+    "ylang-ylang-oil": ["bergamot-oil"],
+    "lavender-oil": ["tea-tree-oil", "bergamot-oil"],
+    "peppermint-oil": ["tea-tree-oil"]
+  }
+}

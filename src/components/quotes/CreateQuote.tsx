@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ArrowRight, CheckCircle, AlertCircle, CreditCard } from "lucide-react";
 import { CustomerSelection } from "./steps/CustomerSelection";
 import { CustomerDetails } from "./steps/CustomerDetails";
+import { ProductSelection, type LineItem } from "./steps/ProductSelection";
 
 export interface Customer {
   id: string;
@@ -55,6 +56,7 @@ const steps = [
 export function CreateQuote() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
+  const [lineItems, setLineItems] = useState<LineItem[]>([]);
 
   const handleNext = () => {
     if (currentStep < 4) {
@@ -72,12 +74,16 @@ export function CreateQuote() {
     setSelectedCustomer(customer);
   };
 
+  const handleAddLineItem = (lineItem: LineItem) => {
+    setLineItems(prev => [...prev, lineItem]);
+  };
+
   const canProceed = () => {
     switch (currentStep) {
       case 1:
         return selectedCustomer !== null;
       case 2:
-        return true; // Will be implemented in next step
+        return lineItems.length > 0;
       case 3:
         return true; // Will be implemented in next step
       case 4:
@@ -103,10 +109,11 @@ export function CreateQuote() {
         );
       case 2:
         return (
-          <Card className="p-8 text-center">
-            <h3 className="text-xl font-semibold mb-2">Add Products</h3>
-            <p className="text-muted-foreground">Product selection interface coming next...</p>
-          </Card>
+          <ProductSelection 
+            onAddLineItem={handleAddLineItem}
+            lineItems={lineItems}
+            customer={selectedCustomer}
+          />
         );
       case 3:
         return (
