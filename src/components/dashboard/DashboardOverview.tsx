@@ -12,7 +12,11 @@ import {
   AlertCircle
 } from "lucide-react";
 
-export function DashboardOverview() {
+interface DashboardOverviewProps {
+  onNewQuote?: () => void;
+}
+
+export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
   return (
     <div className="space-y-6">
       {/* Key Metrics */}
@@ -70,7 +74,7 @@ export function DashboardOverview() {
       <Card className="p-6">
         <h3 className="text-lg font-semibold text-foreground mb-4">Quick Actions</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Button className="h-20 flex flex-col space-y-2">
+          <Button className="h-20 flex flex-col space-y-2" onClick={onNewQuote}>
             <Calculator className="w-6 h-6" />
             <span>New Quote</span>
           </Button>

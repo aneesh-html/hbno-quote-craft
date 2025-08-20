@@ -3,15 +3,21 @@ import { Sidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
 import { DashboardOverview } from "@/components/dashboard/DashboardOverview";
 import { QuotesPlaceholder } from "@/components/quotes/QuotesPlaceholder";
+import { CreateQuote } from "@/components/quotes/CreateQuote";
 import { Card } from "@/components/ui/card";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
+  const [showCreateQuote, setShowCreateQuote] = useState(false);
 
   const renderContent = () => {
+    if (showCreateQuote) {
+      return <CreateQuote onBack={() => setShowCreateQuote(false)} />;
+    }
+    
     switch (activeTab) {
       case "dashboard":
-        return <DashboardOverview />;
+        return <DashboardOverview onNewQuote={() => setShowCreateQuote(true)} />;
       case "quotes":
         return <QuotesPlaceholder />;
       case "customers":

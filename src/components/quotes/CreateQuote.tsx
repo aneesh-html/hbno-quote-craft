@@ -7,6 +7,10 @@ import { CustomerSelection } from "./steps/CustomerSelection";
 import { CustomerDetails } from "./steps/CustomerDetails";
 import { ProductSelection, type LineItem } from "./steps/ProductSelection";
 
+interface CreateQuoteProps {
+  onBack?: () => void;
+}
+
 export interface Customer {
   id: string;
   name: string;
@@ -53,7 +57,7 @@ const steps = [
   { id: 4, title: "Review & Send", description: "Final review and quote generation" },
 ];
 
-export function CreateQuote() {
+export function CreateQuote({ onBack }: CreateQuoteProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const [lineItems, setLineItems] = useState<LineItem[]>([]);
@@ -142,7 +146,7 @@ export function CreateQuote() {
           <h2 className="text-2xl font-semibold text-foreground">Create New Quote</h2>
           <p className="text-muted-foreground">Follow the guided process to create a professional quote</p>
         </div>
-        <Button variant="outline" onClick={() => window.history.back()}>
+        <Button variant="outline" onClick={onBack || (() => window.history.back())}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Quotes
         </Button>
