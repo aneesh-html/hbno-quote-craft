@@ -119,7 +119,7 @@
       "name": "Tea Tree Oil",
       "category": "Essential Oils",
       "endUse": ["Cosmetic", "Personal Care"],
-      "compliance": ["FDA cGMP"],
+      "compliance": ["FDA cGMP", "TGA Listed"],
       "batches": [
         {
           "id": "TT-389-AU",
