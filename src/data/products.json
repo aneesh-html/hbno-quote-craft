@@ -135,11 +135,149 @@
           "certifications": ["FDA cGMP", "TGA Listed"]
         }
       ]
+    },
+    {
+      "id": "eucalyptus-oil",
+      "name": "Eucalyptus Oil",
+      "category": "Essential Oils",
+      "endUse": ["Pharmaceutical", "Personal Care"],
+      "compliance": ["USP Grade", "FDA cGMP"],
+      "batches": [
+        {
+          "id": "EU-201-AU",
+          "origin": "Tasmania, Australia",
+          "inventory": 180,
+          "unit": "kg",
+          "keySpec": "Eucalyptol: 85.2%",
+          "recommendation": "Pharmaceutical grade purity",
+          "isRecommended": true,
+          "pricePerKg": 55.00,
+          "qualityGrade": "Premium",
+          "harvestDate": "2024-09-01",
+          "certifications": ["USP Grade", "FDA cGMP"]
+        }
+      ]
+    },
+    {
+      "id": "rosemary-extract",
+      "name": "Rosemary Extract",
+      "category": "Natural Extracts",
+      "endUse": ["Food/Beverage", "Nutraceutical"],
+      "compliance": ["FEMA GRAS", "EU Novel Food"],
+      "batches": [
+        {
+          "id": "RE-445-SP",
+          "origin": "Valencia, Spain",
+          "inventory": 95,
+          "unit": "kg",
+          "keySpec": "Rosmarinic Acid: 15.8%",
+          "recommendation": "Natural antioxidant for food applications",
+          "isRecommended": true,
+          "pricePerKg": 135.00,
+          "qualityGrade": "Premium",
+          "harvestDate": "2024-08-20",
+          "certifications": ["FEMA GRAS", "EU Novel Food"]
+        }
+      ]
+    },
+    {
+      "id": "chamomile-oil",
+      "name": "Chamomile Oil",
+      "category": "Essential Oils",
+      "endUse": ["Cosmetic", "Aromatherapy", "Pharmaceutical"],
+      "compliance": ["USDA Organic", "EU Organic", "FDA cGMP"],
+      "batches": [
+        {
+          "id": "CH-678-EG",
+          "origin": "Fayoum, Egypt",
+          "inventory": 35,
+          "unit": "kg",
+          "keySpec": "Bisabolol: 12.5%",
+          "recommendation": "Premium organic grade",
+          "isRecommended": true,
+          "pricePerKg": 165.00,
+          "qualityGrade": "Premium+",
+          "harvestDate": "2024-06-15",
+          "certifications": ["USDA Organic", "EU Organic", "FDA cGMP"]
+        }
+      ]
+    },
+    {
+      "id": "turmeric-extract",
+      "name": "Turmeric Extract",
+      "category": "Natural Extracts",
+      "endUse": ["Nutraceutical", "Food/Beverage"],
+      "compliance": ["USP Grade", "FEMA GRAS"],
+      "batches": [
+        {
+          "id": "TU-892-IN",
+          "origin": "Kerala, India",
+          "inventory": 220,
+          "unit": "kg",
+          "keySpec": "Curcumin: 95.2%",
+          "recommendation": "High potency standardized extract",
+          "isRecommended": true,
+          "pricePerKg": 89.00,
+          "qualityGrade": "Premium",
+          "harvestDate": "2024-07-30",
+          "certifications": ["USP Grade", "FEMA GRAS"]
+        }
+      ]
+    },
+    {
+      "id": "lemon-oil",
+      "name": "Lemon Oil",
+      "category": "Essential Oils",
+      "endUse": ["Food/Beverage", "Cosmetic", "Industrial"],
+      "compliance": ["FEMA GRAS", "FDA cGMP", "Kosher"],
+      "batches": [
+        {
+          "id": "LM-334-IT",
+          "origin": "Sicily, Italy",
+          "inventory": 145,
+          "unit": "kg",
+          "keySpec": "Limonene: 68.4%",
+          "recommendation": "Cold-pressed citrus oil",
+          "isRecommended": true,
+          "pricePerKg": 45.50,
+          "qualityGrade": "Premium",
+          "harvestDate": "2024-09-10",
+          "certifications": ["FEMA GRAS", "FDA cGMP", "Kosher"]
+        }
+      ]
+    },
+    {
+      "id": "ginseng-extract",
+      "name": "Ginseng Extract",
+      "category": "Natural Extracts",
+      "endUse": ["Nutraceutical", "Pharmaceutical"],
+      "compliance": ["USP Grade", "EU Novel Food"],
+      "batches": [
+        {
+          "id": "GS-567-CN",
+          "origin": "Jilin, China",
+          "inventory": 65,
+          "unit": "kg",
+          "keySpec": "Ginsenosides: 8.2%",
+          "recommendation": "Standardized ginsenoside content",
+          "isRecommended": true,
+          "pricePerKg": 195.00,
+          "qualityGrade": "Premium",
+          "harvestDate": "2024-08-15",
+          "certifications": ["USP Grade", "EU Novel Food"]
+        }
+      ]
     }
   ],
   "crossSellSuggestions": {
-    "ylang-ylang-oil": ["bergamot-oil"],
-    "lavender-oil": ["tea-tree-oil", "bergamot-oil"],
-    "peppermint-oil": ["tea-tree-oil"]
+    "ylang-ylang-oil": ["bergamot-oil", "chamomile-oil"],
+    "lavender-oil": ["tea-tree-oil", "bergamot-oil", "chamomile-oil"],
+    "peppermint-oil": ["tea-tree-oil", "eucalyptus-oil"],
+    "eucalyptus-oil": ["tea-tree-oil", "peppermint-oil"],
+    "rosemary-extract": ["turmeric-extract"],
+    "chamomile-oil": ["lavender-oil", "ylang-ylang-oil"],
+    "turmeric-extract": ["ginseng-extract", "rosemary-extract"],
+    "lemon-oil": ["bergamot-oil", "peppermint-oil"],
+    "ginseng-extract": ["turmeric-extract"]
   }
 }
