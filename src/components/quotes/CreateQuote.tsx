@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, CheckCircle, AlertCircle, CreditCard } from "luc
 import { CustomerSelection } from "./steps/CustomerSelection";
 import { CustomerDetails } from "./steps/CustomerDetails";
 import { ProductSelection, type LineItem } from "./steps/ProductSelection";
+import { CostsAndShipping } from "./steps/CostsAndShipping";
 
 interface CreateQuoteProps {
   onBack?: () => void;
@@ -121,10 +122,10 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
         );
       case 3:
         return (
-          <Card className="p-8 text-center">
-            <h3 className="text-xl font-semibold mb-2">Logistics & Totals</h3>
-            <p className="text-muted-foreground">Shipping and pricing calculation coming next...</p>
-          </Card>
+          <CostsAndShipping 
+            lineItems={lineItems}
+            customer={selectedCustomer}
+          />
         );
       case 4:
         return (
