@@ -7,6 +7,7 @@ import { CustomerSelection } from "./steps/CustomerSelection";
 import { CustomerDetails } from "./steps/CustomerDetails";
 import { ProductSelection, type LineItem } from "./steps/ProductSelection";
 import { CostsAndShipping } from "./steps/CostsAndShipping";
+import { FinalizeAndSend } from "./steps/FinalizeAndSend";
 
 interface CreateQuoteProps {
   onBack?: () => void;
@@ -62,6 +63,11 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const [lineItems, setLineItems] = useState<LineItem[]>([]);
+  const [selectedShipping, setSelectedShipping] = useState<{
+    name: string;
+    cost: number;
+    days: string;
+  } | null>(null);
 
   const handleNext = () => {
     if (currentStep < 4) {
@@ -90,9 +96,9 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
       case 2:
         return lineItems.length > 0;
       case 3:
-        return true; // Will be implemented in next step
+        return selectedShipping !== null;
       case 4:
-        return true; // Will be implemented in next step
+        return true;
       default:
         return false;
     }
@@ -125,14 +131,17 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
           <CostsAndShipping 
             lineItems={lineItems}
             customer={selectedCustomer}
+            onShippingSelect={setSelectedShipping}
+            selectedShipping={selectedShipping}
           />
         );
       case 4:
         return (
-          <Card className="p-8 text-center">
-            <h3 className="text-xl font-semibold mb-2">Review & Send</h3>
-            <p className="text-muted-foreground">Final review and quote generation coming next...</p>
-          </Card>
+          <FinalizeAndSend 
+            customer={selectedCustomer}
+            lineItems={lineItems}
+            selectedShipping={selectedShipping}
+          />
         );
       default:
         return null;

@@ -21,6 +21,8 @@ import { LineItem } from "./ProductSelection";
 interface CostsAndShippingProps {
   lineItems: LineItem[];
   customer: Customer | null;
+  onShippingSelect?: (shipping: { name: string; cost: number; days: string } | null) => void;
+  selectedShipping?: { name: string; cost: number; days: string } | null;
 }
 
 interface ShippingOption {
@@ -34,8 +36,8 @@ interface ShippingOption {
 // Mock landed costs - in real app, this would come from NetSuite
 const LANDED_COST_MULTIPLIER = 0.65; // Assumes landed cost is ~65% of selling price
 
-export function CostsAndShipping({ lineItems, customer }: CostsAndShippingProps) {
-  const [selectedShipping, setSelectedShipping] = useState<string | null>(null);
+export function CostsAndShipping({ lineItems, customer, onShippingSelect, selectedShipping }: CostsAndShippingProps) {
+  const [internalSelectedShipping, setInternalSelectedShipping] = useState<string | null>(null);
   const [customShippingCost, setCustomShippingCost] = useState<string>("");
   const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
 
@@ -89,13 +91,45 @@ export function CostsAndShipping({ lineItems, customer }: CostsAndShippingProps)
 
   // Calculate shipping cost
   const shippingCost = useMemo(() => {
-    if (selectedShipping === "custom") {
+    if (internalSelectedShipping === "custom") {
       return parseFloat(customShippingCost) || 0;
     }
     
-    const selectedOption = shippingOptions.find(option => option.id === selectedShipping);
+    const selectedOption = shippingOptions.find(option => option.id === internalSelectedShipping);
     return selectedOption ? selectedOption.cost : 0;
-  }, [selectedShipping, customShippingCost, shippingOptions]);
+  }, [internalSelectedShipping, customShippingCost, shippingOptions]);
+
+  // Handle custom shipping cost change
+  const handleCustomShippingChange = (value: string) => {
+    setCustomShippingCost(value);
+    if (internalSelectedShipping === "custom") {
+      onShippingSelect?.({
+        name: "Custom Rate",
+        cost: parseFloat(value) || 0,
+        days: "Custom"
+      });
+    }
+  };
+  const handleShippingSelect = (optionId: string) => {
+    setInternalSelectedShipping(optionId);
+    
+    if (optionId === "custom") {
+      onShippingSelect?.({
+        name: "Custom Rate",
+        cost: parseFloat(customShippingCost) || 0,
+        days: "Custom"
+      });
+    } else {
+      const option = shippingOptions.find(opt => opt.id === optionId);
+      if (option) {
+        onShippingSelect?.({
+          name: `${option.carrier} ${option.service}`,
+          cost: option.cost,
+          days: option.days
+        });
+      }
+    }
+  };
 
   // Calculate discount amount
   const discountAmount = useMemo(() => {
@@ -193,16 +227,16 @@ export function CostsAndShipping({ lineItems, customer }: CostsAndShippingProps)
                 <div
                   key={option.id}
                   className={`p-4 border rounded-lg cursor-pointer transition-colors ${
-                    selectedShipping === option.id 
+                    internalSelectedShipping === option.id 
                       ? "border-primary bg-primary/5" 
                       : "border-border hover:border-primary/50"
                   }`}
-                  onClick={() => setSelectedShipping(option.id)}
+                  onClick={() => handleShippingSelect(option.id)}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className={`w-4 h-4 rounded-full border-2 ${
-                        selectedShipping === option.id 
+                        internalSelectedShipping === option.id 
                           ? "border-primary bg-primary" 
                           : "border-muted-foreground"
                       }`} />
@@ -219,16 +253,16 @@ export function CostsAndShipping({ lineItems, customer }: CostsAndShippingProps)
               {/* Custom shipping option */}
               <div
                 className={`p-4 border rounded-lg cursor-pointer transition-colors ${
-                  selectedShipping === "custom" 
+                  internalSelectedShipping === "custom" 
                     ? "border-primary bg-primary/5" 
                     : "border-border hover:border-primary/50"
                 }`}
-                onClick={() => setSelectedShipping("custom")}
+                onClick={() => handleShippingSelect("custom")}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className={`w-4 h-4 rounded-full border-2 ${
-                      selectedShipping === "custom" 
+                      internalSelectedShipping === "custom" 
                         ? "border-primary bg-primary" 
                         : "border-muted-foreground"
                     }`} />
@@ -237,7 +271,7 @@ export function CostsAndShipping({ lineItems, customer }: CostsAndShippingProps)
                       <div className="text-sm text-muted-foreground">Enter custom shipping amount</div>
                     </div>
                   </div>
-                  {selectedShipping === "custom" && (
+                  {internalSelectedShipping === "custom" && (
                     <div className="flex items-center gap-2">
                       <Label htmlFor="custom-shipping" className="sr-only">Custom shipping cost</Label>
                       <Input
@@ -245,7 +279,7 @@ export function CostsAndShipping({ lineItems, customer }: CostsAndShippingProps)
                         type="number"
                         placeholder="0.00"
                         value={customShippingCost}
-                        onChange={(e) => setCustomShippingCost(e.target.value)}
+                        onChange={(e) => handleCustomShippingChange(e.target.value)}
                         className="w-24 text-right"
                         onClick={(e) => e.stopPropagation()}
                       />
