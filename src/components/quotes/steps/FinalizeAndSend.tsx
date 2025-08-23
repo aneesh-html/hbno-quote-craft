@@ -210,7 +210,7 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
             {needsApproval ? (
               <>
                 <Clock className="w-5 h-5 mr-2" />
-                Submit for Approval
+                Send for Review
               </>
             ) : (
               <>

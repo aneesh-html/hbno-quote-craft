@@ -137,6 +137,16 @@ export function CustomerSelection({ onCustomerSelect, selectedCustomer }: Custom
           )}
         </div>
 
+        {/* Customer Names Helper */}
+        {!selectedCustomer && (
+          <div className="bg-muted/30 rounded-md p-3">
+            <p className="text-xs text-muted-foreground mb-1">Available test customers:</p>
+            <p className="text-xs font-medium text-foreground">
+              Zenith Cosmetics • Natural Wellness Co • Aromatherapy Plus • Essential Brands Ltd
+            </p>
+          </div>
+        )}
+
         {/* Selected Customer Summary */}
         {selectedCustomer && (
           <div className="bg-green-50 border border-green-200 rounded-lg p-4">
