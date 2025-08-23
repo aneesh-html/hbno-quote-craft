@@ -6,9 +6,21 @@ import { Badge } from "@/components/ui/badge";
 import { Star, MapPin, Package, Beaker, Calendar, Shield } from "lucide-react";
 import type { Product, Batch } from "./ProductSelection";
 
+interface CostBreakdown {
+  packagingCost: number;
+  labourCost: number;
+  flushOil: number;
+  additionalCosts: number;
+}
+
+// Extend the Batch interface to include costBreakdown
+interface ExtendedBatch extends Batch {
+  costBreakdown?: CostBreakdown;
+}
+
 interface BatchCardProps {
   product: Product;
-  batch: Batch;
+  batch: ExtendedBatch;
   onAddBatch: (product: Product, batch: Batch, quantity: number) => void;
 }
 
@@ -93,6 +105,33 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
             ))}
           </div>
         </div>
+
+        {/* Cost Breakdown (if available) */}
+        {batch.costBreakdown && (
+          <div className="mb-4 p-3 bg-muted/30 rounded-md">
+            <div className="text-sm font-medium mb-2">Associated Costs (per kg):</div>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="flex justify-between">
+                <span>Packaging:</span>
+                <span>${batch.costBreakdown.packagingCost.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Labour:</span>
+                <span>${batch.costBreakdown.labourCost.toFixed(2)}</span>
+              </div>
+              {batch.costBreakdown.flushOil > 0 && (
+                <div className="flex justify-between">
+                  <span>Flush Oil:</span>
+                  <span>${batch.costBreakdown.flushOil.toFixed(2)}</span>
+                </div>
+              )}
+              <div className="flex justify-between">
+                <span>Additional:</span>
+                <span>${batch.costBreakdown.additionalCosts.toFixed(2)}</span>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Quantity Selection */}
         <div className="flex items-center gap-3">

@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { Customer } from "../CreateQuote";
 import { LineItem } from "./ProductSelection";
+import { QuotePreviewDialog } from "../QuotePreviewDialog";
+import { useState } from "react";
 
 interface FinalizeAndSendProps {
   customer: Customer | null;
@@ -26,6 +28,8 @@ interface FinalizeAndSendProps {
 }
 
 export function FinalizeAndSend({ customer, lineItems, selectedShipping }: FinalizeAndSendProps) {
+  const [showPreview, setShowPreview] = useState(false);
+  
   if (!customer || lineItems.length === 0) {
     return (
       <Card className="p-8 text-center">
@@ -201,34 +205,39 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
 
       {/* Action Buttons */}
       <Card className="p-6">
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-4">
           <Button 
             size="lg" 
             className="px-8"
-            variant={needsApproval ? "secondary" : "default"}
+            onClick={() => setShowPreview(true)}
           >
-            {needsApproval ? (
-              <>
-                <Clock className="w-5 h-5 mr-2" />
-                Send for Review
-              </>
-            ) : (
-              <>
-                <Send className="w-5 h-5 mr-2" />
-                Generate Deal Packet
-              </>
-            )}
+            <Send className="w-5 h-5 mr-2" />
+            Generate Deal Packet
+          </Button>
+          <Button 
+            size="lg" 
+            variant="secondary"
+            className="px-8"
+          >
+            <Clock className="w-5 h-5 mr-2" />
+            Send for Review
           </Button>
         </div>
         <div className="text-center mt-3">
           <p className="text-sm text-muted-foreground">
-            {needsApproval 
-              ? "A manager will review this quote before it can be sent to the customer."
-              : "This will generate a professional PDF packet for your customer."
-            }
+            Generate a professional PDF packet or send the quote for manager review.
           </p>
         </div>
       </Card>
+
+      {/* Quote Preview Dialog */}
+      <QuotePreviewDialog
+        open={showPreview}
+        onOpenChange={setShowPreview}
+        customer={customer}
+        lineItems={lineItems}
+        selectedShipping={selectedShipping}
+      />
     </div>
   );
 }

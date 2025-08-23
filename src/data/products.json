@@ -18,7 +18,13 @@
           "pricePerKg": 85.50,
           "qualityGrade": "Premium",
           "harvestDate": "2024-07-15",
-          "certifications": ["USDA Organic", "FDA cGMP"]
+          "certifications": ["USDA Organic", "FDA cGMP"],
+          "costBreakdown": {
+            "packagingCost": 12.50,
+            "labourCost": 8.30,
+            "flushOil": 5.20,
+            "additionalCosts": 9.80
+          }
         },
         {
           "id": "LV-482-FR",
@@ -31,7 +37,13 @@
           "pricePerKg": 95.00,
           "qualityGrade": "Premium+",
           "harvestDate": "2024-06-20",
-          "certifications": ["Ecocert Organic", "FDA cGMP"]
+          "certifications": ["Ecocert Organic", "FDA cGMP"],
+          "costBreakdown": {
+            "packagingCost": 14.20,
+            "labourCost": 9.10,
+            "flushOil": 6.30,
+            "additionalCosts": 11.50
+          }
         }
       ]
     },
@@ -53,7 +65,13 @@
           "pricePerKg": 72.00,
           "qualityGrade": "Premium",
           "harvestDate": "2024-08-10",
-          "certifications": ["FDA cGMP", "FEMA GRAS"]
+          "certifications": ["FDA cGMP", "FEMA GRAS"],
+          "costBreakdown": {
+            "packagingCost": 10.80,
+            "labourCost": 7.20,
+            "flushOil": 4.50,
+            "additionalCosts": 8.90
+          }
         },
         {
           "id": "P-982-IN",
@@ -110,7 +128,13 @@
           "pricePerKg": 125.00,
           "qualityGrade": "Premium",
           "harvestDate": "2024-09-15",
-          "certifications": ["FDA cGMP", "FEMA GRAS"]
+          "certifications": ["FDA cGMP", "FEMA GRAS"],
+          "costBreakdown": {
+            "packagingCost": 18.75,
+            "labourCost": 12.50,
+            "flushOil": 7.80,
+            "additionalCosts": 15.20
+          }
         }
       ]
     },
@@ -198,7 +222,13 @@
           "pricePerKg": 165.00,
           "qualityGrade": "Premium+",
           "harvestDate": "2024-06-15",
-          "certifications": ["USDA Organic", "EU Organic", "FDA cGMP"]
+          "certifications": ["USDA Organic", "EU Organic", "FDA cGMP"],
+          "costBreakdown": {
+            "packagingCost": 24.75,
+            "labourCost": 16.50,
+            "flushOil": 9.90,
+            "additionalCosts": 19.80
+          }
         }
       ]
     },
@@ -242,7 +272,13 @@
           "pricePerKg": 45.50,
           "qualityGrade": "Premium",
           "harvestDate": "2024-09-10",
-          "certifications": ["FEMA GRAS", "FDA cGMP", "Kosher"]
+          "certifications": ["FEMA GRAS", "FDA cGMP", "Kosher"],
+          "costBreakdown": {
+            "packagingCost": 6.80,
+            "labourCost": 4.55,
+            "flushOil": 2.75,
+            "additionalCosts": 5.90
+          }
         }
       ]
     },
@@ -264,7 +300,69 @@
           "pricePerKg": 195.00,
           "qualityGrade": "Premium",
           "harvestDate": "2024-08-15",
-          "certifications": ["USP Grade", "EU Novel Food"]
+          "certifications": ["USP Grade", "EU Novel Food"],
+          "costBreakdown": {
+            "packagingCost": 25.40,
+            "labourCost": 18.20,
+            "flushOil": 0.00,
+            "additionalCosts": 22.10
+          }
+        }
+      ]
+    },
+    {
+      "id": "vanilla-extract",
+      "name": "Vanilla Extract",
+      "category": "Natural Extracts",
+      "endUse": ["Food/Beverage", "Cosmetic"],
+      "compliance": ["FEMA GRAS", "USDA Organic"],
+      "batches": [
+        {
+          "id": "VN-123-MG",
+          "origin": "Madagascar",
+          "inventory": 45,
+          "unit": "kg",
+          "keySpec": "Vanillin: 2.8%",
+          "recommendation": "Premium organic vanilla",
+          "isRecommended": true,
+          "pricePerKg": 285.00,
+          "qualityGrade": "Premium+",
+          "harvestDate": "2024-05-10",
+          "certifications": ["FEMA GRAS", "USDA Organic"],
+          "costBreakdown": {
+            "packagingCost": 35.60,
+            "labourCost": 28.40,
+            "flushOil": 0.00,
+            "additionalCosts": 42.30
+          }
+        }
+      ]
+    },
+    {
+      "id": "orange-oil",
+      "name": "Orange Oil",
+      "category": "Essential Oils",
+      "endUse": ["Food/Beverage", "Cosmetic", "Industrial"],
+      "compliance": ["FEMA GRAS", "Ecocert Organic"],
+      "batches": [
+        {
+          "id": "OR-789-BR",
+          "origin": "São Paulo, Brazil",
+          "inventory": 190,
+          "unit": "kg",
+          "keySpec": "Limonene: 92.1%",
+          "recommendation": "Cold-pressed citrus oil",
+          "isRecommended": true,
+          "pricePerKg": 38.50,
+          "qualityGrade": "Premium",
+          "harvestDate": "2024-08-25",
+          "certifications": ["FEMA GRAS", "Ecocert Organic"],
+          "costBreakdown": {
+            "packagingCost": 8.20,
+            "labourCost": 5.40,
+            "flushOil": 3.80,
+            "additionalCosts": 6.90
+          }
         }
       ]
     }
