@@ -9,14 +9,19 @@ import {
   DollarSign,
   Clock,
   CheckCircle,
-  AlertCircle
+  AlertCircle,
+  Sparkles
 } from "lucide-react";
+import { MagicQuoteChat } from "./MagicQuoteChat";
+import { useState } from "react";
 
 interface DashboardOverviewProps {
   onNewQuote?: () => void;
 }
 
 export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
+  const [showMagicChat, setShowMagicChat] = useState(false);
+  
   return (
     <div className="space-y-6">
       {/* Key Metrics */}
@@ -73,10 +78,17 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
       {/* Quick Actions */}
       <Card className="p-6">
         <h3 className="text-lg font-semibold text-foreground mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Button className="h-20 flex flex-col space-y-2" onClick={onNewQuote}>
             <Calculator className="w-6 h-6" />
             <span>New Quote</span>
+          </Button>
+          <Button 
+            className="h-20 flex flex-col space-y-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+            onClick={() => setShowMagicChat(true)}
+          >
+            <Sparkles className="w-6 h-6" />
+            <span>Magic Quote</span>
           </Button>
           <Button variant="outline" className="h-20 flex flex-col space-y-2">
             <Users className="w-6 h-6" />
@@ -146,6 +158,12 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
           </div>
         </Card>
       </div>
+
+      {/* Magic Quote Chat Dialog */}
+      <MagicQuoteChat 
+        open={showMagicChat} 
+        onOpenChange={setShowMagicChat} 
+      />
     </div>
   );
 }
