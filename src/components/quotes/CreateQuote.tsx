@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +8,8 @@ import { CustomerDetails } from "./steps/CustomerDetails";
 import { ProductSelection, type LineItem } from "./steps/ProductSelection";
 import { CostsAndShipping } from "./steps/CostsAndShipping";
 import { FinalizeAndSend } from "./steps/FinalizeAndSend";
+import { SatisfactionSurvey } from "@/components/analytics/SatisfactionSurvey";
+import { useAnalytics } from "@/contexts/AnalyticsContext";
 
 interface CreateQuoteProps {
   onBack?: () => void;
@@ -68,10 +70,39 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
     cost: number;
     days: string;
   } | null>(null);
+  const [showSatisfactionSurvey, setShowSatisfactionSurvey] = useState(false);
+  const [quoteTrackingId, setQuoteTrackingId] = useState<string | null>(null);
+  
+  const { startQuoteTracking, completeQuoteTracking, abandonQuoteTracking } = useAnalytics();
+
+  // Start tracking when component mounts
+  useEffect(() => {
+    const trackingId = startQuoteTracking('current_user');
+    setQuoteTrackingId(trackingId);
+    
+    // Cleanup on unmount (abandon tracking)
+    return () => {
+      if (trackingId && currentStep < 4) {
+        abandonQuoteTracking(trackingId);
+      }
+    };
+  }, []);
 
   const handleNext = () => {
     if (currentStep < 4) {
       setCurrentStep(currentStep + 1);
+    } else if (currentStep === 4 && quoteTrackingId) {
+      // Complete the quote tracking
+      const totalValue = lineItems.reduce((sum, item) => sum + (item.quantity * item.pricePerUnit), 0);
+      completeQuoteTracking(
+        quoteTrackingId, 
+        selectedCustomer?.id, 
+        lineItems.length, 
+        totalValue
+      );
+      
+      // Show satisfaction survey
+      setShowSatisfactionSurvey(true);
     }
   };
 
@@ -238,6 +269,14 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
           </Button>
         </div>
       </Card>
+
+      {/* Satisfaction Survey */}
+      <SatisfactionSurvey 
+        isOpen={showSatisfactionSurvey}
+        onClose={() => setShowSatisfactionSurvey(false)}
+        category="quote_creation"
+        userId="current_user"
+      />
     </div>
   );
 }

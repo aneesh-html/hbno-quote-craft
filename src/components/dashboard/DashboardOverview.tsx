@@ -10,9 +10,14 @@ import {
   Clock,
   CheckCircle,
   AlertCircle,
-  Sparkles
+  Sparkles,
+  BarChart3,
+  FileText
 } from "lucide-react";
 import { MagicQuoteChat } from "./MagicQuoteChat";
+import { AnalyticsDashboard } from "@/components/analytics/AnalyticsDashboard";
+import { QuickSatisfactionTrigger } from "@/components/analytics/QuickSatisfactionTrigger";
+import { useAnalytics } from "@/contexts/AnalyticsContext";
 import { useState } from "react";
 
 interface DashboardOverviewProps {
@@ -21,6 +26,12 @@ interface DashboardOverviewProps {
 
 export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
   const [showMagicChat, setShowMagicChat] = useState(false);
+  const [activeView, setActiveView] = useState<string>("dashboard");
+  const { analytics } = useAnalytics();
+
+  if (activeView === "analytics") {
+    return <AnalyticsDashboard />;
+  }
   
   return (
     <div className="space-y-6">
@@ -29,11 +40,11 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
         <Card className="p-6">
           <div className="flex items-center space-x-4">
             <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-              <Calculator className="w-6 h-6 text-primary" />
+              <FileText className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">Active Quotes</p>
-              <p className="text-2xl font-bold text-foreground">24</p>
+              <p className="text-sm text-muted-foreground">Quotes Today</p>
+              <p className="text-2xl font-bold text-foreground">{analytics.totalQuotesToday}</p>
             </div>
           </div>
         </Card>
@@ -44,8 +55,8 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
               <DollarSign className="w-6 h-6 text-green-600" />
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">Monthly Revenue</p>
-              <p className="text-2xl font-bold text-foreground">$187.5K</p>
+              <p className="text-sm text-muted-foreground">Total Quotes</p>
+              <p className="text-2xl font-bold text-foreground">{analytics.quotes.filter(q => q.status === 'completed').length}</p>
             </div>
           </div>
         </Card>
@@ -53,11 +64,13 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
         <Card className="p-6">
           <div className="flex items-center space-x-4">
             <div className="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center">
-              <Users className="w-6 h-6 text-blue-600" />
+              <Clock className="w-6 h-6 text-blue-600" />
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">Active Customers</p>
-              <p className="text-2xl font-bold text-foreground">156</p>
+              <p className="text-sm text-muted-foreground">Avg Quote Time</p>
+              <p className="text-2xl font-bold text-foreground">
+                {Math.floor(analytics.averageQuoteTime / 60000)}m {Math.floor((analytics.averageQuoteTime % 60000) / 1000)}s
+              </p>
             </div>
           </div>
         </Card>
@@ -69,7 +82,7 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Conversion Rate</p>
-              <p className="text-2xl font-bold text-foreground">68%</p>
+              <p className="text-2xl font-bold text-foreground">{analytics.overallConversionRate.toFixed(1)}%</p>
             </div>
           </div>
         </Card>
@@ -94,9 +107,13 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
             <Users className="w-6 h-6" />
             <span>Add Customer</span>
           </Button>
-          <Button variant="outline" className="h-20 flex flex-col space-y-2">
-            <Package className="w-6 h-6" />
-            <span>Manage Products</span>
+          <Button 
+            variant="outline" 
+            className="h-20 flex flex-col space-y-2"
+            onClick={() => setActiveView("analytics")}
+          >
+            <BarChart3 className="w-6 h-6" />
+            <span>Analytics</span>
           </Button>
         </div>
       </Card>
@@ -164,6 +181,9 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
         open={showMagicChat} 
         onOpenChange={setShowMagicChat} 
       />
+      
+      {/* Quick Satisfaction Survey Trigger */}
+      <QuickSatisfactionTrigger />
     </div>
   );
 }
