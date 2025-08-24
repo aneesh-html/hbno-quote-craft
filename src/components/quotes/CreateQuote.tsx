@@ -108,7 +108,7 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
     switch (currentStep) {
       case 1:
         return (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="space-y-6">
             <CustomerSelection 
               onCustomerSelect={handleCustomerSelect}
               selectedCustomer={selectedCustomer}
@@ -163,13 +163,13 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
       </div>
 
       {/* Progress Steps */}
-      <Card className="p-6">
+      <Card className="p-4">
         <div className="flex items-center justify-between">
           {steps.map((step, index) => (
             <div key={step.id} className="flex items-center">
               <div className="flex flex-col items-center">
                 <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
+                  className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium transition-colors ${
                     currentStep === step.id
                       ? "bg-primary text-primary-foreground"
                       : currentStep > step.id
@@ -178,27 +178,27 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
                   }`}
                 >
                   {currentStep > step.id ? (
-                    <CheckCircle className="w-5 h-5" />
+                    <CheckCircle className="w-4 h-4" />
                   ) : (
                     step.id
                   )}
                 </div>
-                <div className="mt-2 text-center">
+                <div className="mt-1 text-center">
                   <div
-                    className={`text-sm font-medium ${
+                    className={`text-xs font-medium ${
                       currentStep >= step.id ? "text-foreground" : "text-muted-foreground"
                     }`}
                   >
                     {step.title}
                   </div>
-                  <div className="text-xs text-muted-foreground max-w-24">
+                  <div className="text-xs text-muted-foreground max-w-20 leading-tight">
                     {step.description}
                   </div>
                 </div>
               </div>
               {index < steps.length - 1 && (
                 <div
-                  className={`h-px w-24 mx-4 transition-colors ${
+                  className={`h-px w-16 mx-2 transition-colors ${
                     currentStep > step.id ? "bg-green-500" : "bg-muted"
                   }`}
                 />
