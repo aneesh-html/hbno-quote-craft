@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Star, MapPin, Package, Beaker, Calendar, Shield } from "lucide-react";
 import type { Product, Batch } from "./ProductSelection";
+import { useCurrency } from "@/contexts/CurrencyContext";
+import { ManualPriceAdjustment } from "../ManualPriceAdjustment";
 
 interface CostBreakdown {
   packagingCost: number;
@@ -26,16 +28,20 @@ interface BatchCardProps {
 
 export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
   const [quantity, setQuantity] = useState(1);
+  const [adjustedPrice, setAdjustedPrice] = useState<number>(batch.pricePerKg);
+  const { formatPrice } = useCurrency();
 
   const handleAdd = () => {
     if (quantity > 0 && quantity <= batch.inventory) {
-      onAddBatch(product, batch, quantity);
+      // Create a modified batch with adjusted price
+      const modifiedBatch = { ...batch, pricePerKg: adjustedPrice };
+      onAddBatch(product, modifiedBatch, quantity);
       setQuantity(1);
     }
   };
 
   const isLowStock = batch.inventory < 50;
-  const estimatedTotal = quantity * batch.pricePerKg;
+  const estimatedTotal = quantity * adjustedPrice;
 
   return (
     <Card className={`transition-all ${batch.isRecommended ? 'ring-2 ring-primary/20 bg-primary/5' : ''}`}>
@@ -54,8 +60,24 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
             <Badge variant="secondary">{batch.qualityGrade}</Badge>
           </div>
           <div className="text-right">
-            <div className="font-semibold text-lg">${batch.pricePerKg.toFixed(2)}</div>
-            <div className="text-xs text-muted-foreground">per kg</div>
+            <div className="flex items-center gap-2 justify-end">
+              <div>
+                <div className="font-semibold text-lg">{formatPrice(adjustedPrice)}</div>
+                <div className="text-xs text-muted-foreground">per kg</div>
+              </div>
+              <ManualPriceAdjustment
+                originalPrice={batch.pricePerKg}
+                onPriceChange={setAdjustedPrice}
+                productName={product.name}
+                batchId={batch.id}
+                unit={batch.unit}
+              />
+            </div>
+            {adjustedPrice !== batch.pricePerKg && (
+              <Badge variant="outline" className="text-xs mt-1">
+                Adjusted
+              </Badge>
+            )}
           </div>
         </div>
 
@@ -113,21 +135,21 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div className="flex justify-between">
                 <span>Packaging:</span>
-                <span>${batch.costBreakdown.packagingCost.toFixed(2)}</span>
+                <span>{formatPrice(batch.costBreakdown.packagingCost)}</span>
               </div>
               <div className="flex justify-between">
                 <span>Labour:</span>
-                <span>${batch.costBreakdown.labourCost.toFixed(2)}</span>
+                <span>{formatPrice(batch.costBreakdown.labourCost)}</span>
               </div>
               {batch.costBreakdown.flushOil > 0 && (
                 <div className="flex justify-between">
                   <span>Flush Oil:</span>
-                  <span>${batch.costBreakdown.flushOil.toFixed(2)}</span>
+                  <span>{formatPrice(batch.costBreakdown.flushOil)}</span>
                 </div>
               )}
               <div className="flex justify-between">
                 <span>Additional:</span>
-                <span>${batch.costBreakdown.additionalCosts.toFixed(2)}</span>
+                <span>{formatPrice(batch.costBreakdown.additionalCosts)}</span>
               </div>
             </div>
           </div>
@@ -150,7 +172,7 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
           
           <div className="flex-1 text-right">
             <div className="text-sm text-muted-foreground">Total:</div>
-            <div className="font-semibold">${estimatedTotal.toFixed(2)}</div>
+            <div className="font-semibold">{formatPrice(estimatedTotal)}</div>
           </div>
           
           <Button 

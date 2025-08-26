@@ -15,6 +15,8 @@ import {
 import { Customer } from "../CreateQuote";
 import { LineItem } from "./ProductSelection";
 import { QuotePreviewDialog } from "../QuotePreviewDialog";
+import { QuoteLinkGenerator } from "../QuoteLinkGenerator";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { useState } from "react";
 
 interface FinalizeAndSendProps {
@@ -29,6 +31,7 @@ interface FinalizeAndSendProps {
 
 export function FinalizeAndSend({ customer, lineItems, selectedShipping }: FinalizeAndSendProps) {
   const [showPreview, setShowPreview] = useState(false);
+  const { formatPrice } = useCurrency();
   
   if (!customer || lineItems.length === 0) {
     return (
@@ -102,21 +105,21 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span>Subtotal:</span>
-                <span className="font-medium">${subtotal.toLocaleString()}</span>
+                <span className="font-medium">{formatPrice(subtotal)}</span>
               </div>
               <div className="flex justify-between text-muted-foreground">
                 <span>Product Cost:</span>
-                <span>-${totalProductCost.toLocaleString()}</span>
+                <span>-{formatPrice(totalProductCost)}</span>
               </div>
               <div className="flex justify-between text-muted-foreground">
                 <span>Shipping ({selectedShipping?.name}):</span>
-                <span>-${shippingCost.toLocaleString()}</span>
+                <span>-{formatPrice(shippingCost)}</span>
               </div>
               <Separator className="my-2" />
               <div className="flex justify-between text-lg font-semibold">
                 <span>Gross Profit:</span>
                 <span className={grossProfit > 0 ? "text-green-600" : "text-red-600"}>
-                  ${grossProfit.toLocaleString()}
+                  {formatPrice(grossProfit)}
                 </span>
               </div>
             </div>
@@ -137,8 +140,8 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
                 </div>
               </div>
               <div className="text-right">
-                <div className="font-medium">${item.totalPrice.toLocaleString()}</div>
-                <div className="text-sm text-muted-foreground">${item.pricePerUnit.toFixed(2)}/{item.unit}</div>
+                <div className="font-medium">{formatPrice(item.totalPrice)}</div>
+                <div className="text-sm text-muted-foreground">{formatPrice(item.pricePerUnit)}/{item.unit}</div>
               </div>
             </div>
           ))}
@@ -222,10 +225,15 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
             <Clock className="w-5 h-5 mr-2" />
             Send for Review
           </Button>
+          <QuoteLinkGenerator 
+            customer={customer}
+            lineItems={lineItems}
+            selectedShipping={selectedShipping}
+          />
         </div>
         <div className="text-center mt-3">
           <p className="text-sm text-muted-foreground">
-            Generate a professional PDF packet or send the quote for manager review.
+            Generate a PDF packet, send for review, or create a shareable quote link.
           </p>
         </div>
       </Card>

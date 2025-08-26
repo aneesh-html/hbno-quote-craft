@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ArrowRight, CheckCircle, AlertCircle, CreditCard } from "lucide-react";
+import { CurrencySelector } from "./CurrencySelector";
 import { CustomerSelection } from "./steps/CustomerSelection";
 import { CustomerDetails } from "./steps/CustomerDetails";
 import { ProductSelection, type LineItem } from "./steps/ProductSelection";
@@ -187,10 +188,13 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
           <h2 className="text-2xl font-semibold text-foreground">Create New Quote</h2>
           <p className="text-muted-foreground">Follow the guided process to create a professional quote</p>
         </div>
-        <Button variant="outline" onClick={onBack || (() => window.history.back())}>
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Quotes
-        </Button>
+        <div className="flex items-center gap-4">
+          <CurrencySelector />
+          <Button variant="outline" onClick={onBack || (() => window.history.back())}>
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Quotes
+          </Button>
+        </div>
       </div>
 
       {/* Progress Steps */}
