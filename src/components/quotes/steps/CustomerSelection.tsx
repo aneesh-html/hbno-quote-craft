@@ -145,15 +145,16 @@ export function CustomerSelection({ onCustomerSelect, selectedCustomer }: Custom
                     </div>
                     <div className="flex items-center space-x-2">
                       <Button 
-                        variant="ghost" 
+                        variant="outline" 
                         size="sm"
                         onClick={(e) => {
                           e.stopPropagation();
                           openNetSuite(customer.id);
                         }}
-                        className="p-1 h-6 w-6"
+                        className="flex items-center gap-1 text-xs"
                       >
                         <ExternalLink className="w-3 h-3" />
+                        NetSuite
                       </Button>
                       {getCreditStatusIcon(customer.snapshot.creditStatus.status)}
                       <Badge variant="outline" className={getCreditStatusColor(customer.snapshot.creditStatus.status)}>
