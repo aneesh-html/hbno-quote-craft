@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Star, MapPin, Package, Beaker, Calendar, Shield } from "lucide-react";
+import { Star, MapPin, Package, Beaker, Calendar, Shield, Clock, ExternalLink } from "lucide-react";
 import type { Product, Batch } from "./ProductSelection";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { ManualPriceAdjustment } from "../ManualPriceAdjustment";
@@ -30,9 +30,15 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
   const [quantity, setQuantity] = useState(1);
   const [adjustedPrice, setAdjustedPrice] = useState<number>(batch.pricePerKg);
   const { formatPrice } = useCurrency();
+  
+  const openNetSuiteProduct = () => {
+    const netSuiteUrl = `https://demo.netsuite.com/app/common/item/item.nl?id=${product.id}&batch=${batch.id}`;
+    window.open(netSuiteUrl, '_blank');
+  };
 
   const handleAdd = () => {
-    if (quantity > 0 && quantity <= batch.inventory) {
+    const maxInventory = batch.isFuture ? batch.availableForPreOrder! : batch.inventory;
+    if (quantity > 0 && quantity <= maxInventory) {
       // Create a modified batch with adjusted price
       const modifiedBatch = { ...batch, pricePerKg: adjustedPrice };
       onAddBatch(product, modifiedBatch, quantity);
@@ -40,17 +46,24 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
     }
   };
 
-  const isLowStock = batch.inventory < 50;
+  const currentInventory = batch.isFuture ? batch.availableForPreOrder! : batch.inventory;
+  const isLowStock = currentInventory < 50 && !batch.isFuture;
   const estimatedTotal = quantity * adjustedPrice;
 
   return (
-    <Card className={`transition-all ${batch.isRecommended ? 'ring-2 ring-primary/20 bg-primary/5' : ''}`}>
+    <Card className={`transition-all ${batch.isRecommended ? 'ring-2 ring-primary/20 bg-primary/5' : ''} ${batch.isFuture ? 'border-orange-200 bg-orange-50/30' : ''}`}>
       <CardContent className="p-4">
         <div className="flex items-start justify-between mb-3">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <Badge variant="outline" className="font-mono text-xs">
               {batch.id}
             </Badge>
+            {batch.isFuture && (
+              <Badge className="bg-orange-100 text-orange-800 border-orange-200">
+                <Clock className="w-3 h-3 mr-1" />
+                Future Batch
+              </Badge>
+            )}
             {batch.isRecommended && (
               <Badge className="bg-primary/10 text-primary border-primary/20">
                 <Star className="w-3 h-3 mr-1 fill-current" />
@@ -58,6 +71,14 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
               </Badge>
             )}
             <Badge variant="secondary">{batch.qualityGrade}</Badge>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={openNetSuiteProduct}
+              className="p-1 h-6 w-6 ml-auto"
+            >
+              <ExternalLink className="w-3 h-3" />
+            </Button>
           </div>
           <div className="text-right">
             <div className="flex items-center gap-2 justify-end">
@@ -87,6 +108,18 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
           </div>
         )}
 
+        {batch.isFuture && (
+          <div className="mb-3 p-2 bg-orange-50 border border-orange-200 rounded-md">
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-orange-600" />
+              <div className="text-sm">
+                <span className="font-medium text-orange-800">Pre-order available</span>
+                <div className="text-orange-600">Expected delivery: {new Date(batch.expectedDelivery!).toLocaleDateString()}</div>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm">
@@ -96,9 +129,10 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
             <div className="flex items-center gap-2 text-sm">
               <Package className="w-4 h-4 text-muted-foreground" />
               <span className={isLowStock ? 'text-orange-600 font-medium' : ''}>
-                {batch.inventory} {batch.unit} Available
+                {batch.isFuture ? `${batch.availableForPreOrder} ${batch.unit} for pre-order` : `${batch.inventory} ${batch.unit} available`}
               </span>
               {isLowStock && <Badge variant="destructive" className="text-xs">Low Stock</Badge>}
+              {batch.isFuture && <Badge variant="outline" className="text-xs bg-orange-100 text-orange-800 border-orange-200">Pre-order</Badge>}
             </div>
           </div>
           <div className="space-y-2">
@@ -108,7 +142,9 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
             </div>
             <div className="flex items-center gap-2 text-sm">
               <Calendar className="w-4 h-4 text-muted-foreground" />
-              <span>Harvested {new Date(batch.harvestDate).toLocaleDateString()}</span>
+              <span>
+                {batch.isFuture ? `Will harvest ${new Date(batch.harvestDate).toLocaleDateString()}` : `Harvested ${new Date(batch.harvestDate).toLocaleDateString()}`}
+              </span>
             </div>
           </div>
         </div>
@@ -162,7 +198,7 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
             <Input
               type="number"
               min="1"
-              max={batch.inventory}
+              max={currentInventory}
               value={quantity}
               onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
               className="w-20 text-center"
@@ -177,10 +213,11 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
           
           <Button 
             onClick={handleAdd}
-            disabled={quantity > batch.inventory || quantity < 1}
+            disabled={quantity > currentInventory || quantity < 1}
             className="ml-2"
+            variant={batch.isFuture ? "outline" : "default"}
           >
-            Add to Quote
+            {batch.isFuture ? "Add Pre-order" : "Add to Quote"}
           </Button>
         </div>
       </CardContent>

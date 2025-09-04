@@ -44,6 +44,22 @@
             "flushOil": 6.30,
             "additionalCosts": 11.50
           }
+        },
+        {
+          "id": "LV-483-BG",
+          "origin": "Bulgaria",
+          "inventory": 0,
+          "unit": "kg",
+          "keySpec": "Linalool: 42.1%",
+          "recommendation": "Future delivery - reserve now",
+          "isRecommended": false,
+          "pricePerKg": 88.00,
+          "qualityGrade": "Premium",
+          "harvestDate": "2025-06-15",
+          "certifications": ["USDA Organic", "FDA cGMP"],
+          "isFuture": true,
+          "expectedDelivery": "2025-01-15",
+          "availableForPreOrder": 200
         }
       ]
     },
@@ -85,6 +101,22 @@
           "qualityGrade": "Standard",
           "harvestDate": "2024-07-25",
           "certifications": ["FDA cGMP"]
+        },
+        {
+          "id": "P-983-WA",
+          "origin": "Washington, USA",
+          "inventory": 0,
+          "unit": "kg",
+          "keySpec": "Menthol: 46.2%",
+          "recommendation": "Premium future harvest",
+          "isRecommended": false,
+          "pricePerKg": 78.00,
+          "qualityGrade": "Premium+",
+          "harvestDate": "2025-08-20",
+          "certifications": ["FDA cGMP", "FEMA GRAS", "USDA Organic"],
+          "isFuture": true,
+          "expectedDelivery": "2025-02-10",
+          "availableForPreOrder": 150
         }
       ]
     },

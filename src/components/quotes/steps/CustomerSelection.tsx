@@ -3,9 +3,10 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Search, Building2, CheckCircle } from "lucide-react";
+import { Search, Building2, CheckCircle, ExternalLink } from "lucide-react";
 import { Customer } from "../CreateQuote";
 import customersData from "@/data/customers.json";
+import { NewCustomerDialog } from "../NewCustomerDialog";
 
 interface CustomerSelectionProps {
   onCustomerSelect: (customer: Customer) => void;
@@ -16,10 +17,12 @@ export function CustomerSelection({ onCustomerSelect, selectedCustomer }: Custom
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredCustomers, setFilteredCustomers] = useState<Customer[]>([]);
   const [showResults, setShowResults] = useState(false);
+  const [showNewCustomerDialog, setShowNewCustomerDialog] = useState(false);
+  const [allCustomers, setAllCustomers] = useState<Customer[]>(customersData);
 
   useEffect(() => {
     if (searchTerm.length > 1) {
-      const filtered = customersData.filter(customer =>
+      const filtered = allCustomers.filter(customer =>
         customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         customer.email.toLowerCase().includes(searchTerm.toLowerCase())
       );
@@ -29,12 +32,26 @@ export function CustomerSelection({ onCustomerSelect, selectedCustomer }: Custom
       setFilteredCustomers([]);
       setShowResults(false);
     }
-  }, [searchTerm]);
+  }, [searchTerm, allCustomers]);
 
   const handleCustomerClick = (customer: Customer) => {
     onCustomerSelect(customer);
     setSearchTerm(customer.name);
     setShowResults(false);
+  };
+
+  const handleNewCustomerCreated = (newCustomer: Customer) => {
+    setAllCustomers(prev => [...prev, newCustomer]);
+    onCustomerSelect(newCustomer);
+    setSearchTerm(newCustomer.name);
+  };
+
+  const openNetSuite = (customerId?: string) => {
+    // Dummy NetSuite URL - in real implementation, this would open the actual NetSuite record
+    const netSuiteUrl = customerId 
+      ? `https://demo.netsuite.com/app/common/entity/custjob.nl?id=${customerId}`
+      : "https://demo.netsuite.com/app/common/entity/custjoblist.nl";
+    window.open(netSuiteUrl, '_blank');
   };
 
   const getCreditStatusIcon = (status: string) => {
@@ -73,9 +90,22 @@ export function CustomerSelection({ onCustomerSelect, selectedCustomer }: Custom
           </p>
         </div>
 
-        {/* Add New Customer Button */}
-        <div className="flex justify-end">
-          <Button variant="outline" size="sm">
+        {/* Action Buttons */}
+        <div className="flex justify-between">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => openNetSuite()}
+            className="flex items-center gap-2"
+          >
+            <ExternalLink className="w-4 h-4" />
+            Open NetSuite
+          </Button>
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => setShowNewCustomerDialog(true)}
+          >
             <Building2 className="w-4 h-4 mr-2" />
             Add New Customer
           </Button>
@@ -114,6 +144,17 @@ export function CustomerSelection({ onCustomerSelect, selectedCustomer }: Custom
                       </div>
                     </div>
                     <div className="flex items-center space-x-2">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openNetSuite(customer.id);
+                        }}
+                        className="p-1 h-6 w-6"
+                      >
+                        <ExternalLink className="w-3 h-3" />
+                      </Button>
                       {getCreditStatusIcon(customer.snapshot.creditStatus.status)}
                       <Badge variant="outline" className={getCreditStatusColor(customer.snapshot.creditStatus.status)}>
                         {customer.snapshot.priceTier}
@@ -129,7 +170,12 @@ export function CustomerSelection({ onCustomerSelect, selectedCustomer }: Custom
           {showResults && filteredCustomers.length === 0 && searchTerm.length > 1 && (
             <div className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-md shadow-lg z-50 p-4 text-center">
               <p className="text-sm text-muted-foreground">No customers found matching "{searchTerm}"</p>
-              <Button variant="outline" size="sm" className="mt-2">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="mt-2"
+                onClick={() => setShowNewCustomerDialog(true)}
+              >
                 <Building2 className="w-4 h-4 mr-2" />
                 Add New Customer
               </Button>
@@ -150,14 +196,25 @@ export function CustomerSelection({ onCustomerSelect, selectedCustomer }: Custom
         {/* Selected Customer Summary */}
         {selectedCustomer && (
           <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                <CheckCircle className="w-5 h-5 text-green-600" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                </div>
+                <div>
+                  <div className="font-medium text-green-800">Customer Selected</div>
+                  <div className="text-sm text-green-600">{selectedCustomer.name}</div>
+                </div>
               </div>
-              <div>
-                <div className="font-medium text-green-800">Customer Selected</div>
-                <div className="text-sm text-green-600">{selectedCustomer.name}</div>
-              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => openNetSuite(selectedCustomer.id)}
+                className="flex items-center gap-1 text-green-700 border-green-300 hover:bg-green-100"
+              >
+                <ExternalLink className="w-3 h-3" />
+                View in NetSuite
+              </Button>
             </div>
           </div>
         )}
@@ -169,16 +226,22 @@ export function CustomerSelection({ onCustomerSelect, selectedCustomer }: Custom
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
                 <span className="text-muted-foreground">Total Customers:</span>
-                <span className="ml-2 font-medium">{customersData.length}</span>
+                <span className="ml-2 font-medium">{allCustomers.length}</span>
               </div>
               <div>
                 <span className="text-muted-foreground">Active This Month:</span>
-                <span className="ml-2 font-medium">{customersData.filter(c => c.snapshot.creditStatus.status === "good" || c.snapshot.creditStatus.status === "excellent").length}</span>
+                <span className="ml-2 font-medium">{allCustomers.filter(c => c.snapshot.creditStatus.status === "good" || c.snapshot.creditStatus.status === "excellent").length}</span>
               </div>
             </div>
           </div>
         )}
       </div>
+      
+      <NewCustomerDialog
+        open={showNewCustomerDialog}
+        onOpenChange={setShowNewCustomerDialog}
+        onCustomerCreated={handleNewCustomerCreated}
+      />
     </Card>
   );
 }

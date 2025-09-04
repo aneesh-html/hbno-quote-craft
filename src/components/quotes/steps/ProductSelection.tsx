@@ -19,6 +19,9 @@ export interface Batch {
   qualityGrade: string;
   harvestDate: string;
   certifications: string[];
+  isFuture?: boolean;
+  expectedDelivery?: string;
+  availableForPreOrder?: number;
 }
 
 export interface Product {
@@ -137,8 +140,7 @@ export function ProductSelection({ onAddLineItem, lineItems, customer }: Product
     };
     
     onAddLineItem(lineItem);
-    setSelectedProduct(null);
-    setSearchTerm("");
+    // Keep product selected to allow adding more batches
   };
 
   const getCrossSellSuggestions = () => {
@@ -400,32 +402,49 @@ export function ProductSelection({ onAddLineItem, lineItems, customer }: Product
           {/* Product Search Results */}
           {filteredProducts.length > 0 && (
             <div className="mt-4 space-y-2 max-h-48 overflow-y-auto">
-              {filteredProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent cursor-pointer"
-                  onClick={() => handleProductSelect(product)}
-                >
-                  <div>
-                    <h4 className="font-medium">{product.name}</h4>
-                    <div className="flex gap-2 mt-1">
-                      {product.endUse.slice(0, 2).map((use) => (
-                        <Badge key={use} variant="secondary" className="text-xs">
-                          {use}
-                        </Badge>
-                      ))}
-                      {product.compliance.slice(0, 2).map((comp) => (
-                        <Badge key={comp} variant="outline" className="text-xs">
-                          {comp}
-                        </Badge>
-                      ))}
+              {filteredProducts.map((product) => {
+                const totalBatches = product.batches.length;
+                const totalStock = product.batches.reduce((sum, batch) => 
+                  sum + (batch.isFuture ? (batch.availableForPreOrder || 0) : batch.inventory), 0
+                );
+                const availableBatches = product.batches.filter(batch => !batch.isFuture || batch.availableForPreOrder! > 0).length;
+                
+                return (
+                  <div
+                    key={product.id}
+                    className={`flex items-center justify-between p-3 border rounded-lg hover:bg-accent cursor-pointer transition-all ${
+                      selectedProduct?.id === product.id ? 'ring-2 ring-primary/20 bg-primary/5' : ''
+                    }`}
+                    onClick={() => handleProductSelect(product)}
+                  >
+                    <div className="flex-1">
+                      <h4 className="font-medium">{product.name}</h4>
+                      <div className="flex gap-2 mt-1 mb-2">
+                        {product.endUse.slice(0, 2).map((use) => (
+                          <Badge key={use} variant="secondary" className="text-xs">
+                            {use}
+                          </Badge>
+                        ))}
+                        {product.compliance.slice(0, 2).map((comp) => (
+                          <Badge key={comp} variant="outline" className="text-xs">
+                            {comp}
+                          </Badge>
+                        ))}
+                      </div>
+                      <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                        <span className="flex items-center gap-1">
+                          <Package className="w-3 h-3" />
+                          {totalBatches} batch{totalBatches !== 1 ? 'es' : ''} ({availableBatches} available)
+                        </span>
+                        <span>Total stock: {totalStock} {product.batches[0]?.unit || 'units'}</span>
+                      </div>
                     </div>
+                    <Button size="sm" variant={selectedProduct?.id === product.id ? "default" : "ghost"}>
+                      {selectedProduct?.id === product.id ? "Selected" : "Select"}
+                    </Button>
                   </div>
-                  <Button size="sm" variant="ghost">
-                    Select
-                  </Button>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 
