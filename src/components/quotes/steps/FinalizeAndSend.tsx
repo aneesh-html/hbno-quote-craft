@@ -16,6 +16,7 @@ import { Customer } from "../CreateQuote";
 import { LineItem } from "./ProductSelection";
 import { QuotePreviewDialog } from "../QuotePreviewDialog";
 import { QuoteLinkGenerator } from "../QuoteLinkGenerator";
+import { PaymentOptions } from "../PaymentOptions";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { useState } from "react";
 
@@ -190,6 +191,9 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
           </div>
         </div>
       </Card>
+
+      {/* Payment Options */}
+      <PaymentOptions />
 
       {/* Margin Warning */}
       {needsApproval && (
