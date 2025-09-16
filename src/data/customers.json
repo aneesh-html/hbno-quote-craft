@@ -71,6 +71,27 @@
           "lastPurchaseDate": "2024-01-15",
           "lastPricePerKg": 1850.00,
           "frequency": 2
+        },
+        {
+          "productId": "PROD-007",
+          "productName": "Peppermint Essential Oil",
+          "lastPurchaseDate": "2023-12-10",
+          "lastPricePerKg": 95.75,
+          "frequency": 4
+        },
+        {
+          "productId": "PROD-012",
+          "productName": "Sweet Orange Oil",
+          "lastPurchaseDate": "2023-11-28",
+          "lastPricePerKg": 42.30,
+          "frequency": 5
+        },
+        {
+          "productId": "PROD-015",
+          "productName": "Frankincense Oil",
+          "lastPurchaseDate": "2023-10-15",
+          "lastPricePerKg": 385.00,
+          "frequency": 1
         }
       ]
     }
@@ -134,6 +155,20 @@
           "lastPurchaseDate": "2024-01-22",
           "lastPricePerKg": 89.20,
           "frequency": 4
+        },
+        {
+          "productId": "PROD-008",
+          "productName": "Tea Tree Oil",
+          "lastPurchaseDate": "2024-01-05",
+          "lastPricePerKg": 156.40,
+          "frequency": 2
+        },
+        {
+          "productId": "PROD-011",
+          "productName": "Lemongrass Oil",
+          "lastPurchaseDate": "2023-12-18",
+          "lastPricePerKg": 78.90,
+          "frequency": 3
         }
       ]
     }

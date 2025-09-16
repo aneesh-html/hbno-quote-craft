@@ -487,6 +487,73 @@ export function ProductSelection({ onAddLineItem, lineItems, customer }: Product
         </Card>
       )}
 
+      {/* Recent Purchase Suggestions */}
+      {customer?.snapshot?.recentPurchases && customer.snapshot.recentPurchases.length > 0 && (
+        <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-green-900">
+              <Clock className="w-5 h-5" />
+              Recently Purchased (Last 6 Months)
+            </CardTitle>
+            <p className="text-sm text-green-700">
+              Quick add products this customer frequently orders
+            </p>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {customer.snapshot.recentPurchases.map((purchase, index) => (
+                <div 
+                  key={index} 
+                  className="bg-white p-4 rounded-lg border border-green-200 hover:shadow-md transition-shadow cursor-pointer"
+                  onClick={() => {
+                    // Find the product in our products list and auto-select it
+                    const matchingProduct = products.find(p => p.name === purchase.productName);
+                    if (matchingProduct) {
+                      setSearchTerm(purchase.productName);
+                      handleProductSelect(matchingProduct);
+                    }
+                  }}
+                >
+                  <div className="flex justify-between items-start mb-2">
+                    <div className="flex-1">
+                      <div className="font-medium text-green-900 text-sm leading-5">
+                        {purchase.productName}
+                      </div>
+                      <div className="text-xs text-green-700 mt-1">
+                        Last ordered: {new Date(purchase.lastPurchaseDate).toLocaleDateString()}
+                      </div>
+                    </div>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="ml-2 h-6 px-2 text-xs border-green-300 text-green-700 hover:bg-green-100"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const matchingProduct = products.find(p => p.name === purchase.productName);
+                        if (matchingProduct) {
+                          setSearchTerm(purchase.productName);
+                          handleProductSelect(matchingProduct);
+                        }
+                      }}
+                    >
+                      Select
+                    </Button>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="text-xs text-green-600">
+                      {purchase.frequency}x ordered
+                    </div>
+                    <div className="text-sm font-semibold text-green-900">
+                      ${purchase.lastPricePerKg}/kg
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Cross-sell Suggestions */}
       {crossSellSuggestions.length > 0 && lineItems.length > 0 && (
         <Card>
@@ -517,63 +584,6 @@ export function ProductSelection({ onAddLineItem, lineItems, customer }: Product
               ))}
             </div>
           </CardContent>
-          {/* Recent Purchase Suggestions */}
-          {customer?.snapshot?.recentPurchases && customer.snapshot.recentPurchases.length > 0 && (
-            <Card className="p-4 bg-green-50 border-green-200">
-              <h4 className="font-medium text-green-900 mb-2 flex items-center gap-2">
-                <Clock className="w-4 h-4" />
-                Recently Purchased (Last 6 Months)
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {customer.snapshot.recentPurchases.map((purchase, index) => (
-                  <div key={index} className="bg-white p-3 rounded-md border border-green-200">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <div className="text-sm font-medium text-green-900">{purchase.productName}</div>
-                        <div className="text-xs text-green-700">
-                          Last: {new Date(purchase.lastPurchaseDate).toLocaleDateString()}
-                        </div>
-                        <div className="text-xs text-green-600">
-                          Frequency: {purchase.frequency}x in 6 months
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-sm font-medium text-green-900">
-                          ${purchase.lastPricePerKg}/kg
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          )}
-
-          {/* Cross-sell suggestions */}
-          {selectedProduct && crossSellSuggestions.length > 0 && (
-            <Card className="p-4 bg-blue-50 border-blue-200">
-              <h4 className="font-medium text-blue-900 mb-2">Customers Also Purchase</h4>
-              <div className="flex flex-wrap gap-2">
-                {crossSellSuggestions.map(suggestedProduct => (
-                  <Button
-                    key={suggestedProduct.id}
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleProductSelect(suggestedProduct)}
-                    className="h-auto p-2 border-blue-300 text-blue-700 hover:bg-blue-100"
-                  >
-                    <div className="text-left">
-                      <div className="text-xs font-medium">{suggestedProduct.name}</div>
-                      <div className="text-xs text-blue-600">
-                        {suggestedProduct.batches.length} batch{suggestedProduct.batches.length !== 1 ? 'es' : ''}
-                      </div>
-                    </div>
-                  </Button>
-                ))}
-              </div>
-            </Card>
-          )}
-
         </Card>
       )}
 
