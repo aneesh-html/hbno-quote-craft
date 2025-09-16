@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Search, Plus, Star, MapPin, Package, Beaker, ArrowRight, ArrowLeft, CheckCircle, Target, Award } from "lucide-react";
+import { Search, Plus, Star, MapPin, Package, Beaker, ArrowRight, ArrowLeft, CheckCircle, Target, Award, Clock } from "lucide-react";
 import productsData from "@/data/products.json";
 import { BatchCard } from "./BatchCard";
 
@@ -63,14 +63,15 @@ export function ProductSelection({ onAddLineItem, lineItems, customer }: Product
   const products = productsData.products as Product[];
 
   // Available options
-  const endUseOptions = ['Cosmetic', 'Food/Beverage', 'Aromatherapy', 'Personal Care'];
+  const endUseOptions = ['Cosmetic', 'Food/Beverage', 'Aromatherapy', 'Personal Care', 'All Products (General Type)'];
   const complianceOptions = ['FDA cGMP', 'USDA Organic', 'FEMA GRAS', 'Ecocert Organic', 'TGA Listed'];
 
   // Filter products based on guided selections
   const guidedFilteredProducts = useMemo(() => {
     return products.filter(product => {
-      // Filter by end use
+      // Filter by end use - if "All Products" is selected, show all products
       const matchesEndUse = selectedEndUses.length === 0 || 
+        selectedEndUses.includes('All Products (General Type)') ||
         selectedEndUses.some(use => product.endUse.includes(use));
       
       // Filter by compliance
@@ -186,6 +187,7 @@ export function ProductSelection({ onAddLineItem, lineItems, customer }: Product
                         {endUse === 'Food/Beverage' && 'Food flavoring & beverages'}
                         {endUse === 'Aromatherapy' && 'Therapeutic & wellness'}
                         {endUse === 'Personal Care' && 'Soaps, lotions & hygiene'}
+                        {endUse === 'All Products (General Type)' && 'Fragrances, blends, PL, custom blends, etc.'}
                       </div>
                     </div>
                   </div>
@@ -515,6 +517,63 @@ export function ProductSelection({ onAddLineItem, lineItems, customer }: Product
               ))}
             </div>
           </CardContent>
+          {/* Recent Purchase Suggestions */}
+          {customer?.snapshot?.recentPurchases && customer.snapshot.recentPurchases.length > 0 && (
+            <Card className="p-4 bg-green-50 border-green-200">
+              <h4 className="font-medium text-green-900 mb-2 flex items-center gap-2">
+                <Clock className="w-4 h-4" />
+                Recently Purchased (Last 6 Months)
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {customer.snapshot.recentPurchases.map((purchase, index) => (
+                  <div key={index} className="bg-white p-3 rounded-md border border-green-200">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <div className="text-sm font-medium text-green-900">{purchase.productName}</div>
+                        <div className="text-xs text-green-700">
+                          Last: {new Date(purchase.lastPurchaseDate).toLocaleDateString()}
+                        </div>
+                        <div className="text-xs text-green-600">
+                          Frequency: {purchase.frequency}x in 6 months
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm font-medium text-green-900">
+                          ${purchase.lastPricePerKg}/kg
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
+
+          {/* Cross-sell suggestions */}
+          {selectedProduct && crossSellSuggestions.length > 0 && (
+            <Card className="p-4 bg-blue-50 border-blue-200">
+              <h4 className="font-medium text-blue-900 mb-2">Customers Also Purchase</h4>
+              <div className="flex flex-wrap gap-2">
+                {crossSellSuggestions.map(suggestedProduct => (
+                  <Button
+                    key={suggestedProduct.id}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleProductSelect(suggestedProduct)}
+                    className="h-auto p-2 border-blue-300 text-blue-700 hover:bg-blue-100"
+                  >
+                    <div className="text-left">
+                      <div className="text-xs font-medium">{suggestedProduct.name}</div>
+                      <div className="text-xs text-blue-600">
+                        {suggestedProduct.batches.length} batch{suggestedProduct.batches.length !== 1 ? 'es' : ''}
+                      </div>
+                    </div>
+                  </Button>
+                ))}
+              </div>
+            </Card>
+          )}
+
         </Card>
       )}
 

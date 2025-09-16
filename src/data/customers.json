@@ -34,7 +34,45 @@
       "complianceNeeds": ["USDA Organic Required", "California - Prop 65 Applies"],
       "paymentTerms": "Net 30",
       "lastOrderDate": "2024-01-15",
-      "totalOrdersYTD": "$287,450"
+      "totalOrdersYTD": "$287,450",
+      "lastSalesOrder": {
+        "id": "SO-2024-0015",
+        "createdDate": "2024-01-15",
+        "totalAmount": "$12,450",
+        "deliveryMethod": "Ground Shipping",
+        "specialInstructions": "Handle with care - fragile essential oils",
+        "isSample": false,
+        "items": [
+          {
+            "productName": "Premium Lavender Oil",
+            "batchId": "LAV-FR-001",
+            "quantity": "25 kg",
+            "pricePerKg": 125.50
+          },
+          {
+            "productName": "Organic Rose Otto",
+            "batchId": "ROS-BG-003",
+            "quantity": "5 kg", 
+            "pricePerKg": 1850.00
+          }
+        ]
+      },
+      "recentPurchases": [
+        {
+          "productId": "PROD-001",
+          "productName": "Premium Lavender Oil",
+          "lastPurchaseDate": "2024-01-15",
+          "lastPricePerKg": 125.50,
+          "frequency": 3
+        },
+        {
+          "productId": "PROD-002", 
+          "productName": "Organic Rose Otto",
+          "lastPurchaseDate": "2024-01-15",
+          "lastPricePerKg": 1850.00,
+          "frequency": 2
+        }
+      ]
     }
   },
   {
@@ -72,7 +110,32 @@
       "complianceNeeds": ["FDA Registration Required", "Non-GMO Verification"],
       "paymentTerms": "Net 15",
       "lastOrderDate": "2024-01-22",
-      "totalOrdersYTD": "$156,890"
+      "totalOrdersYTD": "$156,890",
+      "lastSalesOrder": {
+        "id": "SO-2024-0022",
+        "createdDate": "2024-01-22",
+        "totalAmount": "$8,920",
+        "deliveryMethod": "Express Shipping",
+        "specialInstructions": "Temperature controlled transport required",
+        "isSample": true,
+        "items": [
+          {
+            "productName": "Eucalyptus Essential Oil",
+            "batchId": "EUC-AU-002",
+            "quantity": "10 kg",
+            "pricePerKg": 89.20
+          }
+        ]
+      },
+      "recentPurchases": [
+        {
+          "productId": "PROD-003",
+          "productName": "Eucalyptus Essential Oil",
+          "lastPurchaseDate": "2024-01-22",
+          "lastPricePerKg": 89.20,
+          "frequency": 4
+        }
+      ]
     }
   },
   {
@@ -110,7 +173,45 @@
       "complianceNeeds": ["Oregon State License", "Organic Certification"],
       "paymentTerms": "Net 45",
       "lastOrderDate": "2024-01-08",
-      "totalOrdersYTD": "$89,230"
+      "totalOrdersYTD": "$89,230",
+      "lastSalesOrder": {
+        "id": "SO-2024-0008",
+        "createdDate": "2024-01-08",
+        "totalAmount": "$4,850",
+        "deliveryMethod": "Standard Shipping",
+        "specialInstructions": "Leave at warehouse dock - gate code 1234",
+        "isSample": false,
+        "items": [
+          {
+            "productName": "Organic Tea Tree Oil",
+            "batchId": "TEA-AU-005",
+            "quantity": "15 kg",
+            "pricePerKg": 95.50
+          },
+          {
+            "productName": "Peppermint Oil",
+            "batchId": "PEP-US-002",
+            "quantity": "8 kg",
+            "pricePerKg": 78.75
+          }
+        ]
+      },
+      "recentPurchases": [
+        {
+          "productId": "PROD-004",
+          "productName": "Organic Tea Tree Oil", 
+          "lastPurchaseDate": "2024-01-08",
+          "lastPricePerKg": 95.50,
+          "frequency": 2
+        },
+        {
+          "productId": "PROD-005",
+          "productName": "Peppermint Oil",
+          "lastPurchaseDate": "2024-01-08", 
+          "lastPricePerKg": 78.75,
+          "frequency": 3
+        }
+      ]
     }
   },
   {
@@ -148,7 +249,52 @@
       "complianceNeeds": ["FDA Registration", "Florida State Tax Exempt"],
       "paymentTerms": "Net 15",
       "lastOrderDate": "2024-01-20",
-      "totalOrdersYTD": "$425,780"
+      "totalOrdersYTD": "$425,780",
+      "lastSalesOrder": {
+        "id": "SO-2024-0020",
+        "createdDate": "2024-01-20",
+        "totalAmount": "$28,750",
+        "deliveryMethod": "White Glove Delivery",
+        "specialInstructions": "Appointment required - contact 24hrs in advance",
+        "isSample": false,
+        "items": [
+          {
+            "productName": "Premium Frankincense",
+            "batchId": "FRA-OM-001",
+            "quantity": "12 kg",
+            "pricePerKg": 1250.00
+          },
+          {
+            "productName": "Bergamot Oil",
+            "batchId": "BER-IT-004",
+            "quantity": "20 kg",
+            "pricePerKg": 185.50
+          }
+        ]
+      },
+      "recentPurchases": [
+        {
+          "productId": "PROD-006",
+          "productName": "Premium Frankincense",
+          "lastPurchaseDate": "2024-01-20",
+          "lastPricePerKg": 1250.00,
+          "frequency": 1
+        },
+        {
+          "productId": "PROD-007",
+          "productName": "Bergamot Oil",
+          "lastPurchaseDate": "2024-01-20",
+          "lastPricePerKg": 185.50,
+          "frequency": 4
+        },
+        {
+          "productId": "PROD-001",
+          "productName": "Premium Lavender Oil",
+          "lastPurchaseDate": "2023-12-15",
+          "lastPricePerKg": 120.00,
+          "frequency": 5
+        }
+      ]
     }
   }
 ]

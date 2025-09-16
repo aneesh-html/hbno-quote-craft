@@ -52,6 +52,27 @@ export interface Customer {
     paymentTerms: string;
     lastOrderDate: string;
     totalOrdersYTD: string;
+    lastSalesOrder?: {
+      id: string;
+      createdDate: string;
+      totalAmount: string;
+      deliveryMethod: string;
+      specialInstructions?: string;
+      isSample: boolean;
+      items: Array<{
+        productName: string;
+        batchId: string;
+        quantity: string;
+        pricePerKg: number;
+      }>;
+    };
+    recentPurchases?: Array<{
+      productId: string;
+      productName: string;
+      lastPurchaseDate: string;
+      lastPricePerKg: number;
+      frequency: number;
+    }>;
   };
 }
 
