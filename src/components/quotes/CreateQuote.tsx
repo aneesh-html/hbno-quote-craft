@@ -51,6 +51,8 @@ export interface Customer {
     complianceNeeds: string[];
     paymentTerms: string;
     resaleCertificate?: boolean;
+    resalePermitValidated?: boolean;
+    resalePermitExpiry?: string | null;
     lastOrderDate: string;
     totalOrdersYTD: string;
     lastSalesOrder?: {

@@ -34,6 +34,8 @@
       "complianceNeeds": ["USDA Organic Required", "California - Prop 65 Applies"],
       "paymentTerms": "Net 30",
       "resaleCertificate": true,
+      "resalePermitValidated": true,
+      "resalePermitExpiry": "2025-12-31",
       "lastOrderDate": "2024-01-15",
       "totalOrdersYTD": "$287,450",
       "lastSalesOrder": {
@@ -132,6 +134,8 @@
       "complianceNeeds": ["FDA Registration Required", "Non-GMO Verification"],
       "paymentTerms": "Net 15",
       "resaleCertificate": false,
+      "resalePermitValidated": false,
+      "resalePermitExpiry": null,
       "lastOrderDate": "2024-01-22",
       "totalOrdersYTD": "$156,890",
       "lastSalesOrder": {
@@ -210,6 +214,8 @@
       "complianceNeeds": ["Oregon State License", "Organic Certification"],
       "paymentTerms": "Net 45",
       "resaleCertificate": false,
+      "resalePermitValidated": false,
+      "resalePermitExpiry": null,
       "lastOrderDate": "2024-01-08",
       "totalOrdersYTD": "$89,230",
       "lastSalesOrder": {

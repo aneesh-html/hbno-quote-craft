@@ -167,9 +167,29 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
     return subtotal * (appliedDiscount / 100);
   }, [subtotal, appliedDiscount]);
 
-  // Calculate tax (8.5% if no resale certificate)
-  const hasResaleCert = customer?.snapshot?.resaleCertificate || false;
-  const taxRate = hasResaleCert ? 0 : 0.085; // 8.5% tax if no resale cert
+  // Auto-calculate tax based on NetSuite resale permit validation
+  const resalePermitData = customer?.snapshot?.resaleCertificate || false;
+  const resalePermitValidated = customer?.snapshot?.resalePermitValidated || false;
+  const resalePermitExpiry = customer?.snapshot?.resalePermitExpiry;
+  
+  // Check if resale permit is valid and not expired
+  const hasValidResaleCert = resalePermitData && resalePermitValidated && 
+    (!resalePermitExpiry || new Date(resalePermitExpiry) > new Date());
+  
+  // Get tax rate based on customer state (auto-fed from NetSuite)
+  const getStateTaxRate = (state: string) => {
+    const stateTaxRates: { [key: string]: number } = {
+      'CA': 0.085,  // California 8.5%
+      'TX': 0.0625, // Texas 6.25%
+      'NY': 0.08,   // New York 8%
+      'FL': 0.06,   // Florida 6%
+      'WA': 0.065,  // Washington 6.5%
+      // Add more states as needed
+    };
+    return stateTaxRates[state] || 0.085; // Default to 8.5% if state not found
+  };
+  
+  const taxRate = hasValidResaleCert ? 0 : getStateTaxRate(customer?.shipTo?.state || 'CA');
   const taxAmount = (subtotal - discountAmount) * taxRate;
 
   // Calculate final totals
@@ -388,11 +408,16 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
                   <span className="font-medium text-red-600">-${discountAmount.toFixed(2)}</span>
                 </div>
 
-                {!hasResaleCert && (
+                {!hasValidResaleCert && (
                   <div className="flex justify-between">
                     <div className="flex items-center gap-2">
-                      <span>Tax (8.5%)</span>
-                      <Badge variant="outline" className="text-xs">No Resale Cert</Badge>
+                      <span>Tax ({(taxRate * 100).toFixed(1)}%)</span>
+                      <Badge variant="outline" className="text-xs">
+                        {resalePermitData ? 
+                          (resalePermitValidated ? "Expired Permit" : "Unvalidated Permit") : 
+                          "No Resale Cert"
+                        }
+                      </Badge>
                     </div>
                     <span className="font-medium">${taxAmount.toFixed(2)}</span>
                   </div>
