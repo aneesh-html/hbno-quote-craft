@@ -28,6 +28,7 @@ interface BatchCardProps {
 
 export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
   const [quantity, setQuantity] = useState(1);
+  const [packSize, setPackSize] = useState("1kg");
   const [adjustedPrice, setAdjustedPrice] = useState<number>(batch.pricePerKg);
   const { formatPrice } = useCurrency();
   
@@ -40,9 +41,14 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
     const maxInventory = batch.isFuture ? batch.availableForPreOrder! : batch.inventory;
     if (quantity > 0 && quantity <= maxInventory) {
       // Create a modified batch with adjusted price
-      const modifiedBatch = { ...batch, pricePerKg: adjustedPrice };
+      const modifiedBatch = { 
+        ...batch, 
+        pricePerKg: adjustedPrice,
+        packSize: packSize 
+      };
       onAddBatch(product, modifiedBatch, quantity);
       setQuantity(1);
+      setPackSize("1kg");
     }
   };
 
@@ -191,8 +197,24 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
           </div>
         )}
 
-        {/* Quantity Selection */}
+        {/* Pack Size and Quantity Selection */}
         <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <label className="text-sm font-medium">Pack Size:</label>
+            <select
+              value={packSize}
+              onChange={(e) => setPackSize(e.target.value)}
+              className="h-10 px-3 py-2 border border-input bg-background rounded-md text-sm ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            >
+              <option value="1oz">1oz</option>
+              <option value="4oz">4oz</option>
+              <option value="1/2kg">1/2kg</option>
+              <option value="1kg">1kg</option>
+              <option value="4kg">4kg</option>
+              <option value="25kg">25kg</option>
+              <option value="180kg">180kg</option>
+            </select>
+          </div>
           <div className="flex items-center gap-2">
             <label className="text-sm font-medium">Qty:</label>
             <Input
@@ -203,7 +225,7 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
               onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
               className="w-20 text-center"
             />
-            <span className="text-sm text-muted-foreground">{batch.unit}</span>
+            <span className="text-sm text-muted-foreground">packs</span>
           </div>
           
           <div className="flex-1 text-right">

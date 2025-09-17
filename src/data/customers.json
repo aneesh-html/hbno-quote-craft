@@ -33,6 +33,7 @@
       "priceTier": "Gold Level Pricing",
       "complianceNeeds": ["USDA Organic Required", "California - Prop 65 Applies"],
       "paymentTerms": "Net 30",
+      "resaleCertificate": true,
       "lastOrderDate": "2024-01-15",
       "totalOrdersYTD": "$287,450",
       "lastSalesOrder": {
@@ -130,6 +131,7 @@
       "priceTier": "Silver Level Pricing",
       "complianceNeeds": ["FDA Registration Required", "Non-GMO Verification"],
       "paymentTerms": "Net 15",
+      "resaleCertificate": false,
       "lastOrderDate": "2024-01-22",
       "totalOrdersYTD": "$156,890",
       "lastSalesOrder": {
@@ -207,6 +209,7 @@
       "priceTier": "Standard Pricing",
       "complianceNeeds": ["Oregon State License", "Organic Certification"],
       "paymentTerms": "Net 45",
+      "resaleCertificate": false,
       "lastOrderDate": "2024-01-08",
       "totalOrdersYTD": "$89,230",
       "lastSalesOrder": {
@@ -283,6 +286,7 @@
       "priceTier": "Platinum Level Pricing",
       "complianceNeeds": ["FDA Registration", "Florida State Tax Exempt"],
       "paymentTerms": "Net 15",
+      "resaleCertificate": true,
       "lastOrderDate": "2024-01-20",
       "totalOrdersYTD": "$425,780",
       "lastSalesOrder": {

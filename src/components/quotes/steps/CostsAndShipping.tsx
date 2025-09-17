@@ -13,7 +13,8 @@ import {
   AlertTriangle, 
   CheckCircle, 
   Package,
-  MapPin
+  MapPin,
+  Trash2
 } from "lucide-react";
 import { Customer } from "../CreateQuote";
 import { LineItem } from "./ProductSelection";
@@ -23,6 +24,7 @@ interface CostsAndShippingProps {
   customer: Customer | null;
   onShippingSelect?: (shipping: { name: string; cost: number; days: string } | null) => void;
   selectedShipping?: { name: string; cost: number; days: string } | null;
+  onRemoveLineItem?: (itemId: string) => void;
 }
 
 interface ShippingOption {
@@ -36,7 +38,7 @@ interface ShippingOption {
 // Mock landed costs - in real app, this would come from NetSuite
 const LANDED_COST_MULTIPLIER = 0.65; // Assumes landed cost is ~65% of selling price
 
-export function CostsAndShipping({ lineItems, customer, onShippingSelect, selectedShipping }: CostsAndShippingProps) {
+export function CostsAndShipping({ lineItems, customer, onShippingSelect, selectedShipping, onRemoveLineItem }: CostsAndShippingProps) {
   const [internalSelectedShipping, setInternalSelectedShipping] = useState<string | null>(null);
   const [customShippingCost, setCustomShippingCost] = useState<string>("");
   const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
@@ -136,8 +138,14 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
     return subtotal * (appliedDiscount / 100);
   }, [subtotal, appliedDiscount]);
 
+  // Calculate tax (8.5% if no resale certificate)
+  const hasResaleCert = customer?.snapshot?.resaleCertificate || false;
+  const taxRate = hasResaleCert ? 0 : 0.085; // 8.5% tax if no resale cert
+  const taxAmount = (subtotal - discountAmount) * taxRate;
+
   // Calculate final totals
   const finalSubtotal = subtotal - discountAmount;
+  const customerTotal = finalSubtotal + taxAmount + shippingCost;
   const grossProfit = finalSubtotal - totalLandedCost - shippingCost;
   const grossMargin = finalSubtotal > 0 ? (grossProfit / finalSubtotal) * 100 : 0;
 
@@ -183,17 +191,29 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
               const itemLandedCost = item.totalPrice * LANDED_COST_MULTIPLIER;
               return (
                 <div key={item.id} className="flex justify-between items-center py-2 border-b border-border/50">
-                  <div>
+                  <div className="flex-1">
                     <div className="font-medium">{item.productName}</div>
                     <div className="text-sm text-muted-foreground">
                       Batch: {item.batchId} • {item.quantity} {item.unit} @ ${item.pricePerUnit.toFixed(2)}/{item.unit}
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="font-medium">${item.totalPrice.toFixed(2)}</div>
-                    <div className="text-xs text-muted-foreground">
-                      Cost: ${itemLandedCost.toFixed(2)}
+                  <div className="text-right flex items-center gap-3">
+                    <div>
+                      <div className="font-medium">${item.totalPrice.toFixed(2)}</div>
+                      <div className="text-xs text-muted-foreground">
+                        Cost: ${itemLandedCost.toFixed(2)}
+                      </div>
                     </div>
+                    {onRemoveLineItem && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => onRemoveLineItem(item.id)}
+                        className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    )}
                   </div>
                 </div>
               );
@@ -332,16 +352,26 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
                   <span className="font-medium text-red-600">-${discountAmount.toFixed(2)}</span>
                 </div>
 
+                {!hasResaleCert && (
+                  <div className="flex justify-between">
+                    <div className="flex items-center gap-2">
+                      <span>Tax (8.5%)</span>
+                      <Badge variant="outline" className="text-xs">No Resale Cert</Badge>
+                    </div>
+                    <span className="font-medium">${taxAmount.toFixed(2)}</span>
+                  </div>
+                )}
+
                 <div className="flex justify-between">
                   <span>Shipping Cost</span>
-                  <span className="font-medium text-red-600">-${shippingCost.toFixed(2)}</span>
+                  <span className="font-medium">${shippingCost.toFixed(2)}</span>
                 </div>
 
                 <Separator />
 
                 <div className="flex justify-between">
                   <span>Customer Total</span>
-                  <span className="font-semibold text-lg">${(finalSubtotal + shippingCost).toFixed(2)}</span>
+                  <span className="font-semibold text-lg">${customerTotal.toFixed(2)}</span>
                 </div>
 
                 <div className="flex justify-between text-sm text-muted-foreground">

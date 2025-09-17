@@ -50,6 +50,7 @@ export interface Customer {
     priceTier: string;
     complianceNeeds: string[];
     paymentTerms: string;
+    resaleCertificate?: boolean;
     lastOrderDate: string;
     totalOrdersYTD: string;
     lastSalesOrder?: {
@@ -109,6 +110,10 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
       }
     };
   }, []);
+
+  const handleRemoveLineItem = (itemId: string) => {
+    setLineItems(prev => prev.filter(item => item.id !== itemId));
+  };
 
   const handleNext = () => {
     if (currentStep < 4) {
@@ -186,6 +191,7 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
             customer={selectedCustomer}
             onShippingSelect={setSelectedShipping}
             selectedShipping={selectedShipping}
+            onRemoveLineItem={handleRemoveLineItem}
           />
         );
       case 4:
