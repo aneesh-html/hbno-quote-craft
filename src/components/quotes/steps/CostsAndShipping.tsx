@@ -65,14 +65,22 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
     if (!customer || totalWeight === 0) return [];
 
     const baseShippingCost = Math.max(150, totalWeight * 8.5);
+    const isOnlineWebsitePricing = customer.snapshot?.priceTier === 'Website';
     
-    return [
+    const options = [
+      {
+        id: "will-call",
+        carrier: "Will Call",
+        service: "Pickup",
+        days: "Same Day",
+        cost: 0
+      },
       {
         id: "ups-ground",
         carrier: "UPS",
         service: "Ground",
         days: "5-7 Days",
-        cost: baseShippingCost
+        cost: isOnlineWebsitePricing ? 0 : baseShippingCost
       },
       {
         id: "fedex-2day",
@@ -89,6 +97,27 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
         cost: baseShippingCost * 3.2
       }
     ];
+
+    // Add freight option for heavy shipments (over 150kg)
+    if (totalWeight > 150) {
+      options.push({
+        id: "xpo-freight",
+        carrier: "XPO Logistics",
+        service: "Freight",
+        days: "7-10 Days",
+        cost: Math.max(300, totalWeight * 3.5)
+      });
+      
+      options.push({
+        id: "xpo-freight-liftgate",
+        carrier: "XPO Logistics",
+        service: "Freight + Lift Gate",
+        days: "7-10 Days",
+        cost: Math.max(350, totalWeight * 3.5 + 75)
+      });
+    }
+    
+    return options;
   }, [customer, totalWeight]);
 
   // Calculate shipping cost
@@ -261,11 +290,18 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
                           : "border-muted-foreground"
                       }`} />
                       <div>
-                        <div className="font-medium">{option.carrier} {option.service}</div>
+                        <div className="font-medium flex items-center gap-2">
+                          {option.carrier} {option.service}
+                          {option.cost === 0 && option.id !== "will-call" && (
+                            <Badge variant="secondary" className="text-xs">FREE</Badge>
+                          )}
+                        </div>
                         <div className="text-sm text-muted-foreground">{option.days}</div>
                       </div>
                     </div>
-                    <div className="text-lg font-semibold">${option.cost.toFixed(2)}</div>
+                    <div className="text-lg font-semibold">
+                      {option.cost === 0 ? "FREE" : `$${option.cost.toFixed(2)}`}
+                    </div>
                   </div>
                 </div>
               ))}
