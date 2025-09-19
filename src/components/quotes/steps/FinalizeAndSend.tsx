@@ -17,6 +17,7 @@ import { LineItem } from "./ProductSelection";
 import { QuotePreviewDialog } from "../QuotePreviewDialog";
 import { QuoteLinkGenerator } from "../QuoteLinkGenerator";
 import { PaymentOptions } from "../PaymentOptions";
+import { DealPacketEmailDialog } from "../DealPacketEmailDialog";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { useState } from "react";
 
@@ -32,6 +33,7 @@ interface FinalizeAndSendProps {
 
 export function FinalizeAndSend({ customer, lineItems, selectedShipping }: FinalizeAndSendProps) {
   const [showPreview, setShowPreview] = useState(false);
+  const [showEmailDialog, setShowEmailDialog] = useState(false);
   const { formatPrice } = useCurrency();
   
   if (!customer || lineItems.length === 0) {
@@ -193,7 +195,7 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
       </Card>
 
       {/* Payment Options */}
-      <PaymentOptions />
+      <PaymentOptions customer={customer} />
 
       {/* Margin Warning */}
       {needsApproval && (
@@ -216,7 +218,7 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
           <Button 
             size="lg" 
             className="px-8"
-            onClick={() => setShowPreview(true)}
+            onClick={() => setShowEmailDialog(true)}
           >
             <Send className="w-5 h-5 mr-2" />
             Generate Deal Packet
@@ -246,6 +248,15 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
       <QuotePreviewDialog
         open={showPreview}
         onOpenChange={setShowPreview}
+        customer={customer}
+        lineItems={lineItems}
+        selectedShipping={selectedShipping}
+      />
+
+      {/* Deal Packet Email Dialog */}
+      <DealPacketEmailDialog
+        open={showEmailDialog}
+        onOpenChange={setShowEmailDialog}
         customer={customer}
         lineItems={lineItems}
         selectedShipping={selectedShipping}

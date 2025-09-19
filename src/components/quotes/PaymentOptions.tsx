@@ -12,9 +12,10 @@ import { useState } from "react";
 
 interface PaymentOptionsProps {
   className?: string;
+  customer?: any;
 }
 
-export function PaymentOptions({ className }: PaymentOptionsProps) {
+export function PaymentOptions({ className, customer }: PaymentOptionsProps) {
   const [selectedPayment, setSelectedPayment] = useState<string>("card");
 
   const paymentMethods = [
@@ -45,8 +46,20 @@ export function PaymentOptions({ className }: PaymentOptionsProps) {
       processingTime: "3-5 business days",
       fees: "No fees",
       available: true
+    },
+    {
+      id: "net",
+      name: `Net ${customer?.snapshot?.paymentTerms || "30"}`,
+      icon: Clock,
+      description: "Standard business terms",
+      processingTime: customer?.snapshot?.paymentTerms || "Net 30",
+      fees: "No fees",
+      available: true
     }
   ];
+
+  // Get last payment method used by customer
+  const lastPaymentMethod = customer?.snapshot?.lastPaymentMethod || "card";
 
   return (
     <Card className={`p-6 ${className}`}>
@@ -55,6 +68,11 @@ export function PaymentOptions({ className }: PaymentOptionsProps) {
         <p className="text-sm text-muted-foreground">
           Choose how you'd like to receive payment for this quote
         </p>
+        {customer && (
+          <div className="mt-2 p-2 bg-blue-50 rounded text-xs text-blue-700">
+            💡 Last payment method used: {paymentMethods.find(m => m.id === lastPaymentMethod)?.name || "Credit/Debit Card"}
+          </div>
+        )}
       </div>
 
       <div className="space-y-3">

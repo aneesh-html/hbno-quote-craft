@@ -36,6 +36,7 @@
       "resaleCertificate": true,
       "resalePermitValidated": true,
       "resalePermitExpiry": "2025-12-31",
+      "lastPaymentMethod": "wise",
       "lastOrderDate": "2024-01-15",
       "totalOrdersYTD": "$287,450",
       "lastSalesOrder": {
@@ -136,6 +137,7 @@
       "resaleCertificate": false,
       "resalePermitValidated": false,
       "resalePermitExpiry": null,
+      "lastPaymentMethod": "card",
       "lastOrderDate": "2024-01-22",
       "totalOrdersYTD": "$156,890",
       "lastSalesOrder": {
@@ -216,6 +218,7 @@
       "resaleCertificate": false,
       "resalePermitValidated": false,
       "resalePermitExpiry": null,
+      "lastPaymentMethod": "bank",
       "lastOrderDate": "2024-01-08",
       "totalOrdersYTD": "$89,230",
       "lastSalesOrder": {
