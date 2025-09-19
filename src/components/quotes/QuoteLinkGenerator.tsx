@@ -22,17 +22,31 @@ interface QuoteLinkGeneratorProps {
 
 export function QuoteLinkGenerator({ customer, lineItems, selectedShipping }: QuoteLinkGeneratorProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [expiryDays, setExpiryDays] = useState<number>(30);
+  const [expiryDays, setExpiryDays] = useState<number>(5);
   const [generatedLink, setGeneratedLink] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState(false);
+
+  const calculateBusinessDays = (days: number) => {
+    const result = new Date();
+    let addedDays = 0;
+    
+    while (addedDays < days) {
+      result.setDate(result.getDate() + 1);
+      // Skip weekends (Saturday = 6, Sunday = 0)
+      if (result.getDay() !== 0 && result.getDay() !== 6) {
+        addedDays++;
+      }
+    }
+    
+    return result;
+  };
 
   const generateUniqueLink = async () => {
     setIsGenerating(true);
     
     // Simulate API call to generate unique quote link
     const quoteId = `Q-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
-    const expiryDate = new Date();
-    expiryDate.setDate(expiryDate.getDate() + expiryDays);
+    const expiryDate = calculateBusinessDays(expiryDays);
     
     // In a real app, this would save the quote data to a database and return the link
     const link = `${window.location.origin}/quote/${quoteId}`;
@@ -103,6 +117,10 @@ export function QuoteLinkGenerator({ customer, lineItems, selectedShipping }: Qu
                   <span className="font-medium">Total Value:</span>
                   <span className="font-semibold">${calculateTotal().toLocaleString()}</span>
                 </div>
+                <div className="flex justify-between">
+                  <span className="font-medium">Terms:</span>
+                  <span className="text-xs">EXW Chico, CA</span>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -112,19 +130,22 @@ export function QuoteLinkGenerator({ customer, lineItems, selectedShipping }: Qu
             <div className="space-y-2">
               <Label htmlFor="expiry-days" className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
-                Link Expiry (Days)
+                Link Expiry (Business Days)
               </Label>
               <Input
                 id="expiry-days"
                 type="number"
                 min="1"
-                max="365"
+                max="30"
                 value={expiryDays}
-                onChange={(e) => setExpiryDays(parseInt(e.target.value) || 30)}
-                placeholder="30"
+                onChange={(e) => setExpiryDays(parseInt(e.target.value) || 5)}
+                placeholder="5"
               />
               <p className="text-xs text-muted-foreground">
-                Link will expire on {new Date(Date.now() + expiryDays * 24 * 60 * 60 * 1000).toLocaleDateString()}
+                Link will expire on {calculateBusinessDays(expiryDays).toLocaleDateString()} (5 business days default)
+              </p>
+              <p className="text-xs text-muted-foreground font-medium">
+                Quotes are priced EXW Chico CA and valid for {expiryDays} business days
               </p>
             </div>
 
@@ -171,6 +192,9 @@ export function QuoteLinkGenerator({ customer, lineItems, selectedShipping }: Qu
 
                 <p className="text-xs text-muted-foreground text-center">
                   Recipients can view the quote and download a PDF copy. No account required.
+                </p>
+                <p className="text-xs text-muted-foreground text-center font-medium">
+                  Quote expires: {calculateBusinessDays(expiryDays).toLocaleDateString()} • EXW Chico, CA
                 </p>
               </div>
             )}
