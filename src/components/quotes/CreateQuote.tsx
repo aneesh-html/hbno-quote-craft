@@ -20,7 +20,16 @@ export interface Customer {
   id: string;
   name: string;
   email: string;
+  emails?: Array<{
+    email: string;
+    type: string;
+    isPrimary: boolean;
+  }>;
   phone: string;
+  salesContact?: string;
+  website?: string;
+  businessDescription?: string;
+  industryType?: string;
   billTo: {
     company: string;
     address: string;
@@ -28,6 +37,7 @@ export interface Customer {
     state: string;
     zipCode: string;
     country: string;
+    requiresApproval?: boolean;
   };
   shipTo: {
     company: string;
@@ -41,12 +51,27 @@ export interface Customer {
       lng: number;
     };
   };
+  shipToAddresses?: Array<{
+    id: string;
+    company: string;
+    address: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+    coordinates: {
+      lat: number;
+      lng: number;
+    };
+    isDefault: boolean;
+  }>;
   snapshot: {
     creditStatus: {
       status: string;
       label: string;
-      color: string;
+      color?: string;
     };
+    pendingCredits?: string;
     priceTier: string;
     complianceNeeds: string[];
     paymentTerms: string;
@@ -55,6 +80,13 @@ export interface Customer {
     resalePermitExpiry?: string | null;
     lastOrderDate: string;
     totalOrdersYTD: string;
+    marketingOptOut?: boolean;
+    marketingNote?: string | null;
+    lastPurchasedProduct?: {
+      name: string;
+      pricePerKg: number;
+    };
+    customerRequirements?: string;
     lastSalesOrder?: {
       id: string;
       createdDate: string;
@@ -64,17 +96,21 @@ export interface Customer {
       isSample: boolean;
       items: Array<{
         productName: string;
-        batchId: string;
+        batchId?: string;
         quantity: string;
         pricePerKg: number;
       }>;
     };
     recentPurchases?: Array<{
-      productId: string;
-      productName: string;
-      lastPurchaseDate: string;
-      lastPricePerKg: number;
-      frequency: number;
+      productId?: string;
+      productName?: string;
+      product?: string;
+      lastPurchaseDate?: string;
+      date?: string;
+      lastPricePerKg?: number;
+      frequency?: number;
+      quantity?: string;
+      value?: string;
     }>;
   };
 }

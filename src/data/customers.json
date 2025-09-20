@@ -1,17 +1,188 @@
 [
   {
+    "id": "1",
+    "name": "Acme Manufacturing Corp",
+    "emails": [
+      {
+        "email": "purchasing@acme-manufacturing.com",
+        "type": "Primary",
+        "isPrimary": true
+      },
+      {
+        "email": "accounting@acme-manufacturing.com",
+        "type": "Billing",
+        "isPrimary": false
+      },
+      {
+        "email": "receiving@acme-manufacturing.com",
+        "type": "Shipping",
+        "isPrimary": false
+      }
+    ],
+    "email": "purchasing@acme-manufacturing.com",
+    "phone": "+1 (555) 123-4567",
+    "salesContact": "Sarah Johnson",
+    "website": "https://acme-manufacturing.com",
+    "businessDescription": "Leading manufacturer of nutritional supplements and health products serving the North American market.",
+    "industryType": "Nutritional Supplements Manufacturing",
+    "billTo": {
+      "company": "Acme Manufacturing Corp",
+      "address": "123 Industrial Blvd",
+      "city": "San Francisco",
+      "state": "CA",
+      "zipCode": "94105",
+      "country": "USA",
+      "requiresApproval": true
+    },
+    "shipToAddresses": [
+      {
+        "id": "ship1",
+        "company": "Acme Manufacturing Corp - Plant 2",
+        "address": "456 Factory Ave",
+        "city": "Oakland",
+        "state": "CA",
+        "zipCode": "94607",
+        "country": "USA",
+        "coordinates": {
+          "lat": 37.8044,
+          "lng": -122.2711
+        },
+        "isDefault": true
+      },
+      {
+        "id": "ship2",
+        "company": "Acme Manufacturing Corp - Warehouse",
+        "address": "789 Storage Way",
+        "city": "Fremont",
+        "state": "CA",
+        "zipCode": "94538",
+        "country": "USA",
+        "coordinates": {
+          "lat": 37.5485,
+          "lng": -121.9886
+        },
+        "isDefault": false
+      }
+    ],
+    "shipTo": {
+      "company": "Acme Manufacturing Corp - Plant 2",
+      "address": "456 Factory Ave",
+      "city": "Oakland",
+      "state": "CA",
+      "zipCode": "94607",
+      "country": "USA",
+      "coordinates": {
+        "lat": 37.8044,
+        "lng": -122.2711
+      }
+    },
+    "snapshot": {
+      "creditStatus": {
+        "status": "excellent",
+        "label": "Excellent Credit"
+      },
+      "pendingCredits": "$2,450.00",
+      "priceTier": "Tier 1 - Premium",
+      "complianceNeeds": ["FDA Registered", "ISO 9001", "Halal Certified"],
+      "paymentTerms": "Net 30",
+      "resaleCertificate": true,
+      "lastOrderDate": "2024-01-15",
+      "totalOrdersYTD": "$284,500",
+      "marketingOptOut": true,
+      "marketingNote": "Do not send promotions; remove from marketing emails.",
+      "lastPurchasedProduct": {
+        "name": "Whey Protein Isolate 90%",
+        "pricePerKg": 18.50
+      },
+      "customerRequirements": "Special COA must contain FPSKU and Specifications. All shipments require 48-hour advance notice.",
+      "lastSalesOrder": {
+        "id": "SO-2024-0156",
+        "createdDate": "2024-01-15",
+        "totalAmount": "$12,450",
+        "deliveryMethod": "LTL Freight",
+        "isSample": false,
+        "specialInstructions": "Please coordinate delivery with receiving department between 8AM-4PM",
+        "items": [
+          {
+            "productName": "Whey Protein Isolate 90%",
+            "quantity": "500 kg",
+            "pricePerKg": 18.50
+          },
+          {
+            "productName": "Casein Protein",
+            "quantity": "200 kg", 
+            "pricePerKg": 22.75
+          }
+        ]
+      },
+      "recentPurchases": [
+        {
+          "date": "2024-01-15",
+          "product": "Whey Protein Isolate 90%",
+          "quantity": "500 kg",
+          "value": "$9,250"
+        },
+        {
+          "date": "2023-12-10",
+          "product": "Casein Protein",
+          "quantity": "300 kg",
+          "value": "$6,825"
+        },
+        {
+          "date": "2023-11-22",
+          "product": "Collagen Peptides",
+          "quantity": "250 kg",
+          "value": "$7,500"
+        }
+      ]
+    }
+  },
+  {
     "id": "CUST-001",
     "name": "Zenith Cosmetics",
+    "emails": [
+      {
+        "email": "orders@zenithcosmetics.com",
+        "type": "Primary",
+        "isPrimary": true
+      },
+      {
+        "email": "accounting@zenithcosmetics.com",
+        "type": "Billing",
+        "isPrimary": false
+      }
+    ],
     "email": "orders@zenithcosmetics.com",
     "phone": "+1 (555) 123-4567",
+    "salesContact": "Mike Rodriguez",
+    "website": "https://zenithcosmetics.com",
+    "businessDescription": "Premium cosmetics manufacturer specializing in natural and organic beauty products.",
+    "industryType": "Cosmetics & Personal Care",
     "billTo": {
       "company": "Zenith Cosmetics LLC",
       "address": "1425 Broadway Suite 2000",
       "city": "New York",
       "state": "NY",
       "zipCode": "10018",
-      "country": "United States"
+      "country": "United States",
+      "requiresApproval": true
     },
+    "shipToAddresses": [
+      {
+        "id": "ship1",
+        "company": "Zenith Cosmetics Distribution Center",
+        "address": "3400 Industrial Blvd",
+        "city": "Long Island City",
+        "state": "NY",
+        "zipCode": "11101",
+        "country": "United States",
+        "coordinates": {
+          "lat": 40.7589,
+          "lng": -73.9441
+        },
+        "isDefault": true
+      }
+    ],
     "shipTo": {
       "company": "Zenith Cosmetics Distribution Center",
       "address": "3400 Industrial Blvd",
@@ -30,6 +201,7 @@
         "label": "Good Standing",
         "color": "green"
       },
+      "pendingCredits": "$1,250.00",
       "priceTier": "Gold Level Pricing",
       "complianceNeeds": ["USDA Organic Required", "California - Prop 65 Applies"],
       "paymentTerms": "Net 30",
@@ -39,6 +211,13 @@
       "lastPaymentMethod": "wise",
       "lastOrderDate": "2024-01-15",
       "totalOrdersYTD": "$287,450",
+      "marketingOptOut": false,
+      "marketingNote": null,
+      "lastPurchasedProduct": {
+        "name": "Premium Lavender Oil",
+        "pricePerKg": 125.50
+      },
+      "customerRequirements": "All essential oils must be GC/MS tested. COA required with each shipment.",
       "lastSalesOrder": {
         "id": "SO-2024-0015",
         "createdDate": "2024-01-15",
