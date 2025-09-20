@@ -186,10 +186,39 @@ export function CustomerSelection({ onCustomerSelect, selectedCustomer }: Custom
 
         {/* Customer Names Helper */}
         {!selectedCustomer && (
-          <div className="bg-muted/30 rounded-md p-3">
-            <p className="text-xs text-muted-foreground mb-1">Available test customers:</p>
-            <p className="text-xs font-medium text-foreground">
-              Zenith Cosmetics • Natural Wellness Co • Aromatherapy Plus • Essential Brands Ltd
+          <div className="bg-blue-50 border border-blue-200 rounded-md p-4">
+            <p className="text-sm font-semibold text-blue-800 mb-2">📋 Available Test Customers:</p>
+            
+            <div className="space-y-2 text-xs">
+              <div className="bg-white/50 rounded px-2 py-1">
+                <span className="font-medium text-blue-900">Acme Manufacturing Corp</span>
+                <span className="text-blue-600 ml-2">• Multiple emails • Sales contact • Industry info • Pending credits • Marketing opt-out</span>
+              </div>
+              
+              <div className="bg-white/50 rounded px-2 py-1">
+                <span className="font-medium text-blue-900">Zenith Cosmetics</span>
+                <span className="text-blue-600 ml-2">• Enhanced features • Multiple ship-to addresses • Customer requirements</span>
+              </div>
+              
+              <div className="bg-white/50 rounded px-2 py-1">
+                <span className="font-medium text-blue-900">Natural Wellness Co</span>
+                <span className="text-blue-600 ml-2">• Standard features • Sample orders</span>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-1 mt-2">
+                <div className="bg-white/50 rounded px-2 py-1">
+                  <span className="font-medium text-blue-900">Aromatherapy Plus</span>
+                  <span className="text-blue-600 block text-xs">• Credit review status</span>
+                </div>
+                <div className="bg-white/50 rounded px-2 py-1">
+                  <span className="font-medium text-blue-900">Essential Brands Ltd</span>
+                  <span className="text-blue-600 block text-xs">• Excellent credit</span>
+                </div>
+              </div>
+            </div>
+            
+            <p className="text-xs text-blue-600 mt-2 italic">
+              💡 Try "Acme Manufacturing Corp" to see all new customer detail features!
             </p>
           </div>
         )}
