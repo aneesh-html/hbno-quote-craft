@@ -1,0 +1,66 @@
+{
+  "departments": [
+    {
+      "id": "bulk",
+      "name": "Bulk Essential Oils",
+      "code": "BULK",
+      "description": "Wholesale essential oils for manufacturing and industrial use",
+      "manager": "Sarah Williams",
+      "staff": ["John Smith", "Mary Johnson", "David Brown"],
+      "permissions": ["quotes", "customers", "products", "reports"],
+      "customerCount": 156,
+      "avgOrderValue": 15420,
+      "monthlyRevenue": 425000
+    },
+    {
+      "id": "private-label",
+      "name": "Private Label",
+      "code": "PL",
+      "description": "Custom branded essential oil products for retailers",
+      "manager": "Michael Chen",
+      "staff": ["Lisa Anderson", "Robert Taylor", "Jennifer Wilson"],
+      "permissions": ["quotes", "customers", "products", "reports", "branding"],
+      "customerCount": 89,
+      "avgOrderValue": 8750,
+      "monthlyRevenue": 280000
+    },
+    {
+      "id": "retail",
+      "name": "Retail & Direct Sales",
+      "code": "RETAIL",
+      "description": "Direct-to-consumer and small retail operations",
+      "manager": "Emma Thompson",
+      "staff": ["Alex Martinez", "Sophie Davis", "James White"],
+      "permissions": ["quotes", "customers", "products", "inventory"],
+      "customerCount": 342,
+      "avgOrderValue": 125,
+      "monthlyRevenue": 185000
+    }
+  ],
+  "users": [
+    {
+      "id": "john-smith",
+      "name": "John Smith",
+      "email": "john@company.com",
+      "role": "cs_staff",
+      "department": "bulk",
+      "permissions": ["quotes", "customers", "products"]
+    },
+    {
+      "id": "josef-ceo",
+      "name": "Josef (CEO)", 
+      "email": "josef@company.com",
+      "role": "ceo",
+      "department": null,
+      "permissions": ["all_departments", "quotes", "customers", "products", "reports", "settings", "analytics"]
+    },
+    {
+      "id": "sarah-williams",
+      "name": "Sarah Williams",
+      "email": "sarah@company.com", 
+      "role": "department_manager",
+      "department": "bulk",
+      "permissions": ["quotes", "customers", "products", "reports", "team_management"]
+    }
+  ]
+}

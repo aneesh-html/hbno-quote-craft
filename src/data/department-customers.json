@@ -1,0 +1,128 @@
+{
+  "bulk": [
+    {
+      "id": "bulk-001",
+      "name": "Industrial Chemicals Corp",
+      "contact": "Robert Manufacturing",
+      "email": "procurement@indchem.com",
+      "phone": "+1 (555) 101-2000",
+      "creditStatus": "excellent",
+      "department": "bulk",
+      "industry": "Chemical Manufacturing",
+      "website": "www.industrialchem.com",
+      "description": "Large-scale industrial chemical manufacturer specializing in specialty chemicals for automotive and aerospace industries",
+      "lastOrder": {
+        "product": "Eucalyptus Oil (Bulk)",
+        "pricePerKg": 145,
+        "date": "2024-01-15"
+      },
+      "requirements": "COA must include heavy metals testing and microbial analysis",
+      "pendingCredits": 2500,
+      "marketingOptOut": true
+    },
+    {
+      "id": "bulk-002", 
+      "name": "Manufacturing Solutions Ltd",
+      "contact": "Sarah Operations",
+      "email": "sarah@mansolutions.com",
+      "phone": "+1 (555) 102-3000",
+      "creditStatus": "good",
+      "department": "bulk",
+      "industry": "Manufacturing Services",
+      "website": "www.manufacturingsolutions.com",
+      "description": "Contract manufacturing services for consumer goods and industrial products",
+      "lastOrder": {
+        "product": "Lavender Oil (Industrial Grade)",
+        "pricePerKg": 89,
+        "date": "2024-01-10"
+      },
+      "requirements": "Require batch traceability documentation",
+      "pendingCredits": 0,
+      "marketingOptOut": false
+    }
+  ],
+  "private-label": [
+    {
+      "id": "pl-001",
+      "name": "Beauty Brands Inc",
+      "contact": "Michelle Beauty",
+      "email": "sourcing@beautybrands.com", 
+      "phone": "+1 (555) 201-4000",
+      "creditStatus": "excellent",
+      "department": "private-label",
+      "industry": "Cosmetics & Beauty",
+      "website": "www.beautybrands.com",
+      "description": "Premium cosmetics brand focused on natural and organic beauty products",
+      "lastOrder": {
+        "product": "Custom Rose Oil Blend",
+        "pricePerKg": 320,
+        "date": "2024-01-12"
+      },
+      "requirements": "Custom labeling with FPSKU, organic certification required",
+      "pendingCredits": 1200,
+      "marketingOptOut": false
+    },
+    {
+      "id": "pl-002",
+      "name": "Luxury Spa Collection",
+      "contact": "Amanda Luxury",
+      "email": "procurement@luxuryspa.com",
+      "phone": "+1 (555) 202-5000", 
+      "creditStatus": "good",
+      "department": "private-label",
+      "industry": "Spa & Wellness",
+      "website": "www.luxuryspacollection.com",
+      "description": "High-end spa product manufacturer for luxury hotels and wellness centers",
+      "lastOrder": {
+        "product": "Aromatherapy Blend (Private Label)",
+        "pricePerKg": 275,
+        "date": "2024-01-08"
+      },
+      "requirements": "Premium packaging, custom scent profiles",
+      "pendingCredits": 500,
+      "marketingOptOut": true
+    }
+  ],
+  "retail": [
+    {
+      "id": "retail-001",
+      "name": "Wellness Store",
+      "contact": "David Wellness", 
+      "email": "orders@wellnessstore.com",
+      "phone": "+1 (555) 301-6000",
+      "creditStatus": "good",
+      "department": "retail",
+      "industry": "Health & Wellness Retail",
+      "website": "www.wellnessstore.com", 
+      "description": "Health-focused retail chain with 45 locations across the midwest",
+      "lastOrder": {
+        "product": "Essential Oil Starter Kit",
+        "pricePerKg": 45,
+        "date": "2024-01-14"
+      },
+      "requirements": "Child-resistant packaging, retail-ready displays",
+      "pendingCredits": 150,
+      "marketingOptOut": false
+    },
+    {
+      "id": "retail-002",
+      "name": "Organic Living Co",
+      "contact": "Jennifer Organic",
+      "email": "jen@organicliving.com",
+      "phone": "+1 (555) 302-7000",
+      "creditStatus": "review",
+      "department": "retail", 
+      "industry": "Organic Retail",
+      "website": "www.organicliving.com",
+      "description": "Online retailer specializing in organic lifestyle products and natural health solutions",
+      "lastOrder": {
+        "product": "Tea Tree Oil (15ml)",
+        "pricePerKg": 65,
+        "date": "2024-01-05"
+      },
+      "requirements": "Organic certification, small batch sizes",
+      "pendingCredits": 0,
+      "marketingOptOut": false
+    }
+  ]
+}

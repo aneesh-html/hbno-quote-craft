@@ -1,0 +1,138 @@
+{
+  "bulk": [
+    {
+      "id": "bulk-eucalyptus-ind",
+      "name": "Eucalyptus Oil (Industrial Grade)",
+      "category": "Bulk Essential Oils",
+      "price": 145,
+      "unit": "kg",
+      "description": "High-volume industrial grade eucalyptus oil for manufacturing applications",
+      "specifications": "Min 70% eucalyptol content, suitable for industrial use",
+      "department": "bulk",
+      "minimumOrder": 100,
+      "leadTime": "2-3 weeks",
+      "applications": ["Industrial cleaning", "Manufacturing processes", "Chemical synthesis"]
+    },
+    {
+      "id": "bulk-lavender-ind", 
+      "name": "Lavender Oil (Industrial Grade)",
+      "category": "Bulk Essential Oils",
+      "price": 89,
+      "unit": "kg", 
+      "description": "Cost-effective lavender oil for industrial and manufacturing use",
+      "specifications": "Standard grade, 40% linalool minimum",
+      "department": "bulk",
+      "minimumOrder": 50,
+      "leadTime": "1-2 weeks", 
+      "applications": ["Soap manufacturing", "Detergent production", "Industrial fragrance"]
+    },
+    {
+      "id": "bulk-tea-tree-ind",
+      "name": "Tea Tree Oil (Bulk Industrial)",
+      "category": "Bulk Essential Oils",
+      "price": 195,
+      "unit": "kg",
+      "description": "High-volume tea tree oil for industrial antimicrobial applications", 
+      "specifications": "Min 35% terpinen-4-ol, industrial antimicrobial grade",
+      "department": "bulk",
+      "minimumOrder": 25,
+      "leadTime": "3-4 weeks",
+      "applications": ["Industrial sanitizers", "Antimicrobial products", "Cleaning solutions"]
+    }
+  ],
+  "private-label": [
+    {
+      "id": "pl-rose-blend",
+      "name": "Custom Rose Oil Blend",
+      "category": "Private Label Blends",
+      "price": 320,
+      "unit": "kg",
+      "description": "Premium rose oil blend with custom formulation for luxury brands",
+      "specifications": "Organic certified, custom scent profile, white label ready",
+      "department": "private-label",
+      "minimumOrder": 10,
+      "leadTime": "4-6 weeks",
+      "applications": ["Luxury cosmetics", "High-end skincare", "Premium aromatherapy"]
+    },
+    {
+      "id": "pl-aromatherapy-blend",
+      "name": "Aromatherapy Blend (Private Label)",
+      "category": "Private Label Blends", 
+      "price": 275,
+      "unit": "kg",
+      "description": "Custom aromatherapy blends with private labeling and custom packaging",
+      "specifications": "Therapeutic grade, custom ratios, branded packaging available",
+      "department": "private-label",
+      "minimumOrder": 5,
+      "leadTime": "3-5 weeks",
+      "applications": ["Spa treatments", "Wellness centers", "Therapeutic products"]
+    },
+    {
+      "id": "pl-skincare-base",
+      "name": "Skincare Base Oil (Custom)",
+      "category": "Private Label Base Oils",
+      "price": 180,
+      "unit": "kg", 
+      "description": "Custom formulated base oils for skincare product lines",
+      "specifications": "Cosmetic grade, custom carrier oil blends, stability tested",
+      "department": "private-label",
+      "minimumOrder": 20,
+      "leadTime": "2-4 weeks",
+      "applications": ["Anti-aging serums", "Moisturizers", "Skincare formulations"]
+    }
+  ],
+  "retail": [
+    {
+      "id": "retail-starter-kit",
+      "name": "Essential Oil Starter Kit",
+      "category": "Retail Kits",
+      "price": 45,
+      "unit": "kit",
+      "description": "Beginner-friendly essential oil kit with popular scents in retail packaging",
+      "specifications": "6x 10ml bottles, retail display ready, safety guide included",
+      "department": "retail", 
+      "minimumOrder": 12,
+      "leadTime": "1 week",
+      "applications": ["Consumer retail", "Gift sets", "Starter collections"]
+    },
+    {
+      "id": "retail-tea-tree-15ml",
+      "name": "Tea Tree Oil (15ml Retail)",
+      "category": "Retail Singles",
+      "price": 65,
+      "unit": "per bottle",
+      "description": "Premium tea tree oil in consumer-ready 15ml bottles",
+      "specifications": "Therapeutic grade, child-resistant cap, retail labeling",
+      "department": "retail",
+      "minimumOrder": 24,
+      "leadTime": "1 week", 
+      "applications": ["Consumer skincare", "Natural remedies", "Aromatherapy"]
+    },
+    {
+      "id": "retail-lavender-30ml",
+      "name": "Lavender Oil (30ml Premium)",
+      "category": "Retail Singles", 
+      "price": 25,
+      "unit": "per bottle",
+      "description": "High-quality lavender oil in premium 30ml glass bottles",
+      "specifications": "French lavender, dark glass bottle, detailed usage guide",
+      "department": "retail",
+      "minimumOrder": 18,
+      "leadTime": "1 week",
+      "applications": ["Sleep aids", "Relaxation", "Natural wellness"]
+    },
+    {
+      "id": "retail-diffuser-blend",
+      "name": "Signature Diffuser Blends",
+      "category": "Retail Blends",
+      "price": 35,
+      "unit": "per bottle",
+      "description": "Ready-to-use diffuser blends in attractive retail packaging", 
+      "specifications": "10ml bottles, 4 signature scents, usage instructions",
+      "department": "retail",
+      "minimumOrder": 20,
+      "leadTime": "1 week",
+      "applications": ["Home fragrance", "Aromatherapy", "Mood enhancement"]
+    }
+  ]
+}

@@ -11,6 +11,8 @@ import { CostsAndShipping } from "./steps/CostsAndShipping";
 import { FinalizeAndSend } from "./steps/FinalizeAndSend";
 import { SatisfactionSurvey } from "@/components/analytics/SatisfactionSurvey";
 import { useAnalytics } from "@/contexts/AnalyticsContext";
+import { DepartmentAwareNotice } from "./DepartmentAwareNotice";
+import { useDepartment } from "@/contexts/DepartmentContext";
 
 interface CreateQuoteProps {
   onBack?: () => void;
@@ -133,6 +135,7 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
   } | null>(null);
   const [showSatisfactionSurvey, setShowSatisfactionSurvey] = useState(false);
   const [quoteTrackingId, setQuoteTrackingId] = useState<string | null>(null);
+  const { currentDepartment } = useDepartment();
   
   const { startQuoteTracking, completeQuoteTracking, abandonQuoteTracking } = useAnalytics();
 
@@ -247,6 +250,9 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
 
   return (
     <div className="space-y-6">
+      {/* Department Notice */}
+      <DepartmentAwareNotice />
+      
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
