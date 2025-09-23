@@ -42,6 +42,8 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
   const [internalSelectedShipping, setInternalSelectedShipping] = useState<string | null>(null);
   const [customShippingCost, setCustomShippingCost] = useState<string>("");
   const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
+  const [shippingMarkup, setShippingMarkup] = useState<number>(15); // Default 15% markup
+  const [netSuitePricing, setNetSuitePricing] = useState<boolean>(false);
 
   // Calculate total weight for shipping
   const totalWeight = useMemo(() => {
@@ -65,6 +67,8 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
     if (!customer || totalWeight === 0) return [];
 
     const baseShippingCost = Math.max(150, totalWeight * 8.5);
+    const shippingMarkupMultiplier = 1 + (shippingMarkup / 100);
+    const adjustedShippingCost = baseShippingCost * shippingMarkupMultiplier;
     const isOnlineWebsitePricing = customer.snapshot?.priceTier === 'Website';
     
     const options = [
@@ -80,21 +84,21 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
         carrier: "UPS",
         service: "Ground",
         days: "5-7 Days",
-        cost: isOnlineWebsitePricing ? 0 : baseShippingCost
+        cost: isOnlineWebsitePricing ? 0 : adjustedShippingCost
       },
       {
         id: "fedex-2day",
         carrier: "FedEx",
         service: "2-Day Air",
         days: "2 Days",
-        cost: baseShippingCost * 1.8
+        cost: adjustedShippingCost * 1.8
       },
       {
         id: "fedex-overnight",
         carrier: "FedEx",
         service: "Overnight",
         days: "1 Day",
-        cost: baseShippingCost * 3.2
+        cost: adjustedShippingCost * 3.2
       }
     ];
 
@@ -105,7 +109,7 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
         carrier: "XPO Logistics",
         service: "Freight",
         days: "7-10 Days",
-        cost: Math.max(300, totalWeight * 3.5)
+        cost: Math.max(300, totalWeight * 3.5) * shippingMarkupMultiplier
       });
       
       options.push({
@@ -113,12 +117,22 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
         carrier: "XPO Logistics",
         service: "Freight + Lift Gate",
         days: "7-10 Days",
-        cost: Math.max(350, totalWeight * 3.5 + 75)
+        cost: Math.max(350, totalWeight * 3.5 + 75) * shippingMarkupMultiplier
       });
     }
     
     return options;
-  }, [customer, totalWeight]);
+  }, [customer, totalWeight, shippingMarkup]);
+
+  // Mock NetSuite pricing integration
+  const fetchNetSuitePricing = async () => {
+    setNetSuitePricing(true);
+    // Mock API call delay
+    setTimeout(() => {
+      setNetSuitePricing(false);
+      alert("Pricing updated from NetSuite! In a real implementation, this would pull live pricing data from NetSuite.");
+    }, 2000);
+  };
 
   // Calculate shipping cost
   const shippingCost = useMemo(() => {
@@ -387,8 +401,19 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
               <h4 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">Cost Breakdown</h4>
               
               <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span>Subtotal</span>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <span>Subtotal</span>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={fetchNetSuitePricing}
+                      disabled={netSuitePricing}
+                      className="h-6 px-2 text-xs"
+                    >
+                      {netSuitePricing ? "Updating..." : "Update from NetSuite"}
+                    </Button>
+                  </div>
                   <span className="font-medium">${subtotal.toFixed(2)}</span>
                 </div>
                 
@@ -423,8 +448,21 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
                   </div>
                 )}
 
-                <div className="flex justify-between">
-                  <span>Shipping Cost</span>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <span>Shipping Cost</span>
+                    <div className="flex items-center gap-1">
+                      <Input
+                        type="number"
+                        min="0"
+                        max="50"
+                        value={shippingMarkup}
+                        onChange={(e) => setShippingMarkup(parseFloat(e.target.value) || 0)}
+                        className="w-12 h-6 text-xs text-center"
+                      />
+                      <span className="text-xs">% markup</span>
+                    </div>
+                  </div>
                   <span className="font-medium">${shippingCost.toFixed(2)}</span>
                 </div>
 

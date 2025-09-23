@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Star, MapPin, Package, Beaker, Calendar, Shield, Clock, ExternalLink } from "lucide-react";
+import { Star, MapPin, Package, Beaker, Calendar, Shield, Clock, ExternalLink, AlertCircle, Timer } from "lucide-react";
 import type { Product, Batch } from "./ProductSelection";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { ManualPriceAdjustment } from "../ManualPriceAdjustment";
@@ -54,7 +54,28 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
 
   const currentInventory = batch.isFuture ? batch.availableForPreOrder! : batch.inventory;
   const isLowStock = currentInventory < 50 && !batch.isFuture;
+  const isOutOfStock = currentInventory === 0;
   const estimatedTotal = quantity * adjustedPrice;
+  
+  // Calculate lead time in days
+  const getLeadTime = () => {
+    if (batch.isFuture && batch.expectedDelivery) {
+      const deliveryDate = new Date(batch.expectedDelivery);
+      const today = new Date();
+      const diffTime = deliveryDate.getTime() - today.getTime();
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays > 0 ? diffDays : 0;
+    }
+    // Standard lead time for in-stock items
+    return currentInventory > 0 ? 2 : 0;
+  };
+  
+  const leadTimeDays = getLeadTime();
+  
+  const handle24HourInquiry = () => {
+    // This would integrate with planning system
+    alert(`24-hour inquiry submitted for ${product.name} - Batch ${batch.id}. Planner will respond within 24 hours with availability and pricing.`);
+  };
 
   return (
     <Card className={`transition-all ${batch.isRecommended ? 'ring-2 ring-primary/20 bg-primary/5' : ''} ${batch.isFuture ? 'border-orange-200 bg-orange-50/30' : ''}`}>
@@ -152,6 +173,12 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
                 {batch.isFuture ? `Will harvest ${new Date(batch.harvestDate).toLocaleDateString()}` : `Harvested ${new Date(batch.harvestDate).toLocaleDateString()}`}
               </span>
             </div>
+            <div className="flex items-center gap-2 text-sm">
+              <Timer className="w-4 h-4 text-muted-foreground" />
+              <span className="font-medium">
+                Lead Time: {leadTimeDays} days
+              </span>
+            </div>
           </div>
         </div>
 
@@ -233,14 +260,25 @@ export function BatchCard({ product, batch, onAddBatch }: BatchCardProps) {
             <div className="font-semibold">{formatPrice(estimatedTotal)}</div>
           </div>
           
-          <Button 
-            onClick={handleAdd}
-            disabled={quantity > currentInventory || quantity < 1}
-            className="ml-2"
-            variant={batch.isFuture ? "outline" : "default"}
-          >
-            {batch.isFuture ? "Add Pre-order" : "Add to Quote"}
-          </Button>
+          {isOutOfStock ? (
+            <Button 
+              onClick={handle24HourInquiry}
+              className="ml-2"
+              variant="outline"
+            >
+              <AlertCircle className="w-4 h-4 mr-2" />
+              24hr Inquiry
+            </Button>
+          ) : (
+            <Button 
+              onClick={handleAdd}
+              disabled={quantity > currentInventory || quantity < 1}
+              className="ml-2"
+              variant={batch.isFuture ? "outline" : "default"}
+            >
+              {batch.isFuture ? "Add Pre-order" : "Add to Quote"}
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>

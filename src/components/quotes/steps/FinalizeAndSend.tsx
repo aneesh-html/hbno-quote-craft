@@ -20,6 +20,8 @@ import { PaymentOptions } from "../PaymentOptions";
 import { DealPacketEmailDialog } from "../DealPacketEmailDialog";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface FinalizeAndSendProps {
   customer: Customer | null;
@@ -34,7 +36,21 @@ interface FinalizeAndSendProps {
 export function FinalizeAndSend({ customer, lineItems, selectedShipping }: FinalizeAndSendProps) {
   const [showPreview, setShowPreview] = useState(false);
   const [showEmailDialog, setShowEmailDialog] = useState(false);
+  const [quoteExpirationDays, setQuoteExpirationDays] = useState(5);
+  const [needsManagerApproval, setNeedsManagerApproval] = useState(false);
   const { formatPrice } = useCurrency();
+  
+  // Calculate quote expiration date
+  const getExpirationDate = () => {
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + quoteExpirationDays);
+    return expirationDate.toLocaleDateString();
+  };
+  
+  const handleExtendExpiration = () => {
+    setNeedsManagerApproval(true);
+    alert("Extension request sent to manager for approval. You will be notified once approved.");
+  };
   
   if (!customer || lineItems.length === 0) {
     return (
@@ -190,6 +206,59 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
                 {uniqueCompliance.length > 0 ? uniqueCompliance.join(", ") : "Standard compliance"}
               </div>
             </div>
+          </div>
+        </div>
+      </Card>
+
+      {/* Quote Settings */}
+      <Card className="p-6">
+        <h4 className="font-medium mb-4 flex items-center gap-2">
+          <Clock className="w-5 h-5" />
+          Quote Settings
+        </h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-3">
+            <div>
+              <Label htmlFor="expiration-days">Quote Expiration (Days)</Label>
+              <div className="flex items-center gap-2 mt-1">
+                <Input
+                  id="expiration-days"
+                  type="number"
+                  min="1"
+                  max="30"
+                  value={quoteExpirationDays}
+                  onChange={(e) => setQuoteExpirationDays(parseInt(e.target.value) || 5)}
+                  className="w-20"
+                />
+                <span className="text-sm text-muted-foreground">
+                  Expires: {getExpirationDate()}
+                </span>
+              </div>
+            </div>
+            {quoteExpirationDays > 5 && (
+              <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                <div className="flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 text-amber-600" />
+                  <span className="text-sm text-amber-800">Manager approval required for extension beyond 5 days</span>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="space-y-3">
+            <Button
+              variant="outline"
+              onClick={handleExtendExpiration}
+              disabled={needsManagerApproval}
+              className="flex items-center gap-2"
+            >
+              <Clock className="w-4 h-4" />
+              {needsManagerApproval ? "Approval Requested" : "Request Extension"}
+            </Button>
+            {needsManagerApproval && (
+              <Badge variant="outline" className="text-amber-600 border-amber-200">
+                Pending Manager Approval
+              </Badge>
+            )}
           </div>
         </div>
       </Card>
