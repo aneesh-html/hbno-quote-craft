@@ -1,0 +1,156 @@
+{
+  "quotes": [
+    {
+      "id": "Q-2024-0045",
+      "customerId": "cust-001",
+      "customerName": "Acme Manufacturing Corp",
+      "customerEmail": "purchasing@acme-mfg.com",
+      "status": "open",
+      "createdDate": "2024-01-15",
+      "expirationDate": "2024-01-25",
+      "totalValue": 12450.00,
+      "currency": "USD",
+      "department": "bulk",
+      "salesRep": "John Smith",
+      "lineItems": [
+        {
+          "productName": "Lavender Essential Oil",
+          "batchId": "LAV-001",
+          "quantity": 25,
+          "unit": "kg",
+          "pricePerUnit": 485.00
+        }
+      ],
+      "lastFollowUp": "2024-01-20",
+      "followUpCount": 1,
+      "notes": "Customer interested but waiting for budget approval"
+    },
+    {
+      "id": "Q-2024-0046",
+      "customerId": "cust-002", 
+      "customerName": "Zenith Cosmetics",
+      "customerEmail": "orders@zenithcosmetics.com",
+      "status": "expired",
+      "createdDate": "2024-01-10",
+      "expirationDate": "2024-01-15",
+      "totalValue": 8750.00,
+      "currency": "USD",
+      "department": "private-label",
+      "salesRep": "Sarah Johnson",
+      "lineItems": [
+        {
+          "productName": "Rose Hip Oil",
+          "batchId": "RH-002",
+          "quantity": 15,
+          "unit": "kg",
+          "pricePerUnit": 583.33
+        }
+      ],
+      "lastFollowUp": null,
+      "followUpCount": 0,
+      "notes": "Expired quote - needs review before follow-up"
+    },
+    {
+      "id": "Q-2024-0047",
+      "customerId": "cust-003",
+      "customerName": "Natural Wellness Co",
+      "customerEmail": "procurement@naturalwellness.com",
+      "status": "open",
+      "createdDate": "2024-01-18",
+      "expirationDate": "2024-01-28",
+      "totalValue": 15600.00,
+      "currency": "USD",
+      "department": "bulk",
+      "salesRep": "John Smith",
+      "lineItems": [
+        {
+          "productName": "Eucalyptus Essential Oil",
+          "batchId": "EUC-003",
+          "quantity": 40,
+          "unit": "kg",
+          "pricePerUnit": 390.00
+        }
+      ],
+      "lastFollowUp": null,
+      "followUpCount": 0,
+      "notes": "New quote - ready for follow-up"
+    },
+    {
+      "id": "Q-2024-0048",
+      "customerId": "cust-004",
+      "customerName": "Aromatherapy Plus",
+      "customerEmail": "buying@aromatherapyplus.com",
+      "status": "expired",
+      "createdDate": "2024-01-05",
+      "expirationDate": "2024-01-10",
+      "totalValue": 6230.00,
+      "currency": "USD",
+      "department": "retail",
+      "salesRep": "Mike Wilson",
+      "lineItems": [
+        {
+          "productName": "Peppermint Essential Oil",
+          "batchId": "PEP-001",
+          "quantity": 20,
+          "unit": "kg",
+          "pricePerUnit": 311.50
+        }
+      ],
+      "lastFollowUp": "2024-01-08",
+      "followUpCount": 2,
+      "notes": "Multiple follow-ups sent - customer not responding"
+    },
+    {
+      "id": "Q-2024-0049",
+      "customerId": "cust-005",
+      "customerName": "Organic Beauty Labs",
+      "customerEmail": "sourcing@organicbeautylabs.com",
+      "status": "open",
+      "createdDate": "2024-01-20",
+      "expirationDate": "2024-01-30",
+      "totalValue": 22100.00,
+      "currency": "USD",
+      "department": "private-label",
+      "salesRep": "Sarah Johnson",
+      "lineItems": [
+        {
+          "productName": "Argan Oil",
+          "batchId": "ARG-004",
+          "quantity": 50,
+          "unit": "kg",
+          "pricePerUnit": 442.00
+        }
+      ],
+      "lastFollowUp": "2024-01-22",
+      "followUpCount": 1,
+      "notes": "Customer requested samples - follow-up needed"
+    },
+    {
+      "id": "Q-2024-0050",
+      "customerId": "cust-006",
+      "customerName": "Spa Essentials Inc",
+      "customerEmail": "orders@spaessentials.com",
+      "status": "converted",
+      "createdDate": "2024-01-12",
+      "expirationDate": "2024-01-22",
+      "totalValue": 9850.00,
+      "currency": "USD",
+      "department": "bulk",
+      "salesRep": "John Smith",
+      "lineItems": [
+        {
+          "productName": "Sweet Orange Essential Oil",
+          "batchId": "SO-002",
+          "quantity": 30,
+          "unit": "kg",
+          "pricePerUnit": 328.33
+        }
+      ],
+      "lastFollowUp": "2024-01-19",
+      "followUpCount": 2,
+      "notes": "Successfully converted to SO-2024-0123",
+      "convertedToSO": "SO-2024-0123",
+      "conversionDate": "2024-01-21"
+    }
+  ]
+}

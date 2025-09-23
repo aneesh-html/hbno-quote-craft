@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { DashboardOverview } from "@/components/dashboard/DashboardOverview";
 import { QuotesPlaceholder } from "@/components/quotes/QuotesPlaceholder";
 import { CreateQuote } from "@/components/quotes/CreateQuote";
+import { Reports } from "./Reports";
 import { Card } from "@/components/ui/card";
 
 const Index = () => {
@@ -34,13 +35,8 @@ const Index = () => {
             <p className="text-muted-foreground">Essential oils product catalog and pricing management coming soon.</p>
           </Card>
         );
-      case "reports":
-        return (
-          <Card className="p-8 text-center">
-            <h3 className="text-xl font-semibold mb-2">Sales Reports</h3>
-            <p className="text-muted-foreground">Analytics and reporting dashboard coming soon.</p>
-          </Card>
-        );
+        case "reports":
+          return <Reports />;
       case "documents":
         return (
           <Card className="p-8 text-center">
