@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox";
 import { 
   FileText, 
   Award, 
@@ -10,7 +11,9 @@ import {
   CheckCircle, 
   AlertTriangle,
   Send,
-  Clock
+  Clock,
+  CreditCard,
+  FileCheck
 } from "lucide-react";
 import { Customer } from "../CreateQuote";
 import { LineItem } from "./ProductSelection";
@@ -38,6 +41,14 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
   const [showEmailDialog, setShowEmailDialog] = useState(false);
   const [quoteExpirationDays, setQuoteExpirationDays] = useState(5);
   const [needsManagerApproval, setNeedsManagerApproval] = useState(false);
+  const [selectedPacketContents, setSelectedPacketContents] = useState({
+    commercialQuote: true,
+    productStoryPages: true,
+    coaReports: true,
+    complianceCertificates: true
+  });
+  const [processingPayment, setProcessingPayment] = useState(false);
+  const [generatingSO, setGeneratingSO] = useState(false);
   const { formatPrice } = useCurrency();
   
   // Calculate quote expiration date
@@ -51,6 +62,37 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
     setNeedsManagerApproval(true);
     alert("Extension request sent to manager for approval. You will be notified once approved.");
   };
+  
+  const handlePacketContentChange = (content: keyof typeof selectedPacketContents, checked: boolean) => {
+    setSelectedPacketContents(prev => ({
+      ...prev,
+      [content]: checked
+    }));
+  };
+  
+  const handlePaymentReceived = async () => {
+    setProcessingPayment(true);
+    // Mock payment processing
+    setTimeout(() => {
+      setProcessingPayment(false);
+      setGeneratingSO(true);
+      setTimeout(() => {
+        setGeneratingSO(false);
+        alert("Payment processed successfully! Sales Order #SO-2024-0156 has been generated and is pending management approval.");
+      }, 2000);
+    }, 3000);
+  };
+  
+  const handleConvertToSalesOrder = async () => {
+    setGeneratingSO(true);
+    // Mock SO generation for terms customers
+    setTimeout(() => {
+      setGeneratingSO(false);
+      alert("Quote converted to Sales Order #SO-2024-0157 successfully! Order is pending management approval.");
+    }, 2000);
+  };
+  
+  const isTermsCustomer = customer?.snapshot?.paymentTerms !== "Prepaid" && customer?.snapshot?.paymentTerms !== "COD";
   
   if (!customer || lineItems.length === 0) {
     return (
@@ -172,9 +214,19 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
         <h4 className="font-medium mb-4 flex items-center gap-2">
           <FileText className="w-5 h-5" />
           Deal Packet Contents
+          <Badge variant="outline" className="text-xs">Customizable</Badge>
         </h4>
+        <p className="text-sm text-muted-foreground mb-4">
+          Select which documents to include in the deal packet
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+          <div className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${
+            selectedPacketContents.commercialQuote ? 'bg-primary/5 border-primary/20' : 'bg-muted/50 border-border'
+          }`}>
+            <Checkbox
+              checked={selectedPacketContents.commercialQuote}
+              onCheckedChange={(checked) => handlePacketContentChange('commercialQuote', checked as boolean)}
+            />
             <CheckCircle className="w-5 h-5 text-green-500" />
             <div>
               <div className="font-medium">Commercial Quote</div>
@@ -182,7 +234,13 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
             </div>
           </div>
           
-          <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+          <div className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${
+            selectedPacketContents.productStoryPages ? 'bg-primary/5 border-primary/20' : 'bg-muted/50 border-border'
+          }`}>
+            <Checkbox
+              checked={selectedPacketContents.productStoryPages}
+              onCheckedChange={(checked) => handlePacketContentChange('productStoryPages', checked as boolean)}
+            />
             <Camera className="w-5 h-5 text-blue-500" />
             <div>
               <div className="font-medium">Product Story Pages</div>
@@ -190,7 +248,13 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
             </div>
           </div>
 
-          <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+          <div className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${
+            selectedPacketContents.coaReports ? 'bg-primary/5 border-primary/20' : 'bg-muted/50 border-border'
+          }`}>
+            <Checkbox
+              checked={selectedPacketContents.coaReports}
+              onCheckedChange={(checked) => handlePacketContentChange('coaReports', checked as boolean)}
+            />
             <FlaskConical className="w-5 h-5 text-purple-500" />
             <div>
               <div className="font-medium">CoA/GC-MS Reports</div>
@@ -198,7 +262,13 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
             </div>
           </div>
 
-          <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+          <div className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${
+            selectedPacketContents.complianceCertificates ? 'bg-primary/5 border-primary/20' : 'bg-muted/50 border-border'
+          }`}>
+            <Checkbox
+              checked={selectedPacketContents.complianceCertificates}
+              onCheckedChange={(checked) => handlePacketContentChange('complianceCertificates', checked as boolean)}
+            />
             <Award className="w-5 h-5 text-amber-500" />
             <div>
               <div className="font-medium">Compliance Certificates</div>
@@ -207,6 +277,11 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
               </div>
             </div>
           </div>
+        </div>
+        <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-sm text-blue-800">
+            <strong>{Object.values(selectedPacketContents).filter(Boolean).length} of 4 documents</strong> selected for inclusion in the deal packet.
+          </p>
         </div>
       </Card>
 
@@ -280,6 +355,68 @@ export function FinalizeAndSend({ customer, lineItems, selectedShipping }: Final
           </div>
         </Card>
       )}
+
+      {/* Payment Processing & Sales Order Generation */}
+      <Card className="p-6">
+        <h4 className="font-medium mb-4 flex items-center gap-2">
+          <CreditCard className="w-5 h-5" />
+          Payment & Order Processing
+        </h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Payment Processing */}
+          <div className="space-y-4">
+            <h5 className="font-medium text-sm">Payment Processing</h5>
+            <div className="space-y-3">
+              <Button
+                size="lg"
+                className="w-full"
+                onClick={handlePaymentReceived}
+                disabled={processingPayment}
+              >
+                {processingPayment ? (
+                  <>Processing Payment...</>
+                ) : (
+                  <>
+                    <CreditCard className="w-5 h-5 mr-2" />
+                    Process Payment & Generate SO
+                  </>
+                )}
+              </Button>
+              <p className="text-xs text-muted-foreground text-center">
+                Once payment is received, a Sales Order will be automatically generated and left under "Pending Approval" for management review.
+              </p>
+            </div>
+          </div>
+
+          {/* Terms Customer Conversion */}
+          {isTermsCustomer && (
+            <div className="space-y-4">
+              <h5 className="font-medium text-sm">Terms Customer</h5>
+              <div className="space-y-3">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full"
+                  onClick={handleConvertToSalesOrder}
+                  disabled={generatingSO}
+                >
+                  {generatingSO ? (
+                    <>Generating Sales Order...</>
+                  ) : (
+                    <>
+                      <FileCheck className="w-5 h-5 mr-2" />
+                      Convert to Sales Order
+                    </>
+                  )}
+                </Button>
+                <p className="text-xs text-muted-foreground text-center">
+                  Convert approved quote to Sales Order for terms customers. Order will be left under "Pending Approval" status.
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </Card>
 
       {/* Action Buttons */}
       <Card className="p-6">

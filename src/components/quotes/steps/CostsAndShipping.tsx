@@ -80,6 +80,13 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
         cost: 0
       },
       {
+        id: "shipping-inclusive",
+        carrier: "Shipping Inclusive",
+        service: "Included in Price",
+        days: "5-7 Days",
+        cost: 0
+      },
+      {
         id: "ups-ground",
         carrier: "UPS",
         service: "Ground",
@@ -326,8 +333,13 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
                       <div>
                         <div className="font-medium flex items-center gap-2">
                           {option.carrier} {option.service}
-                          {option.cost === 0 && option.id !== "will-call" && (
+                          {option.cost === 0 && option.id !== "will-call" && option.id !== "shipping-inclusive" && (
                             <Badge variant="secondary" className="text-xs">FREE</Badge>
+                          )}
+                          {option.id === "shipping-inclusive" && (
+                            <Badge variant="outline" className="text-xs bg-green-50 text-green-700 border-green-200">
+                              INCLUSIVE
+                            </Badge>
                           )}
                         </div>
                         <div className="text-sm text-muted-foreground">{option.days}</div>
