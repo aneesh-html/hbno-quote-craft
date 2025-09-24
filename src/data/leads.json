@@ -1,0 +1,143 @@
+{
+  "leads": [
+    {
+      "id": "LEAD-2024-001",
+      "companyName": "Green Beauty Co",
+      "contactName": "Sarah Johnson",
+      "email": "sarah@greenbeauty.com",
+      "industry": "Cosmetics",
+      "status": "Lead Created",
+      "productCategories": ["Essential Oils", "Carrier Oils"],
+      "specificProducts": ["lavender-oil", "jojoba-oil"],
+      "specifics": "Looking for organic lavender oil for new skincare line launch",
+      "estimatedQuantity": 45,
+      "quantityTier": "25-179kg",
+      "clientValueTier": "Medium",
+      "createdDate": "2024-01-15",
+      "lastActivity": "2024-01-15",
+      "notes": "Initial inquiry via website form"
+    },
+    {
+      "id": "LEAD-2024-002", 
+      "companyName": "Aromatherapy Wellness Ltd",
+      "contactName": "Michael Chen",
+      "email": "m.chen@aromawellness.com",
+      "industry": "Wellness",
+      "status": "In Discussion",
+      "productCategories": ["Essential Oils"],
+      "specificProducts": ["peppermint-oil", "eucalyptus-oil"],
+      "specifics": "Bulk order for spa chain - discussing certification requirements",
+      "estimatedQuantity": 250,
+      "quantityTier": "180kg+",
+      "clientValueTier": "High",
+      "createdDate": "2024-01-10",
+      "lastActivity": "2024-01-20",
+      "notes": "Requested COA and organic certification details"
+    },
+    {
+      "id": "LEAD-2024-003",
+      "companyName": "Industrial Fragrances Inc", 
+      "contactName": "Lisa Rodriguez",
+      "email": "lisa@indufragrances.com",
+      "industry": "Manufacturing",
+      "status": "Lead Created",
+      "productCategories": ["Essential Oils", "Fragrance Oils"],
+      "specificProducts": ["lavender-oil", "rosemary-oil"],
+      "specifics": "Large scale production for commercial cleaning products",
+      "estimatedQuantity": 1200,
+      "quantityTier": "1080kg+",
+      "clientValueTier": "Ultra",
+      "createdDate": "2024-01-18",
+      "lastActivity": "2024-01-18",
+      "notes": "High volume potential customer - priority follow-up"
+    },
+    {
+      "id": "LEAD-2024-004",
+      "companyName": "Boutique Candles Co",
+      "contactName": "Emma Thompson", 
+      "email": "emma@boutiquecandles.com",
+      "industry": "Home & Garden",
+      "status": "In Discussion",
+      "productCategories": ["Essential Oils"],
+      "specificProducts": ["peppermint-oil", "vanilla-oil"],
+      "specifics": "Seasonal candle collection - discussing custom blends",
+      "estimatedQuantity": 15,
+      "quantityTier": "<25kg",
+      "clientValueTier": "Low",
+      "createdDate": "2024-01-12",
+      "lastActivity": "2024-01-19",
+      "notes": "Small order but potential for recurring business"
+    },
+    {
+      "id": "LEAD-2024-005",
+      "companyName": "Natural Pharmaceuticals",
+      "contactName": "Dr. Robert Kim",
+      "email": "r.kim@natpharma.com", 
+      "industry": "Pharmaceuticals",
+      "status": "Lead Created",
+      "productCategories": ["Essential Oils", "Carrier Oils"],
+      "specificProducts": ["tea-tree-oil", "coconut-oil"],
+      "specifics": "Research project on antimicrobial properties",
+      "estimatedQuantity": 85,
+      "quantityTier": "25-179kg",
+      "clientValueTier": "High",
+      "createdDate": "2024-01-20",
+      "lastActivity": "2024-01-20",
+      "notes": "Academic pricing inquiry - potential for publication collaboration"
+    },
+    {
+      "id": "LEAD-2024-006",
+      "companyName": "Organic Food Processors",
+      "contactName": "James Wilson",
+      "email": "j.wilson@organicfood.com",
+      "industry": "Food & Beverage", 
+      "status": "In Discussion",
+      "productCategories": ["Essential Oils"],
+      "specificProducts": ["peppermint-oil", "lemon-oil"],
+      "specifics": "Natural flavoring for organic beverage line",
+      "estimatedQuantity": 320,
+      "quantityTier": "180kg+",
+      "clientValueTier": "Ultra",
+      "createdDate": "2024-01-08",
+      "lastActivity": "2024-01-21",
+      "notes": "Food grade certification discussion ongoing"
+    }
+  ],
+  "productCategories": [
+    "Essential Oils",
+    "Carrier Oils", 
+    "Fragrance Oils",
+    "Natural Extracts",
+    "Organic Compounds"
+  ],
+  "industries": [
+    "Cosmetics",
+    "Wellness", 
+    "Manufacturing",
+    "Home & Garden",
+    "Pharmaceuticals",
+    "Food & Beverage",
+    "Personal Care",
+    "Industrial"
+  ],
+  "quantityTiers": [
+    { "key": "<25kg", "label": "Under 25 kg", "min": 0, "max": 24.99 },
+    { "key": "25-179kg", "label": "25-179 kg (Medium)", "min": 25, "max": 179.99 },
+    { "key": "180kg+", "label": "180+ kg (High Value)", "min": 180, "max": 1079.99 },
+    { "key": "1080kg+", "label": "1080+ kg (Ultra Value)", "min": 1080, "max": 999999 }
+  ],
+  "clientValueTiers": [
+    { "key": "Low", "label": "Low Value", "color": "gray" },
+    { "key": "Medium", "label": "Medium Value", "color": "blue" },
+    { "key": "High", "label": "High Value", "color": "green" },
+    { "key": "Ultra", "label": "Ultra Value", "color": "purple" }
+  ],
+  "statuses": [
+    { "key": "Lead Created", "label": "Lead Created", "color": "blue" },
+    { "key": "In Discussion", "label": "In Discussion", "color": "yellow" },
+    { "key": "Quote Sent", "label": "Quote Sent", "color": "green" },
+    { "key": "Negotiation", "label": "Negotiation", "color": "orange" },
+    { "key": "Won", "label": "Won", "color": "green" },
+    { "key": "Lost", "label": "Lost", "color": "red" }
+  ]
+}

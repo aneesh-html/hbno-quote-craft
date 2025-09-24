@@ -13,9 +13,11 @@ import {
   Sparkles,
   BarChart3,
   FileText,
-  Building2
+  Building2,
+  Users2
 } from "lucide-react";
 import { MagicQuoteChat } from "./MagicQuoteChat";
+import { LeadTracker } from "./LeadTracker";
 import { AnalyticsDashboard } from "@/components/analytics/AnalyticsDashboard";
 import { QuickSatisfactionTrigger } from "@/components/analytics/QuickSatisfactionTrigger";
 import { useAnalytics } from "@/contexts/AnalyticsContext";
@@ -34,6 +36,10 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
 
   if (activeView === "analytics") {
     return <AnalyticsDashboard />;
+  }
+
+  if (activeView === "leads") {
+    return <LeadTracker />;
   }
 
   // Get department-specific data
@@ -131,7 +137,7 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
       {/* Quick Actions */}
       <Card className="p-6">
         <h3 className="text-lg font-semibold text-foreground mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           <Button className="h-20 flex flex-col space-y-2" onClick={onNewQuote}>
             <Calculator className="w-6 h-6" />
             <span>New Quote</span>
@@ -146,6 +152,14 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
           <Button variant="outline" className="h-20 flex flex-col space-y-2">
             <Users className="w-6 h-6" />
             <span>Add Customer</span>
+          </Button>
+          <Button 
+            variant="outline" 
+            className="h-20 flex flex-col space-y-2"
+            onClick={() => setActiveView("leads")}
+          >
+            <Users2 className="w-6 h-6" />
+            <span>Lead Tracker</span>
           </Button>
           <Button 
             variant="outline" 
