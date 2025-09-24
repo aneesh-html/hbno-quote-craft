@@ -2,7 +2,8 @@
   "products": [
     {
       "id": "lavender-oil",
-      "name": "Lavender Oil",
+      "sku": "LV-001",
+      "name": "Lavender Oil (LV-001)",
       "category": "Essential Oils",
       "endUse": ["Cosmetic", "Aromatherapy"],
       "compliance": ["USDA Organic", "FDA cGMP"],
@@ -65,7 +66,8 @@
     },
     {
       "id": "peppermint-oil",
-      "name": "Peppermint Oil",
+      "sku": "PM-002",
+      "name": "Peppermint Oil (PM-002)",
       "category": "Essential Oils",
       "endUse": ["Food/Beverage", "Cosmetic", "Aromatherapy"],
       "compliance": ["FDA cGMP", "FEMA GRAS"],
@@ -122,7 +124,8 @@
     },
     {
       "id": "ylang-ylang-oil",
-      "name": "Ylang Ylang Oil",
+      "sku": "YY-003",
+      "name": "Ylang Ylang Oil (YY-003)",
       "category": "Essential Oils",
       "endUse": ["Cosmetic", "Aromatherapy"],
       "compliance": ["FDA cGMP"],
@@ -144,7 +147,8 @@
     },
     {
       "id": "bergamot-oil",
-      "name": "Bergamot Oil",
+      "sku": "BG-004",
+      "name": "Bergamot Oil (BG-004)",
       "category": "Essential Oils",
       "endUse": ["Food/Beverage", "Cosmetic", "Aromatherapy"],
       "compliance": ["FDA cGMP", "FEMA GRAS"],
@@ -172,7 +176,8 @@
     },
     {
       "id": "tea-tree-oil",
-      "name": "Tea Tree Oil",
+      "sku": "TT-005",
+      "name": "Tea Tree Oil (TT-005)",
       "category": "Essential Oils",
       "endUse": ["Cosmetic", "Personal Care"],
       "compliance": ["FDA cGMP", "TGA Listed"],
@@ -194,7 +199,8 @@
     },
     {
       "id": "eucalyptus-oil",
-      "name": "Eucalyptus Oil",
+      "sku": "EU-006",
+      "name": "Eucalyptus Oil (EU-006)",
       "category": "Essential Oils",
       "endUse": ["Pharmaceutical", "Personal Care"],
       "compliance": ["USP Grade", "FDA cGMP"],
@@ -216,7 +222,8 @@
     },
     {
       "id": "rosemary-extract",
-      "name": "Rosemary Extract",
+      "sku": "RE-007",
+      "name": "Rosemary Extract (RE-007)",
       "category": "Natural Extracts",
       "endUse": ["Food/Beverage", "Nutraceutical"],
       "compliance": ["FEMA GRAS", "EU Novel Food"],
@@ -238,7 +245,8 @@
     },
     {
       "id": "chamomile-oil",
-      "name": "Chamomile Oil",
+      "sku": "CH-008",
+      "name": "Chamomile Oil (CH-008)",
       "category": "Essential Oils",
       "endUse": ["Cosmetic", "Aromatherapy", "Pharmaceutical"],
       "compliance": ["USDA Organic", "EU Organic", "FDA cGMP"],
@@ -266,7 +274,8 @@
     },
     {
       "id": "turmeric-extract",
-      "name": "Turmeric Extract",
+      "sku": "TU-009",
+      "name": "Turmeric Extract (TU-009)",
       "category": "Natural Extracts",
       "endUse": ["Nutraceutical", "Food/Beverage"],
       "compliance": ["USP Grade", "FEMA GRAS"],
@@ -288,7 +297,8 @@
     },
     {
       "id": "lemon-oil",
-      "name": "Lemon Oil",
+      "sku": "LM-010",
+      "name": "Lemon Oil (LM-010)",
       "category": "Essential Oils",
       "endUse": ["Food/Beverage", "Cosmetic", "Industrial"],
       "compliance": ["FEMA GRAS", "FDA cGMP", "Kosher"],
@@ -316,7 +326,8 @@
     },
     {
       "id": "ginseng-extract",
-      "name": "Ginseng Extract",
+      "sku": "GS-011",
+      "name": "Ginseng Extract (GS-011)",
       "category": "Natural Extracts",
       "endUse": ["Nutraceutical", "Pharmaceutical"],
       "compliance": ["USP Grade", "EU Novel Food"],
@@ -344,7 +355,8 @@
     },
     {
       "id": "vanilla-extract",
-      "name": "Vanilla Extract",
+      "sku": "VN-012",
+      "name": "Vanilla Extract (VN-012)",
       "category": "Natural Extracts",
       "endUse": ["Food/Beverage", "Cosmetic"],
       "compliance": ["FEMA GRAS", "USDA Organic"],
@@ -372,7 +384,8 @@
     },
     {
       "id": "orange-oil",
-      "name": "Orange Oil",
+      "sku": "OR-013",
+      "name": "Orange Oil (OR-013)",
       "category": "Essential Oils",
       "endUse": ["Food/Beverage", "Cosmetic", "Industrial"],
       "compliance": ["FEMA GRAS", "Ecocert Organic"],

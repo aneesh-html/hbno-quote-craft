@@ -25,6 +25,7 @@ interface CostsAndShippingProps {
   onShippingSelect?: (shipping: { name: string; cost: number; days: string } | null) => void;
   selectedShipping?: { name: string; cost: number; days: string } | null;
   onRemoveLineItem?: (itemId: string) => void;
+  onUpdateLineItem?: (itemId: string, quantity: number) => void;
 }
 
 interface ShippingOption {
@@ -38,7 +39,8 @@ interface ShippingOption {
 // Mock landed costs - in real app, this would come from NetSuite
 const LANDED_COST_MULTIPLIER = 0.65; // Assumes landed cost is ~65% of selling price
 
-export function CostsAndShipping({ lineItems, customer, onShippingSelect, selectedShipping, onRemoveLineItem }: CostsAndShippingProps) {
+export function CostsAndShipping({ lineItems, customer, onShippingSelect, selectedShipping, onRemoveLineItem, onUpdateLineItem }: CostsAndShippingProps) {
+  const [editingQuantities, setEditingQuantities] = useState<{[key: string]: string}>({});
   const [internalSelectedShipping, setInternalSelectedShipping] = useState<string | null>(null);
   const [customShippingCost, setCustomShippingCost] = useState<string>("");
   const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
@@ -213,6 +215,31 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
   const taxRate = hasValidResaleCert ? 0 : getStateTaxRate(customer?.shipTo?.state || 'CA');
   const taxAmount = (subtotal - discountAmount) * taxRate;
 
+  // Handle quantity editing
+  const handleQuantityEdit = (itemId: string, quantity: string) => {
+    setEditingQuantities(prev => ({ ...prev, [itemId]: quantity }));
+  };
+
+  const handleQuantitySave = (itemId: string) => {
+    const quantity = parseFloat(editingQuantities[itemId]);
+    if (quantity > 0 && onUpdateLineItem) {
+      onUpdateLineItem(itemId, quantity);
+      setEditingQuantities(prev => {
+        const updated = { ...prev };
+        delete updated[itemId];
+        return updated;
+      });
+    }
+  };
+
+  const handleQuantityCancel = (itemId: string) => {
+    setEditingQuantities(prev => {
+      const updated = { ...prev };
+      delete updated[itemId];
+      return updated;
+    });
+  };
+
   // Calculate final totals
   const finalSubtotal = subtotal - discountAmount;
   const customerTotal = finalSubtotal + taxAmount + shippingCost;
@@ -259,12 +286,51 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
           <div className="space-y-3">
             {lineItems.map((item) => {
               const itemLandedCost = item.totalPrice * LANDED_COST_MULTIPLIER;
+              const isEditing = item.id in editingQuantities;
+              
               return (
-                <div key={item.id} className="flex justify-between items-center py-2 border-b border-border/50">
+                <div key={item.id} className="flex justify-between items-center py-3 border-b border-border/50">
                   <div className="flex-1">
                     <div className="font-medium">{item.productName}</div>
                     <div className="text-sm text-muted-foreground">
-                      Batch: {item.batchId} • {item.quantity} {item.unit} @ ${item.pricePerUnit.toFixed(2)}/{item.unit}
+                      Batch: {item.batchId} • 
+                      {isEditing ? (
+                        <span className="inline-flex items-center gap-2 ml-1">
+                          <Input
+                            type="number"
+                            min="0.1"
+                            step="0.1"
+                            value={editingQuantities[item.id]}
+                            onChange={(e) => handleQuantityEdit(item.id, e.target.value)}
+                            className="w-20 h-6 text-xs"
+                            autoFocus
+                          />
+                          {item.unit} @ ${item.pricePerUnit.toFixed(2)}/{item.unit}
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => handleQuantitySave(item.id)}
+                            className="h-6 w-6 p-0 text-green-600 hover:text-green-700"
+                          >
+                            <CheckCircle className="w-3 h-3" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => handleQuantityCancel(item.id)}
+                            className="h-6 w-6 p-0 text-red-600 hover:text-red-700"
+                          >
+                            ✕
+                          </Button>
+                        </span>
+                      ) : (
+                        <span 
+                          className="cursor-pointer hover:text-primary ml-1"
+                          onClick={() => setEditingQuantities(prev => ({ ...prev, [item.id]: item.quantity.toString() }))}
+                        >
+                          {item.quantity} {item.unit} @ ${item.pricePerUnit.toFixed(2)}/{item.unit} ✏️
+                        </span>
+                      )}
                     </div>
                   </div>
                   <div className="text-right flex items-center gap-3">

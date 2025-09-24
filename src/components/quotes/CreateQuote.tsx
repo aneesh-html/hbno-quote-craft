@@ -156,6 +156,14 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
     setLineItems(prev => prev.filter(item => item.id !== itemId));
   };
 
+  const handleUpdateLineItem = (itemId: string, quantity: number) => {
+    setLineItems(prev => prev.map(item => 
+      item.id === itemId 
+        ? { ...item, quantity, totalPrice: quantity * item.pricePerUnit }
+        : item
+    ));
+  };
+
   const handleNext = () => {
     if (currentStep < 4) {
       setCurrentStep(currentStep + 1);
@@ -233,6 +241,7 @@ export function CreateQuote({ onBack }: CreateQuoteProps) {
             onShippingSelect={setSelectedShipping}
             selectedShipping={selectedShipping}
             onRemoveLineItem={handleRemoveLineItem}
+            onUpdateLineItem={handleUpdateLineItem}
           />
         );
       case 4:

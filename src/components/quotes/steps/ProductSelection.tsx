@@ -26,6 +26,7 @@ export interface Batch {
 
 export interface Product {
   id: string;
+  sku: string;
   name: string;
   category: string;
   endUse: string[];
@@ -88,6 +89,7 @@ export function ProductSelection({ onAddLineItem, lineItems, customer }: Product
     
     return guidedFilteredProducts.filter(product =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.sku.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product.category.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [searchTerm, guidedFilteredProducts]);
@@ -372,7 +374,7 @@ export function ProductSelection({ onAddLineItem, lineItems, customer }: Product
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder="Search for essential oils (e.g., Lavender Oil, Peppermint Oil...)"
+              placeholder="Search by SKU or product name (e.g., LV-001, Lavender Oil...)"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10"
