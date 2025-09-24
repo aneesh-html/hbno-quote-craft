@@ -3,9 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Search, Plus, Star, MapPin, Package, Beaker, ArrowRight, ArrowLeft, CheckCircle, Target, Award, Clock } from "lucide-react";
+import { Search, Plus, Star, MapPin, Package, Beaker, ArrowRight, ArrowLeft, CheckCircle, Target, Award, Clock, Upload } from "lucide-react";
 import productsData from "@/data/products.json";
 import { BatchCard } from "./BatchCard";
+import { BulkUpload } from "./BulkUpload";
 
 export interface Batch {
   id: string;
@@ -60,6 +61,7 @@ export function ProductSelection({ onAddLineItem, lineItems, customer }: Product
   // Product selection state
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [showBulkUpload, setShowBulkUpload] = useState(false);
 
   const products = productsData.products as Product[];
 
@@ -155,7 +157,17 @@ export function ProductSelection({ onAddLineItem, lineItems, customer }: Product
     return guidedFilteredProducts.filter(p => suggestions.includes(p.id));
   };
 
+  const handleAddBulkItems = (items: LineItem[]) => {
+    items.forEach(item => onAddLineItem(item));
+    setShowBulkUpload(false);
+  };
+
   const crossSellSuggestions = getCrossSellSuggestions();
+
+  // Show bulk upload interface
+  if (showBulkUpload) {
+    return <BulkUpload onAddBulkItems={handleAddBulkItems} onCancel={() => setShowBulkUpload(false)} />;
+  }
 
   // Render End Use Selection Step
   if (workflowStep === 'end-use') {
@@ -362,12 +374,22 @@ export function ProductSelection({ onAddLineItem, lineItems, customer }: Product
       {/* Add Product Search */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Plus className="w-5 h-5" />
-            Add Products
+          <CardTitle className="flex items-center justify-between">
+            <span className="flex items-center gap-2">
+              <Plus className="w-5 h-5" />
+              Add Products
+            </span>
+            <Button 
+              variant="outline" 
+              onClick={() => setShowBulkUpload(true)}
+              className="flex items-center gap-2"
+            >
+              <Upload className="w-4 h-4" />
+              Bulk Upload CSV
+            </Button>
           </CardTitle>
           <p className="text-sm text-muted-foreground">
-            Search within products that match your selected criteria
+            Search within products that match your selected criteria, or use bulk upload for large orders
           </p>
         </CardHeader>
         <CardContent>
