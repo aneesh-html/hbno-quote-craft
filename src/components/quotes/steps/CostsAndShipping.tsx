@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useContext } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import { Customer } from "../CreateQuote";
 import { LineItem } from "./ProductSelection";
+import { CeoMarginOverride, MarginOverrides } from "../CeoMarginOverride";
+import { useDepartment } from "@/contexts/DepartmentContext";
 
 interface CostsAndShippingProps {
   lineItems: LineItem[];
@@ -40,12 +42,15 @@ interface ShippingOption {
 const LANDED_COST_MULTIPLIER = 0.65; // Assumes landed cost is ~65% of selling price
 
 export function CostsAndShipping({ lineItems, customer, onShippingSelect, selectedShipping, onRemoveLineItem, onUpdateLineItem }: CostsAndShippingProps) {
+  const { currentUser } = useDepartment();
   const [editingQuantities, setEditingQuantities] = useState<{[key: string]: string}>({});
   const [internalSelectedShipping, setInternalSelectedShipping] = useState<string | null>(null);
   const [customShippingCost, setCustomShippingCost] = useState<string>("");
   const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
   const [shippingMarkup, setShippingMarkup] = useState<number>(15); // Default 15% markup
   const [netSuitePricing, setNetSuitePricing] = useState<boolean>(false);
+  const [landedCostMultiplier, setLandedCostMultiplier] = useState<number>(LANDED_COST_MULTIPLIER);
+  const [ceoOverrides, setCeoOverrides] = useState<MarginOverrides>({ enabled: false });
 
   // Calculate total weight for shipping
   const totalWeight = useMemo(() => {
@@ -57,19 +62,26 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
     return lineItems.reduce((sum, item) => sum + item.totalPrice, 0);
   }, [lineItems]);
 
-  // Calculate total landed cost
+  // Calculate total landed cost (using CEO override if active)
   const totalLandedCost = useMemo(() => {
+    const activeLandedCostMultiplier = ceoOverrides.enabled && ceoOverrides.landedCostMultiplier 
+      ? ceoOverrides.landedCostMultiplier 
+      : landedCostMultiplier;
+    
     return lineItems.reduce((sum, item) => {
-      return sum + (item.totalPrice * LANDED_COST_MULTIPLIER);
+      return sum + (item.totalPrice * activeLandedCostMultiplier);
     }, 0);
-  }, [lineItems]);
+  }, [lineItems, landedCostMultiplier, ceoOverrides]);
 
-  // Mock shipping options based on customer location and weight
+  // Mock shipping options based on customer location and weight (with CEO override)
   const shippingOptions: ShippingOption[] = useMemo(() => {
     if (!customer || totalWeight === 0) return [];
 
     const baseShippingCost = Math.max(150, totalWeight * 8.5);
-    const shippingMarkupMultiplier = 1 + (shippingMarkup / 100);
+    const activeShippingMarkup = ceoOverrides.enabled && ceoOverrides.shippingMarkup !== undefined
+      ? ceoOverrides.shippingMarkup 
+      : shippingMarkup;
+    const shippingMarkupMultiplier = 1 + (activeShippingMarkup / 100);
     const adjustedShippingCost = baseShippingCost * shippingMarkupMultiplier;
     const isOnlineWebsitePricing = customer.snapshot?.priceTier === 'Website';
     
@@ -131,7 +143,7 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
     }
     
     return options;
-  }, [customer, totalWeight, shippingMarkup]);
+  }, [customer, totalWeight, shippingMarkup, ceoOverrides]);
 
   // Mock NetSuite pricing integration
   const fetchNetSuitePricing = async () => {
@@ -245,14 +257,49 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
   const customerTotal = finalSubtotal + taxAmount + shippingCost;
   const grossProfit = finalSubtotal - totalLandedCost - shippingCost;
   const grossMargin = finalSubtotal > 0 ? (grossProfit / finalSubtotal) * 100 : 0;
+  
+  // Apply CEO margin override if specified
+  const finalGrossMargin = ceoOverrides.enabled && ceoOverrides.customMargin 
+    ? ceoOverrides.customMargin 
+    : grossMargin;
 
-  // Determine deal health status
+  // Handle CEO override changes
+  const handleCeoOverrideChange = (overrides: MarginOverrides) => {
+    setCeoOverrides(overrides);
+    
+    if (overrides.enabled) {
+      if (overrides.landedCostMultiplier) {
+        setLandedCostMultiplier(overrides.landedCostMultiplier);
+      }
+      if (overrides.shippingMarkup !== undefined) {
+        setShippingMarkup(overrides.shippingMarkup);
+      }
+      
+      // If applying to customer, save to localStorage for demo purposes
+      // In real app, this would save to customer record in database
+      if (overrides.applyToCustomer && customer) {
+        const customerOverrides = {
+          customerId: customer.id,
+          overrides: overrides,
+          timestamp: new Date().toISOString(),
+          appliedBy: currentUser.name
+        };
+        
+        const existingOverrides = JSON.parse(localStorage.getItem('customerOverrides') || '[]');
+        const updatedOverrides = existingOverrides.filter((item: any) => item.customerId !== customer.id);
+        updatedOverrides.push(customerOverrides);
+        localStorage.setItem('customerOverrides', JSON.stringify(updatedOverrides));
+      }
+    }
+  };
+
+  // Determine deal health status (using final margin with overrides)
   const getDealHealthStatus = () => {
-    if (grossMargin >= 35) {
+    if (finalGrossMargin >= 35) {
       return { status: "excellent", color: "text-green-600", icon: CheckCircle, label: "Excellent" };
-    } else if (grossMargin >= 25) {
+    } else if (finalGrossMargin >= 25) {
       return { status: "good", color: "text-blue-600", icon: TrendingUp, label: "Good" };
-    } else if (grossMargin >= 15) {
+    } else if (finalGrossMargin >= 15) {
       return { status: "warning", color: "text-yellow-600", icon: AlertTriangle, label: "Review" };
     } else {
       return { status: "poor", color: "text-red-600", icon: AlertTriangle, label: "Poor" };
@@ -337,7 +384,7 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
                     <div>
                       <div className="font-medium">${item.totalPrice.toFixed(2)}</div>
                       <div className="text-xs text-muted-foreground">
-                        Cost: ${itemLandedCost.toFixed(2)}
+                        Cost: ${(item.totalPrice * (ceoOverrides.enabled && ceoOverrides.landedCostMultiplier ? ceoOverrides.landedCostMultiplier : landedCostMultiplier)).toFixed(2)}
                       </div>
                     </div>
                     {onRemoveLineItem && (
@@ -460,6 +507,17 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
         </Card>
       )}
 
+      {/* CEO Margin Override - Only show for CEO */}
+      {currentUser.role === 'ceo' && (
+        <CeoMarginOverride
+          customer={customer}
+          originalMargin={grossMargin}
+          originalLandedCostMultiplier={LANDED_COST_MULTIPLIER}
+          originalShippingMarkup={15}
+          onOverrideChange={handleCeoOverrideChange}
+        />
+      )}
+
       {/* Deal Health & Profitability */}
       <Card>
         <CardHeader>
@@ -575,7 +633,12 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
                   <div>
                     <div className="text-sm text-muted-foreground">Gross Margin</div>
                     <div className={`text-xl font-bold ${dealHealth.color}`}>
-                      {grossMargin.toFixed(1)}%
+                      {finalGrossMargin.toFixed(1)}%
+                      {ceoOverrides.enabled && (
+                        <Badge variant="outline" className="ml-1 bg-amber-50 text-amber-700 border-amber-200 text-xs">
+                          CEO Override
+                        </Badge>
+                      )}
                     </div>
                   </div>
                   <Badge 
@@ -598,15 +661,29 @@ export function CostsAndShipping({ lineItems, customer, onShippingSelect, select
                 </div>
               </div>
 
-              {grossMargin < 15 && (
+              {finalGrossMargin < 15 && (
                 <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
                   <div className="flex items-center gap-2 text-red-700">
                     <AlertTriangle className="w-4 h-4" />
-                    <span className="text-sm font-medium">Low Margin Warning</span>
+                    <span className="text-sm font-medium">
+                      Low Margin Warning {ceoOverrides.enabled && "(CEO Override Active)"}
+                    </span>
                   </div>
                   <p className="text-xs text-red-600 mt-1">
                     Consider reducing discount or reviewing product pricing
                   </p>
+                </div>
+              )}
+
+              {/* CEO Override Summary */}
+              {ceoOverrides.enabled && ceoOverrides.reason && (
+                <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                  <div className="flex items-center gap-2 text-amber-700">
+                    <DollarSign className="w-4 h-4" />
+                    <span className="text-sm font-medium">
+                      Override Reason: {ceoOverrides.reason}
+                    </span>
+                  </div>
                 </div>
               )}
             </div>
