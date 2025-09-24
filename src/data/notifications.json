@@ -1,0 +1,207 @@
+{
+  "notifications": [
+    {
+      "id": "notif-001",
+      "type": "quote_followup",
+      "priority": "Critical",
+      "title": "Quote Q-2024-0045 - 24 Hour Follow-up Required",
+      "message": "Quote for Acme Manufacturing Corp ($12,450) has not been converted to sale. Automated follow-up required.",
+      "createdAt": "2 hours ago",
+      "relatedData": {
+        "id": "Q-2024-0045",
+        "customerId": "cust-001",
+        "customerName": "Acme Manufacturing Corp",
+        "customerEmail": "purchasing@acme-mfg.com",
+        "totalValue": 12450.00,
+        "currency": "USD",
+        "department": "bulk",
+        "salesRep": "John Smith",
+        "daysOpen": 2,
+        "lastFollowUp": "2024-01-20"
+      }
+    },
+    {
+      "id": "notif-002",
+      "type": "quote_followup",
+      "priority": "High",
+      "title": "Quote Q-2024-0047 - Daily Recurring Follow-up",
+      "message": "Quote for Natural Wellness Co ($15,600) needs follow-up. Customer requested samples - no response yet.",
+      "createdAt": "6 hours ago",
+      "relatedData": {
+        "id": "Q-2024-0047",
+        "customerId": "cust-003",
+        "customerName": "Natural Wellness Co",
+        "customerEmail": "procurement@naturalwellness.com",
+        "totalValue": 15600.00,
+        "currency": "USD",
+        "department": "bulk",
+        "salesRep": "John Smith",
+        "daysOpen": 3,
+        "lastFollowUp": null
+      }
+    },
+    {
+      "id": "notif-003",
+      "type": "quote_followup",
+      "priority": "Critical",
+      "title": "Quote Q-2024-0049 - Urgent Follow-up Required",
+      "message": "Quote for Organic Beauty Labs ($22,100) - 3 days since last follow-up. High value customer needs attention.",
+      "createdAt": "1 day ago",
+      "relatedData": {
+        "id": "Q-2024-0049",
+        "customerId": "cust-005",
+        "customerName": "Organic Beauty Labs",
+        "customerEmail": "sourcing@organicbeautylabs.com",
+        "totalValue": 22100.00,
+        "currency": "USD",
+        "department": "private-label",
+        "salesRep": "Sarah Johnson",
+        "daysOpen": 5,
+        "lastFollowUp": "2024-01-22"
+      }
+    },
+    {
+      "id": "notif-004",
+      "type": "stock_alert",
+      "priority": "Critical",
+      "title": "Lavender Oil (LV-481-US) - Low Stock Alert",
+      "message": "Only 150kg remaining for pending quote Q-2024-0045. Customer may convert - secure inventory quickly!",
+      "createdAt": "3 hours ago",
+      "relatedData": {
+        "productId": "lavender-oil",
+        "batchId": "LV-481-US",
+        "currentStock": 150,
+        "lowStockThreshold": 200,
+        "pendingQuotes": ["Q-2024-0045"],
+        "potentialSales": 12450.00
+      }
+    },
+    {
+      "id": "notif-005",
+      "type": "stock_alert",
+      "priority": "High",
+      "title": "Chamomile Oil (CH-678-EG) - Critical Stock Level",
+      "message": "Only 35kg remaining. Premium+ grade product with high demand - reorder immediately.",
+      "createdAt": "5 hours ago",
+      "relatedData": {
+        "productId": "chamomile-oil",
+        "batchId": "CH-678-EG",
+        "currentStock": 35,
+        "lowStockThreshold": 50,
+        "pendingQuotes": [],
+        "reorderPoint": 25
+      }
+    },
+    {
+      "id": "notif-006",
+      "type": "stock_alert",
+      "priority": "Medium",
+      "title": "Vanilla Extract (VN-123-MG) - Approaching Low Stock",
+      "message": "45kg remaining. Premium+ Madagascar vanilla - consider reordering given long lead times.",
+      "createdAt": "1 day ago",
+      "relatedData": {
+        "productId": "vanilla-extract",
+        "batchId": "VN-123-MG",
+        "currentStock": 45,
+        "lowStockThreshold": 60,
+        "leadTime": "8-12 weeks",
+        "seasonalDemand": true
+      }
+    },
+    {
+      "id": "notif-007",
+      "type": "news",
+      "priority": "High",
+      "title": "PayPal Payment Processing - Service Disruption",
+      "message": "PayPal experiencing intermittent service issues. Recommend alternative payment methods for urgent orders.",
+      "createdAt": "30 minutes ago",
+      "relatedData": {
+        "serviceAffected": "PayPal",
+        "status": "Intermittent Issues",
+        "estimatedResolution": "2-4 hours",
+        "alternatives": ["Bank Transfer", "Wise", "Credit Card Direct"]
+      }
+    },
+    {
+      "id": "notif-008",
+      "type": "news",
+      "priority": "Medium",
+      "title": "Flash Sale Opportunity - Eucalyptus Oil Overstock",
+      "message": "180kg Eucalyptus Oil available for quick sale. Consider upselling to existing customers at 15% discount.",
+      "createdAt": "2 hours ago",
+      "relatedData": {
+        "productId": "eucalyptus-oil",
+        "batchId": "EU-201-AU",
+        "availableStock": 180,
+        "suggestedDiscount": "15%",
+        "expiryDate": "2025-03-01",
+        "targetCustomers": ["bulk", "private-label"]
+      }
+    },
+    {
+      "id": "notif-009",
+      "type": "system",
+      "priority": "Low",
+      "title": "Wise Transfer - Maintenance Schedule",
+      "message": "Wise will undergo maintenance Sunday 2-4 AM EST. Plan international transfers accordingly.",
+      "createdAt": "1 day ago",
+      "relatedData": {
+        "service": "Wise Transfer",
+        "maintenanceStart": "2024-01-28 02:00 EST",
+        "maintenanceEnd": "2024-01-28 04:00 EST",
+        "impact": "International transfers unavailable"
+      }
+    },
+    {
+      "id": "notif-010",
+      "type": "news",
+      "priority": "Medium",
+      "title": "SLOB Report - Q4 2024 Slow Moving Inventory",
+      "message": "Quarterly slow-moving inventory report available. 12 products identified for promotional pricing.",
+      "createdAt": "3 days ago",
+      "relatedData": {
+        "reportType": "SLOB (Slow/Obsolete) Inventory",
+        "period": "Q4 2024",
+        "itemsIdentified": 12,
+        "totalValue": 45000,
+        "recommendedAction": "Promotional pricing 20-30% off"
+      }
+    },
+    {
+      "id": "notif-011",
+      "type": "quote_followup",
+      "priority": "Medium",
+      "title": "Quote Q-2024-0046 - Expired Quote Recovery",
+      "message": "Expired quote for Zenith Cosmetics ($8,750). Consider reaching out with updated pricing or special offer.",
+      "createdAt": "4 hours ago",
+      "relatedData": {
+        "id": "Q-2024-0046",
+        "customerId": "cust-002",
+        "customerName": "Zenith Cosmetics",
+        "customerEmail": "orders@zenithcosmetics.com",
+        "totalValue": 8750.00,
+        "currency": "USD",
+        "department": "private-label",
+        "salesRep": "Sarah Johnson",
+        "expiredDays": 10,
+        "suggestedAction": "Recovery campaign with 10% discount"
+      }
+    },
+    {
+      "id": "notif-012",
+      "type": "stock_alert",
+      "priority": "Low",
+      "title": "Ginseng Extract (GS-567-CN) - Stock Level Normal",
+      "message": "Stock level returned to normal after recent reorder. 65kg available, no immediate action needed.",
+      "createdAt": "6 hours ago",
+      "relatedData": {
+        "productId": "ginseng-extract",
+        "batchId": "GS-567-CN",
+        "currentStock": 65,
+        "previousStock": 25,
+        "reorderDate": "2024-01-23",
+        "status": "Normal"
+      }
+    }
+  ]
+}

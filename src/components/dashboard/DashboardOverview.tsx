@@ -14,10 +14,14 @@ import {
   BarChart3,
   FileText,
   Building2,
-  Users2
+  Users2,
+  Bell,
+  CheckCircle2
 } from "lucide-react";
 import { MagicQuoteChat } from "./MagicQuoteChat";
 import { LeadTracker } from "./LeadTracker";
+import { NotificationCenter } from "./NotificationCenter";
+import { TaskManager } from "./TaskManager";
 import { AnalyticsDashboard } from "@/components/analytics/AnalyticsDashboard";
 import { QuickSatisfactionTrigger } from "@/components/analytics/QuickSatisfactionTrigger";
 import { useAnalytics } from "@/contexts/AnalyticsContext";
@@ -40,6 +44,14 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
 
   if (activeView === "leads") {
     return <LeadTracker />;
+  }
+
+  if (activeView === "notifications") {
+    return <NotificationCenter />;
+  }
+
+  if (activeView === "tasks") {
+    return <TaskManager />;
   }
 
   // Get department-specific data
@@ -137,7 +149,7 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
       {/* Quick Actions */}
       <Card className="p-6">
         <h3 className="text-lg font-semibold text-foreground mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
           <Button className="h-20 flex flex-col space-y-2" onClick={onNewQuote}>
             <Calculator className="w-6 h-6" />
             <span>New Quote</span>
@@ -160,6 +172,22 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
           >
             <Users2 className="w-6 h-6" />
             <span>Lead Tracker</span>
+          </Button>
+          <Button 
+            variant="outline" 
+            className="h-20 flex flex-col space-y-2"
+            onClick={() => setActiveView("notifications")}
+          >
+            <Bell className="w-6 h-6" />
+            <span>Notifications</span>
+          </Button>
+          <Button 
+            variant="outline" 
+            className="h-20 flex flex-col space-y-2"
+            onClick={() => setActiveView("tasks")}
+          >
+            <CheckCircle2 className="w-6 h-6" />
+            <span>Tasks</span>
           </Button>
           <Button 
             variant="outline" 
