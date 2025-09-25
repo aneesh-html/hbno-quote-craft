@@ -149,7 +149,7 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
       {/* Quick Actions */}
       <Card className="p-6">
         <h3 className="text-lg font-semibold text-foreground mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
           <Button className="h-20 flex flex-col space-y-2" onClick={onNewQuote}>
             <Calculator className="w-6 h-6" />
             <span>New Quote</span>
@@ -160,10 +160,6 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
           >
             <Sparkles className="w-6 h-6" />
             <span>Magic Quote</span>
-          </Button>
-          <Button variant="outline" className="h-20 flex flex-col space-y-2">
-            <Users className="w-6 h-6" />
-            <span>Add Customer</span>
           </Button>
           <Button 
             variant="outline" 
