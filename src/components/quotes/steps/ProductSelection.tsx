@@ -209,6 +209,38 @@ export function ProductSelection({ onAddLineItem, lineItems, customer }: Product
               ))}
             </div>
             
+            {/* Available Test Data Helper */}
+            <div className="bg-blue-50 border border-blue-200 rounded-md p-4 mt-4">
+              <p className="text-sm font-semibold text-blue-800 mb-2">📋 Available Test Data in Products JSON:</p>
+              
+              <div className="space-y-2 text-xs">
+                <div className="bg-white/50 rounded px-2 py-1">
+                  <span className="font-medium text-blue-900">Essential Oils Collection</span>
+                  <span className="text-blue-600 ml-2">• Lavender, Eucalyptus, Tea Tree, Peppermint • Multiple batches per product • Quality grades • Certifications</span>
+                </div>
+                
+                <div className="bg-white/50 rounded px-2 py-1">
+                  <span className="font-medium text-blue-900">Natural Extracts</span>
+                  <span className="text-blue-600 ml-2">• Rosemary, Chamomile, Bergamot • Origin tracking • Harvest dates • Price tiers</span>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-1 mt-2">
+                  <div className="bg-white/50 rounded px-2 py-1">
+                    <span className="font-medium text-blue-900">End-Use Coverage</span>
+                    <span className="text-blue-600 block text-xs">• Cosmetic, Food, Aromatherapy</span>
+                  </div>
+                  <div className="bg-white/50 rounded px-2 py-1">
+                    <span className="font-medium text-blue-900">Compliance Types</span>
+                    <span className="text-blue-600 block text-xs">• FDA cGMP, USDA Organic, FEMA GRAS</span>
+                  </div>
+                </div>
+              </div>
+              
+              <p className="text-xs text-blue-600 mt-2 italic">
+                💡 Try selecting "Aromatherapy" + "USDA Organic" to see filtered product matching!
+              </p>
+            </div>
+
             <div className="flex justify-between items-center mt-6">
               <p className="text-sm text-muted-foreground">
                 {selectedEndUses.length} end-use(s) selected
@@ -268,6 +300,38 @@ export function ProductSelection({ onAddLineItem, lineItems, customer }: Product
               ))}
             </div>
             
+            {/* Available Test Data Helper */}
+            <div className="bg-blue-50 border border-blue-200 rounded-md p-4 mt-4">
+              <p className="text-sm font-semibold text-blue-800 mb-2">📋 Test Product Data Available:</p>
+              
+              <div className="space-y-2 text-xs">
+                <div className="bg-white/50 rounded px-2 py-1">
+                  <span className="font-medium text-blue-900">Batch Details Per Product</span>
+                  <span className="text-blue-600 ml-2">• Multiple origins • Inventory levels • Key specifications • Recommendations • Quality grades</span>
+                </div>
+                
+                <div className="bg-white/50 rounded px-2 py-1">
+                  <span className="font-medium text-blue-900">Certification Coverage</span>
+                  <span className="text-blue-600 ml-2">• FDA cGMP (15+ products) • USDA Organic (12+ products) • FEMA GRAS (8+ products)</span>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-1 mt-2">
+                  <div className="bg-white/50 rounded px-2 py-1">
+                    <span className="font-medium text-blue-900">Future Batches</span>
+                    <span className="text-blue-600 block text-xs">• Pre-order options • Expected delivery dates</span>
+                  </div>
+                  <div className="bg-white/50 rounded px-2 py-1">
+                    <span className="font-medium text-blue-900">Cross-Sell Data</span>
+                    <span className="text-blue-600 block text-xs">• Product recommendations • Complementary items</span>
+                  </div>
+                </div>
+              </div>
+              
+              <p className="text-xs text-blue-600 mt-2 italic">
+                💡 Continue to see {guidedFilteredProducts.length} products with full batch details, pricing, and inventory!
+              </p>
+            </div>
+
             <div className="flex justify-between items-center mt-6">
               <Button 
                 variant="outline" 
