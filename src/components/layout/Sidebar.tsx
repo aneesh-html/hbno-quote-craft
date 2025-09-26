@@ -57,7 +57,7 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
       {/* Footer */}
       <div className="p-4 border-t border-border">
         <div className="text-xs text-muted-foreground text-center">
-          © 2024 HBNO Essential Oils
+          © {new Date().getFullYear()} HBNO Essential Oils
         </div>
       </div>
     </div>
