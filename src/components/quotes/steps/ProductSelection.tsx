@@ -608,7 +608,16 @@ export function ProductSelection({ onAddLineItem, lineItems, customer }: Product
                         {purchase.productName}
                       </div>
                       <div className="text-xs text-green-700 mt-1">
-                        Last ordered: {new Date(purchase.lastPurchaseDate).toLocaleDateString()}
+                        Last ordered: {(() => {
+                          // Handle both date formats in customer data
+                          const dateValue = purchase.lastPurchaseDate || purchase.date;
+                          if (!dateValue) return 'Unknown';
+                          
+                          const parsedDate = new Date(dateValue);
+                          if (isNaN(parsedDate.getTime())) return 'Unknown';
+                          
+                          return parsedDate.toLocaleDateString();
+                        })()}
                       </div>
                     </div>
                     <Button

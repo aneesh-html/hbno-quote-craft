@@ -117,22 +117,25 @@
       },
       "recentPurchases": [
         {
-          "date": "2024-01-15",
-          "product": "Whey Protein Isolate 90%",
-          "quantity": "500 kg",
-          "value": "$9,250"
+          "productId": "PROD-WPI",
+          "productName": "Whey Protein Isolate 90%",
+          "lastPurchaseDate": "2024-01-15",
+          "lastPricePerKg": 18.50,
+          "frequency": 3
         },
         {
-          "date": "2023-12-10",
-          "product": "Casein Protein",
-          "quantity": "300 kg",
-          "value": "$6,825"
+          "productId": "PROD-CAS",
+          "productName": "Casein Protein",
+          "lastPurchaseDate": "2023-12-10", 
+          "lastPricePerKg": 22.75,
+          "frequency": 2
         },
         {
-          "date": "2023-11-22",
-          "product": "Collagen Peptides",
-          "quantity": "250 kg",
-          "value": "$7,500"
+          "productId": "PROD-COL",
+          "productName": "Collagen Peptides",
+          "lastPurchaseDate": "2023-11-22",
+          "lastPricePerKg": 30.00,
+          "frequency": 4
         }
       ]
     }
