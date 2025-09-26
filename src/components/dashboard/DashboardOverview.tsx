@@ -69,6 +69,17 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
   
   return (
     <div className="space-y-6">
+      {/* Top Actions Bar */}
+      <div className="flex justify-end">
+        <Button 
+          className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+          onClick={() => setShowMagicChat(true)}
+        >
+          <Sparkles className="w-4 h-4 mr-2" />
+          Magic Quote
+        </Button>
+      </div>
+
       {/* Department Overview */}
       {currentDepartment && (
         <Card className="p-6 bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
@@ -149,17 +160,10 @@ export function DashboardOverview({ onNewQuote }: DashboardOverviewProps) {
       {/* Quick Actions */}
       <Card className="p-6">
         <h3 className="text-lg font-semibold text-foreground mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           <Button className="h-20 flex flex-col space-y-2" onClick={onNewQuote}>
             <Calculator className="w-6 h-6" />
             <span>New Quote</span>
-          </Button>
-          <Button 
-            className="h-20 flex flex-col space-y-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
-            onClick={() => setShowMagicChat(true)}
-          >
-            <Sparkles className="w-6 h-6" />
-            <span>Magic Quote</span>
           </Button>
           <Button 
             variant="outline" 
