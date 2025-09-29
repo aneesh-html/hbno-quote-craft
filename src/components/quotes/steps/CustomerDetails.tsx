@@ -23,6 +23,7 @@ import {
   Lock
 } from "lucide-react";
 import { Customer } from "../CreateQuote";
+import CustomerOrderHistory from "../CustomerOrderHistory";
 
 interface CustomerDetailsProps {
   customer: Customer;
@@ -411,6 +412,9 @@ export function CustomerDetails({ customer }: CustomerDetailsProps) {
           </div>
         </div>
       </Card>
+
+      {/* Customer Order History Search */}
+      <CustomerOrderHistory customerId={customer.id} />
     </div>
   );
 }

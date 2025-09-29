@@ -1,0 +1,236 @@
+{
+  "salesOrders": [
+    {
+      "id": "SO-2024-0156",
+      "customerId": "CUST-001", 
+      "customerName": "Precision Nutrition Labs",
+      "createdDate": "2024-01-15",
+      "totalAmount": 12450,
+      "currency": "USD",
+      "status": "delivered",
+      "deliveryMethod": "LTL Freight",
+      "items": [
+        {
+          "productName": "Whey Protein Isolate 90%",
+          "sku": "WPI-90",
+          "quantity": 500,
+          "unit": "kg",
+          "pricePerKg": 18.50,
+          "totalPrice": 9250
+        },
+        {
+          "productName": "Casein Protein", 
+          "sku": "CAS-PRO",
+          "quantity": 200,
+          "unit": "kg",
+          "pricePerKg": 22.75,
+          "totalPrice": 4550
+        }
+      ]
+    },
+    {
+      "id": "SO-2024-0015", 
+      "customerId": "CUST-002",
+      "customerName": "Natural Wellness Co.",
+      "createdDate": "2024-01-15",
+      "totalAmount": 12450,
+      "currency": "USD", 
+      "status": "delivered",
+      "deliveryMethod": "Ground Shipping",
+      "items": [
+        {
+          "productName": "Premium Lavender Oil",
+          "sku": "LAV-PREM",
+          "quantity": 25,
+          "unit": "kg", 
+          "pricePerKg": 125.50,
+          "totalPrice": 3137.50
+        },
+        {
+          "productName": "Peppermint Essential Oil",
+          "sku": "MINT-ESS",
+          "quantity": 15,
+          "unit": "kg",
+          "pricePerKg": 89.75,
+          "totalPrice": 1346.25
+        },
+        {
+          "productName": "Tea Tree Oil",
+          "sku": "TEA-TREE",
+          "quantity": 20,
+          "unit": "kg",
+          "pricePerKg": 45.80,
+          "totalPrice": 916
+        }
+      ]
+    },
+    {
+      "id": "SO-2023-0890",
+      "customerId": "CUST-002",
+      "customerName": "Natural Wellness Co.",
+      "createdDate": "2023-12-10",
+      "totalAmount": 8950,
+      "currency": "USD",
+      "status": "delivered", 
+      "deliveryMethod": "Ground Shipping",
+      "items": [
+        {
+          "productName": "Peppermint Essential Oil",
+          "sku": "MINT-ESS",
+          "quantity": 30,
+          "unit": "kg",
+          "pricePerKg": 92.00,
+          "totalPrice": 2760
+        },
+        {
+          "productName": "Eucalyptus Essential Oil",
+          "sku": "EUC-ESS",
+          "quantity": 12,
+          "unit": "kg", 
+          "pricePerKg": 78.50,
+          "totalPrice": 942
+        }
+      ]
+    },
+    {
+      "id": "SO-2023-0745",
+      "customerId": "CUST-002", 
+      "customerName": "Natural Wellness Co.",
+      "createdDate": "2023-10-22",
+      "totalAmount": 6750,
+      "currency": "USD",
+      "status": "delivered",
+      "deliveryMethod": "Standard Shipping",
+      "items": [
+        {
+          "productName": "Peppermint Essential Oil",
+          "sku": "MINT-ESS", 
+          "quantity": 20,
+          "unit": "kg",
+          "pricePerKg": 88.25,
+          "totalPrice": 1765
+        },
+        {
+          "productName": "Premium Lavender Oil",
+          "sku": "LAV-PREM",
+          "quantity": 18,
+          "unit": "kg",
+          "pricePerKg": 119.80,
+          "totalPrice": 2156.40
+        }
+      ]
+    },
+    {
+      "id": "SO-2024-0022",
+      "customerId": "CUST-003",
+      "customerName": "Essential Elements Inc",
+      "createdDate": "2024-01-22", 
+      "totalAmount": 8920,
+      "currency": "USD",
+      "status": "delivered",
+      "deliveryMethod": "Express Shipping",
+      "items": [
+        {
+          "productName": "Eucalyptus Essential Oil",
+          "sku": "EUC-ESS",
+          "quantity": 25,
+          "unit": "kg",
+          "pricePerKg": 81.20,
+          "totalPrice": 2030
+        },
+        {
+          "productName": "Peppermint Essential Oil",
+          "sku": "MINT-ESS",
+          "quantity": 10,
+          "unit": "kg",
+          "pricePerKg": 89.75,
+          "totalPrice": 897.50
+        }
+      ]
+    },
+    {
+      "id": "SO-2024-0008",
+      "customerId": "CUST-004",
+      "customerName": "Green Valley Extracts", 
+      "createdDate": "2024-01-08",
+      "totalAmount": 4850,
+      "currency": "USD",
+      "status": "delivered", 
+      "deliveryMethod": "Standard Shipping",
+      "items": [
+        {
+          "productName": "Organic Tea Tree Oil",
+          "sku": "TEA-ORG",
+          "quantity": 15,
+          "unit": "kg",
+          "pricePerKg": 52.30,
+          "totalPrice": 784.50
+        },
+        {
+          "productName": "Peppermint Essential Oil", 
+          "sku": "MINT-ESS",
+          "quantity": 12,
+          "unit": "kg",
+          "pricePerKg": 89.75,
+          "totalPrice": 1077
+        }
+      ]
+    },
+    {
+      "id": "SO-2024-0020",
+      "customerId": "CUST-005",
+      "customerName": "Sunshine Botanicals",
+      "createdDate": "2024-01-20",
+      "totalAmount": 28750, 
+      "currency": "USD",
+      "status": "delivered",
+      "deliveryMethod": "White Glove Delivery", 
+      "items": [
+        {
+          "productName": "Premium Frankincense",
+          "sku": "FRANK-PREM",
+          "quantity": 8,
+          "unit": "kg",
+          "pricePerKg": 285.00,
+          "totalPrice": 2280
+        },
+        {
+          "productName": "Peppermint Essential Oil",
+          "sku": "MINT-ESS",
+          "quantity": 45,
+          "unit": "kg", 
+          "pricePerKg": 91.50,
+          "totalPrice": 4117.50
+        },
+        {
+          "productName": "Premium Lavender Oil",
+          "sku": "LAV-PREM",
+          "quantity": 35,
+          "unit": "kg",
+          "pricePerKg": 128.75,
+          "totalPrice": 4506.25
+        }
+      ]
+    },
+    {
+      "id": "SO-2023-0650",
+      "customerId": "CUST-005",
+      "customerName": "Sunshine Botanicals", 
+      "createdDate": "2023-09-15",
+      "totalAmount": 15680,
+      "currency": "USD",
+      "status": "delivered",
+      "deliveryMethod": "Standard Shipping",
+      "items": [
+        {
+          "productName": "Peppermint Essential Oil",
+          "sku": "MINT-ESS",
+          "quantity": 55,
+          "unit": "kg",
+          "pricePerKg": 85.25,
+          "totalPrice": 4688.75
+        }
+      ]
+    }
+  ]
+}
