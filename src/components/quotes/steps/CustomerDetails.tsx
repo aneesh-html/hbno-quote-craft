@@ -64,6 +64,9 @@ export function CustomerDetails({ customer }: CustomerDetailsProps) {
 
   return (
     <div className="space-y-6">
+      {/* Customer Order History Search */}
+      <CustomerOrderHistory customerId={customer.id} />
+      
       {/* Customer Snapshot Card */}
       <Card className="p-6">
         <div className="flex items-center justify-between mb-4">
@@ -412,9 +415,6 @@ export function CustomerDetails({ customer }: CustomerDetailsProps) {
           </div>
         </div>
       </Card>
-
-      {/* Customer Order History Search */}
-      <CustomerOrderHistory customerId={customer.id} />
     </div>
   );
 }

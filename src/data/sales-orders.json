@@ -2,7 +2,7 @@
   "salesOrders": [
     {
       "id": "SO-2024-0156",
-      "customerId": "CUST-001", 
+      "customerId": "1", 
       "customerName": "Precision Nutrition Labs",
       "createdDate": "2024-01-15",
       "totalAmount": 12450,
@@ -30,7 +30,7 @@
     },
     {
       "id": "SO-2024-0015", 
-      "customerId": "CUST-002",
+      "customerId": "2",
       "customerName": "Natural Wellness Co.",
       "createdDate": "2024-01-15",
       "totalAmount": 12450,
@@ -66,7 +66,7 @@
     },
     {
       "id": "SO-2023-0890",
-      "customerId": "CUST-002",
+      "customerId": "2",
       "customerName": "Natural Wellness Co.",
       "createdDate": "2023-12-10",
       "totalAmount": 8950,
@@ -94,7 +94,7 @@
     },
     {
       "id": "SO-2023-0745",
-      "customerId": "CUST-002", 
+      "customerId": "2", 
       "customerName": "Natural Wellness Co.",
       "createdDate": "2023-10-22",
       "totalAmount": 6750,
@@ -122,7 +122,7 @@
     },
     {
       "id": "SO-2024-0022",
-      "customerId": "CUST-003",
+      "customerId": "3",
       "customerName": "Essential Elements Inc",
       "createdDate": "2024-01-22", 
       "totalAmount": 8920,
@@ -150,7 +150,7 @@
     },
     {
       "id": "SO-2024-0008",
-      "customerId": "CUST-004",
+      "customerId": "4",
       "customerName": "Green Valley Extracts", 
       "createdDate": "2024-01-08",
       "totalAmount": 4850,
@@ -178,7 +178,7 @@
     },
     {
       "id": "SO-2024-0020",
-      "customerId": "CUST-005",
+      "customerId": "5",
       "customerName": "Sunshine Botanicals",
       "createdDate": "2024-01-20",
       "totalAmount": 28750, 
@@ -214,7 +214,7 @@
     },
     {
       "id": "SO-2023-0650",
-      "customerId": "CUST-005",
+      "customerId": "5",
       "customerName": "Sunshine Botanicals", 
       "createdDate": "2023-09-15",
       "totalAmount": 15680,
