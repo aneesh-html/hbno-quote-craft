@@ -71,6 +71,11 @@ export function PaymentOptions({ className, customer }: PaymentOptionsProps) {
         {customer && (
           <div className="mt-2 p-2 bg-blue-50 rounded text-xs text-blue-700">
             💡 Last payment method used: {paymentMethods.find(m => m.id === lastPaymentMethod)?.name || "Credit/Debit Card"}
+            {lastPaymentMethod === 'net' && (
+              <span className="ml-2 font-medium">
+                (Net {customer?.snapshot?.paymentTerms?.replace('Net ', '') || '30'} terms)
+              </span>
+            )}
           </div>
         )}
       </div>
